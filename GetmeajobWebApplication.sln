@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Getmeajob.WebApp", "Getmeajob.WebApp\Getmeajob.WebApp.csproj", "{6B2AE7CA-9E24-4D2C-A646-4A373DAFDB39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Getmeajob.WebApp", "Getmeajob.WebApp\Getmeajob.WebApp.csproj", "{6B2AE7CA-9E24-4D2C-A646-4A373DAFDB39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Getmeajob.Model", "Getmeajob.Model\Getmeajob.Model.csproj", "{07C2724E-53FD-433B-9185-0C0EB432C7F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Getmeajob.Model", "Getmeajob.Model\Getmeajob.Model.csproj", "{07C2724E-53FD-433B-9185-0C0EB432C7F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Getmeajob.Repository", "Getmeajob.Repository\Getmeajob.Repository.csproj", "{97545E9D-CC5E-426E-9ABA-61CF3AA01B3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Getmeajob.Repository", "Getmeajob.Repository\Getmeajob.Repository.csproj", "{97545E9D-CC5E-426E-9ABA-61CF3AA01B3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Getmeajob.Interfaces", "Getmeajob.Interfaces\Getmeajob.Interfaces.csproj", "{2268BC1B-CB4C-4F93-A1C4-8EBB81788349}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Getmeajob.Interface", "Getmeajob.Interfaces\Getmeajob.Interface.csproj", "{2268BC1B-CB4C-4F93-A1C4-8EBB81788349}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Getmeajob.Data", "Getmeajob.Data\Getmeajob.Data.csproj", "{A463D931-4081-44F5-8D4C-F9A63640E79A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Getmeajob.Data", "Getmeajob.Data\Getmeajob.Data.csproj", "{A463D931-4081-44F5-8D4C-F9A63640E79A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
