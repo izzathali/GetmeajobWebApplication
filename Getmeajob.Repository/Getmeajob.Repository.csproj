@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Getmeajob.Data\Getmeajob.Data.csproj" />
+    <ProjectReference Include="..\Getmeajob.Interfaces\Getmeajob.Interface.csproj" />
+  </ItemGroup>
+
 </Project>

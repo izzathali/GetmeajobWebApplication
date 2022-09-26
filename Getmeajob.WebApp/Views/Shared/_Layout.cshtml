@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="~/fe/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/fe/css/animate.min.css">
 
-   @* <link rel="stylesheet" href="~/fe/css/quill.snow.css">*@
+    @* <link rel="stylesheet" href="~/fe/css/quill.snow.css">*@
 
     @RenderSection("link", required: false)
 
@@ -47,7 +47,11 @@
 
                     <div class="container-fluid">
                         <div class="row align-items-center">
-                            <div class="mb-4 site-logo col-6"><a href="#">JobBoard</a></div>
+                            <div class="mb-4 site-logo col-6 bg-light">
+                                <a href="#">
+                                    <img src="~/fe/images//smalllogo.gif" >
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="border p-3 mb-4 rounded">
@@ -162,7 +166,7 @@
                             </div>
                         </header>
 
-                       
+
                         <div class="">
                             @RenderBody()
                         </div>
