@@ -1,10 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Getmeajob.Interface;
+using Getmeajob.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Getmeajob.WebApp.Controllers
 {
     public class JobController : Controller
     {
+        private readonly IJob _iJob;
+        public JobController(IJob iJob)
+        {
+            _iJob = iJob;
+        }
         // GET: JobController
         public ActionResult Index()
         {
@@ -20,22 +27,59 @@ namespace Getmeajob.WebApp.Controllers
         // GET: JobController/Create
         public ActionResult Create()
         {
-            return View();
+            JobM j = new JobM();
+            return View(j);
+        }
+        // GET: JobController/Verify
+        public ActionResult Verify(JobM j)
+        {
+            return View(j);
+        }
+        // GET: JobController/Confirm 
+        public async Task<ActionResult> Confirm(JobM j)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    int changes = await _iJob.Create(j);
+
+                    if (changes > 0)
+                    {
+                        //_notyf.Success("Product Saved Successfully!!", 4);
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        //_notyf.Error("Something went wrong!!", 4);
+                    }
+                }
+            }
+            catch
+            {
+                //_notyf.Error("Something went wrong!!", 4);
+            }
+            return View(j);
         }
 
         // POST: JobController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(JobM jobM)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    return Verify(jobM);
+                }
             }
             catch
             {
-                return View();
+                //_notyf.Error("Something went wrong!!", 4);
             }
+
+            return View(jobM);
         }
 
         // GET: JobController/Edit/5
