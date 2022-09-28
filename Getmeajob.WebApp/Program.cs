@@ -12,6 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICompany, CompanyRepo>();
 builder.Services.AddScoped<IJob, JobRepo>();
 builder.Services.AddScoped<IUser, UserRepo>();
+builder.Services.AddScoped<IResume, ResumeRepo>();
+builder.Services.AddScoped<IJobSeeker, JobSeekerRepo>();
 
 
 

@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace Getmeajob.Repository
 {
-    public class JobRepo : IJob
+    public class JobSeekerRepo : IJobSeeker
     {
         private readonly GetmeajobDbContext _dbContext;
-        public JobRepo(GetmeajobDbContext dbContext)
+        public JobSeekerRepo(GetmeajobDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<int> Create(JobM t)
+        public async Task<int> Create(JobSeekerM t)
         {
             t.CreatedDate = DateTime.Now;
-            _dbContext.Jobs.Add(t);
+            _dbContext.JobSeekers.Add(t);
             await _dbContext.SaveChangesAsync();
 
-            return t.JobId;
+            return t.JobSeekerId;
         }
 
         public Task<int> Delete(int id)
@@ -30,17 +30,17 @@ namespace Getmeajob.Repository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<JobM>> GetAll()
+        public Task<IEnumerable<JobSeekerM>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<JobM> GetById(int id)
+        public Task<JobSeekerM> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(JobM t)
+        public Task<int> Update(JobSeekerM t)
         {
             throw new NotImplementedException();
         }
