@@ -5,67 +5,66 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Getmeajob.WebApp.Controllers
 {
-    public class JobController : Controller
+    public class ResumeController : Controller
     {
-        private readonly IJob _iJob;
+        private readonly IResume _iResume;
         private readonly IUser _iUser;
-        private readonly ICompany _iCompany;
-        public JobController(IJob iJob, IUser iUser, ICompany iCompany)
+        private readonly IJobSeeker _iJobSeeker;
+        public ResumeController(IResume iResume, IUser iUser, IJobSeeker iJobSeeker)
         {
-            _iJob = iJob;
+            _iResume = iResume;
             _iUser = iUser;
-            _iCompany = iCompany;
+            _iJobSeeker = iJobSeeker;
         }
-        // GET: JobController
+        // GET: ResumeController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: JobController/Details/5
+        // GET: ResumeController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: JobController/Create
+        // GET: ResumeController/Create
         public ActionResult Create()
         {
-            JobM j = new JobM();
-            return View(j);
+            return View();
         }
-        // GET: JobController/Verify
-        public ActionResult Verify(JobM j)
+        // GET: ResumeController/Verify
+        public ActionResult Verify(ResumeM r)
         {
-            return View(j);
+            return View(r);
         }
-        // GET: JobController/Confirm 
+        // GET: ResumeController/Confirm 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Confirm(JobM j)
+        public async Task<ActionResult> Confirm(ResumeM r)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (j.UserId == 0)
+                    if (r.UserId == 0)
                     {
-                        int userid = await _iUser.Create(j.user);
-                        j.UserId = userid;
-                        j.user = null;
+                        int userid = await _iUser.Create(r.user);
+                        r.UserId = userid;
+                        r.user = null;
 
-                        int companyid = await _iCompany.Create(j.company);
+                        int companyid = await _iJobSeeker.Create(r.jobseeker);
 
-                        j.CompanyId = companyid;
-                        j.company = null;
+                        r.JobSeekerId = companyid;
+                        r.jobseeker = null;
 
                     }
 
-                    int changes = await _iJob.Create(j);
+                    int changes = await _iResume.Create(r);
 
                     if (changes > 0)
                     {
-                        return View(j);
+                        return View(r);
 
                     }
                     else
@@ -76,25 +75,25 @@ namespace Getmeajob.WebApp.Controllers
             catch
             {
             }
-            return RedirectToAction(nameof(Verify), j);
+            return RedirectToAction(nameof(Verify), r);
         }
 
-        // POST: JobController/Create
+        // POST: ResumeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(JobM jobM)
+        public ActionResult Create(ResumeM resumeM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (!String.IsNullOrEmpty(jobM.JobTitle) && !String.IsNullOrEmpty(jobM.JobDescription))
+                    if (!String.IsNullOrEmpty(resumeM.JobTitle) && !String.IsNullOrEmpty(resumeM.Resume))
                     {
-                        return View("Verify", jobM);
+                        return View("Verify", resumeM);
                     }
                     else
                     {
-                        View(jobM);
+                        View(resumeM);
                     }
                 }
             }
@@ -103,16 +102,16 @@ namespace Getmeajob.WebApp.Controllers
                 //_notyf.Error("Something went wrong!!", 4);
             }
 
-            return View(jobM);
+            return View(resumeM);
         }
 
-        // GET: JobController/Edit/5
+        // GET: ResumeController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: JobController/Edit/5
+        // POST: ResumeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -127,13 +126,13 @@ namespace Getmeajob.WebApp.Controllers
             }
         }
 
-        // GET: JobController/Delete/5
+        // GET: ResumeController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: JobController/Delete/5
+        // POST: ResumeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

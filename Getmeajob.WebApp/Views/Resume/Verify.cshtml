@@ -1,0 +1,176 @@
+﻿@using Getmeajob.Model
+@model ResumeM
+
+@{
+    ViewData["Title"] = "Verify Resume Page";
+}
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">Submit A Resume</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="#">Home</a> <span class="mx-2 slash">/</span>
+                    <a href="#">Job</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>Post a Resume</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+
+        <form asp-action="Confirm" method="post">
+
+
+
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h2>Submit A Resume: Verify Details</h2>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
+                Please make sure that everything you have submitted is correct, including your email address. If you do not reply to your confirmation email, your job will not be posted.
+            </p>
+
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="text-right">
+                            Your name:
+                        </td>
+                        <td>
+                            @Model.user?.FullName
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Email:
+                        </td>
+                        <td>
+                            @Model.user?.Email
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Your password::
+                        </td>
+                        <td>
+                            @Model.user?.Password
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Company's address:
+                        </td>
+                        <td>
+                            @Model.jobseeker?.StreetAddress , <br />
+                            @Model.jobseeker?.City , @Model.jobseeker?.State <br />
+                            , @Model.jobseeker?.Zip , @Model.jobseeker?.Country
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Telephone:
+                        </td>
+                        <td>
+                            @Model.jobseeker?.Telephone
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Job title:
+                        </td>
+                        <td>
+                            @Model.JobTitle
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Job description:
+                        </td>
+                        <td>
+                            @Model.Resume
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Salary range:
+                        </td>
+                        <td>
+                            @Model.LowerBound - @Model.UpperBound @Model.Currency
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+
+
+            <div class="row mb-5">
+                <div class="col-lg-12">
+                    <div class="p-2 p-md-5">
+                        <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
+                            <input asp-for="IsTermsAccepted" required type="checkbox" /> Check this box if you have read, understood, and agree to comply with the <a href="#"> terms and conditions </a> of this site.
+                        </p>
+
+                        <div class="form-group">
+                            <label>How did you hear about us:</label>
+                            <input asp-for="Source" type="text" required class="form-control" placeholder="Please be specific (e.g. name of search engine, name of magazine or book, etc.)">
+                        </div>
+
+                        <p class="text-black mb-3 pb-2 ">
+                            <span class="font-weight-bold"> Before you continue! </span> Be sure to add getmeajob.com to your list of Safe Senders. For example, if you are using Hotmail, choose Options, Safe and blocked Senders, Safe senders, and add getmeajob.com to the list. Otherwise, you may not receive the confirmation email and your <span class="font-weight-bold">  submission will be rejected.</span>
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row align-items-center mb-5">
+
+                <div class="col-lg-4 ml-auto">
+                    <div class="row ">
+                        <div class="col-6">
+                        </div>
+                        <div class="col-6 ">
+                            <input type="hidden" asp-for="@Model.user.FullName"  />
+                            <input type="hidden" asp-for="@Model.user.Email"  />
+                            <input type="hidden" asp-for="@Model.user.Password"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.StreetAddress"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.City"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.State"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.Zip"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.Country"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.Telephone"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.Fax"  />
+
+                            <input type="hidden" asp-for="@Model.JobTitle"  />
+                            <input type="hidden" asp-for="@Model.Resume"  />
+                            <input type="hidden" asp-for="@Model.LowerBound"  />
+                            <input type="hidden" asp-for="@Model.UpperBound"  />
+                            <input type="hidden" asp-for="@Model.Currency"  />
+                            <button type="submit" class="btn btn-block btn-primary btn-md">Finish</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+
+</section>

@@ -17,6 +17,8 @@ namespace Getmeajob.Data
         public DbSet<CompanyM> Companies { get; set; }
         public DbSet<JobM> Jobs { get; set; }
         public DbSet<UserM> Users { get; set; }
+        public DbSet<JobSeekerM> JobSeekers { get; set; }
+        public DbSet<ResumeM> Resumes { get; set; }
 
     }
 }
