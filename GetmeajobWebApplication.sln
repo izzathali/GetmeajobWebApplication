@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Getmeajob.Interface", "Getm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Getmeajob.Data", "Getmeajob.Data\Getmeajob.Data.csproj", "{A463D931-4081-44F5-8D4C-F9A63640E79A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Getmeajob.ViewModel", "Getmeajob.ViewModel\Getmeajob.ViewModel.csproj", "{380605B1-84C4-4BDD-A856-B15205FE6CE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A463D931-4081-44F5-8D4C-F9A63640E79A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A463D931-4081-44F5-8D4C-F9A63640E79A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A463D931-4081-44F5-8D4C-F9A63640E79A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{380605B1-84C4-4BDD-A856-B15205FE6CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{380605B1-84C4-4BDD-A856-B15205FE6CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{380605B1-84C4-4BDD-A856-B15205FE6CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{380605B1-84C4-4BDD-A856-B15205FE6CE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
