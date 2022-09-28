@@ -20,7 +20,9 @@ namespace Getmeajob.Repository
         {
             t.CreatedDate = DateTime.Now;
             _dbContext.Companies.Add(t);
-            return await _dbContext.SaveChangesAsync();
+             await _dbContext.SaveChangesAsync();
+
+            return t.CompanyId;
         }
 
         public Task<int> Delete(int id)

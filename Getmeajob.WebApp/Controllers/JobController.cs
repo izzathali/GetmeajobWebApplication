@@ -8,9 +8,13 @@ namespace Getmeajob.WebApp.Controllers
     public class JobController : Controller
     {
         private readonly IJob _iJob;
-        public JobController(IJob iJob)
+        private readonly IUser _iUser;
+        private readonly ICompany _iCompany;
+        public JobController(IJob iJob, IUser iUser, ICompany iCompany)
         {
             _iJob = iJob;
+            _iUser = iUser;
+            _iCompany = iCompany;
         }
         // GET: JobController
         public ActionResult Index()
@@ -36,18 +40,34 @@ namespace Getmeajob.WebApp.Controllers
             return View(j);
         }
         // GET: JobController/Confirm 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Confirm(JobM j)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    if (j.UserId == 0)
+                    {
+                        int userid = await _iUser.Create(j.user);
+                        j.UserId = userid;
+                        j.user = null;
+
+                        int companyid = await _iCompany.Create(j.company);
+
+                        j.CompanyId = companyid;
+                        j.company = null;
+
+                    }
+
                     int changes = await _iJob.Create(j);
 
                     if (changes > 0)
                     {
                         //_notyf.Success("Product Saved Successfully!!", 4);
-                        return RedirectToAction(nameof(Index));
+                        return View(j);
+
                     }
                     else
                     {
@@ -59,7 +79,7 @@ namespace Getmeajob.WebApp.Controllers
             {
                 //_notyf.Error("Something went wrong!!", 4);
             }
-            return View(j);
+            return RedirectToAction(nameof(Verify), j);
         }
 
         // POST: JobController/Create
@@ -71,7 +91,14 @@ namespace Getmeajob.WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    return Verify(jobM);
+                    if (!String.IsNullOrEmpty(jobM.JobTitle) && !String.IsNullOrEmpty(jobM.JobDescription))
+                    {
+                        return View("Verify", jobM);
+                    }
+                    else
+                    {
+                        View(jobM);
+                    }
                 }
             }
             catch

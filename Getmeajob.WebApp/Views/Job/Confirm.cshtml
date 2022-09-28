@@ -1,0 +1,133 @@
+﻿@using Getmeajob.Model
+@model JobM
+
+@{
+    ViewData["Title"] = "Confirm Job Page";
+}
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">Submit A Job</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="#">Home</a> <span class="mx-2 slash">/</span>
+                    <a href="#">Job</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>Post a Job</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+
+        <form asp-action="Create" method="post">
+
+            <input type="hidden" asp-for="@Model.user.FullName" />
+            <input type="hidden" asp-for="@Model.user.Email" />
+            <input type="hidden" asp-for="@Model.user.Password" />
+            <input type="hidden" asp-for="@Model.company.CompanyName" />
+            <input type="hidden" asp-for="@Model.company.StreetAddress" />
+            <input type="hidden" asp-for="@Model.company.City" />
+            <input type="hidden" asp-for="@Model.company.State" />
+            <input type="hidden" asp-for="@Model.company.Zip" />
+            <input type="hidden" asp-for="@Model.company.Country" />
+            <input type="hidden" asp-for="@Model.company.Telephone" />
+            <input type="hidden" asp-for="@Model.company.Fax" />
+
+
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h2>Submit A Job: Job Not Confirmed Yet</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h4>Please check your email to continue</h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-12">
+                    <div class="p-2 p-md-5">
+                        <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
+                            The submission process is not yet complete!
+                        </p>
+                        <p class="text-black mb-3 pb-2 ">
+                            An email has now been sent to the email address you entered. You will need to follow the instructions in that email to ensure your submission will be considered for review. We take this extra step to ensure the quality of postings available on our site, getmeajob.com. Your posting will appear once it has been reviewed and approved.
+                        </p>
+
+                        <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
+                            Important!
+                        </p>
+                        <p class="text-black mb-3 pb-2 ">
+                            If you do not receive the email message, be sure to add getmeajob.com to your list of Safe Senders. For example, if you are using Hotmail, choose Options, Safe and blocked Senders, Safe senders, and add getmeajob.com to the list before retrying.
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row align-items-center mb-2">
+
+                <div class="col-lg-4 ml-auto">
+                    <div class="row ">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9 ">
+                            <button type="submit" class="btn btn-block btn-primary btn-md">Submit another job</button>
+                            <p>
+                                (no need to login again)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-lg-12">
+                    <div class="p-2 p-md-5">
+                        <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
+                            Your next step
+                        </p>
+                        <p class="text-black mb-3 pb-2 ">
+                            Your special offers for submitting a job!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row align-items-center mb-2">
+
+                <div class="col-lg-4 ml-auto">
+                    <div class="row ">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9 ">
+                            <button type="submit" class="btn btn-block btn-primary btn-md">Submit another job</button>
+                            <p>
+                                (no need to login again)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+
+</section>

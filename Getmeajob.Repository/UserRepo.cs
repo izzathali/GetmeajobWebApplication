@@ -20,7 +20,9 @@ namespace Getmeajob.Repository
         {
             t.CreatedDate = DateTime.Now;
             _dbContext.Users.Add(t);
-            return await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
+
+            return t.UserId;
         }
 
         public Task<int> Delete(int id)

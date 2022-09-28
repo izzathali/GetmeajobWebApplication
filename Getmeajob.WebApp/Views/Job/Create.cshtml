@@ -28,7 +28,7 @@
     <section class="site-section">
         <div class="container">
 
-            <form asp-action="Create" >
+            <form asp-action="Create" method="post">
 
                 <div id="formOne">
 
@@ -70,7 +70,6 @@
                         <div class="col-lg-4 ml-auto">
                             <div class="row ">
                                 <div class="col-6">
-                                    
                                 </div>
                                 <div class="col-6 ">
                                     <a href="#formTwo" id="btnContinueOne" class="btn btn-block btn-primary btn-md">Continue</a>
@@ -153,7 +152,7 @@
                         <div class="col-lg-4 ml-auto">
                             <div class="row ">
                                 <div class="col-6">
-                                   <a href="#formOne" id="btnPreviousOne" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Previous</a>
+                                    <a href="#formOne" id="btnPreviousOne" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Previous</a>
                                 </div>
                                 <div class="col-6 ">
                                     <a href="#formThree" id="btnContinueTwo" class="btn btn-block btn-primary btn-md">Continue</a>
@@ -163,7 +162,7 @@
                     </div>
                 </div>
 
-                <div id="formThree" >
+                <div id="formThree">
 
                     <div class="row align-items-center mb-5">
                         <div class="col-lg-12 mb-2 mb-lg-0">
@@ -189,8 +188,8 @@
                                 <div class="form-group mb-3">
                                     <label>Job description</label>
                                     <textarea asp-for="JobDescription" class="form-control" rows="20" placeholder="">Please replace the text in this box with your job description. 
- Do not enter your name, email, phone or fax number, address, or URLs in this box. If you do so, your submission may be rejected.
-                                                </textarea>
+         Do not enter your name, email, phone or fax number, address, or URLs in this box. If you do so, your submission may be rejected.
+                                                        </textarea>
 
                                 </div>
 
@@ -223,10 +222,10 @@
                         <div class="col-lg-4 ml-auto">
                             <div class="row ">
                                 <div class="col-6">
-                                     <a href="#formTwo" id="btnPreviousTwo" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Previous</a>
+                                    <a href="#formTwo" id="btnPreviousTwo" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Previous</a>
                                 </div>
                                 <div class="col-6 ">
-                                    <a href="#formFour"  id="btnContinueThree" class="btn btn-block btn-primary btn-md">Continue</a>
+                                    <a href="#formFour" id="btnContinueThree" class="btn btn-block btn-primary btn-md">Continue</a>
                                 </div>
                             </div>
                         </div>
@@ -250,20 +249,20 @@
                         <div class="col-lg-12">
                             <div class="p-2 p-md-5 border rounded">
                                 <p class="text-black mb-2 pb-2 font-weight-bold">
-                                    Finally, please enter your email address. We will mail you a confirmation, which you must accept to have your submission considered for posting. If you don't want to enter your main email address, you can sign up for a <a href="http://www.getmeajobmail.com/" target="_blank" > free email account at getmeajobmail.com</a>.
+                                    Finally, please enter your email address. We will mail you a confirmation, which you must accept to have your submission considered for posting. If you don't want to enter your main email address, you can sign up for a <a href="http://www.getmeajobmail.com/" target="_blank"> free email account at getmeajobmail.com</a>.
                                 </p>
 
-                                <p class="text-black mb-5 border-bottom pb-2 font-weight-bold" >
+                                <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
                                     Your password will allow you to edit or delete your posting. Please enter a unique password - that is, one which is not used anywhere else except on getmeajob.com. Passwords may be viewed by others.
                                 </p>
 
                                 <div class="form-group">
                                     <label>Your name:</label>
-                                    <input asp-for="user.Email" type="text" class="form-control" placeholder="Enter Email">
+                                    <input id="emailAdd" asp-for="user.Email" type="text" class="form-control" placeholder="Enter Email">
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input asp-for="user.Password" type="text" class="form-control" placeholder="Enter Password" >
+                                    <input asp-for="user.Password" type="text" class="form-control" placeholder="Enter Password">
                                 </div>
 
 
@@ -318,7 +317,7 @@
             $('#formTwo').hide();
             $('#formThree').show();
         });
-        
+
         $("#btnContinueThree").click(function() {
             $('#formOne').hide();
             $('#formTwo').hide();
@@ -337,7 +336,7 @@
             $('#formOne').hide();
             $('#formThree').hide();
         });
-        
+
         $("#btnPreviousThree").click(function() {
             $('#formThree').show();
             $('#formOne').hide();
@@ -345,7 +344,12 @@
             $('#formFour').hide();
         });
 
-
+        var usremail = $('#emailAdd').val();
+        alert(usremail)
+        if (usremail != "") {
+            $('#formOne').hide();
+            $('#formTwo').show();
+        };
 
 
     </script>
@@ -353,79 +357,3 @@
     }
 
 
-
-    @* <div class="form-group">
-                            <label for="job-region">Job Region</label>
-                            <select class="selectpicker border rounded" id="job-region" data-style="btn-black" data-width="100%" data-live-search="true" title="Select Region">
-                                <option>Anywhere</option>
-                                <option>San Francisco</option>
-                                <option>Palo Alto</option>
-                                <option>New York</option>
-                                <option>Manhattan</option>
-                                <option>Ontario</option>
-                                <option>Toronto</option>
-                                <option>Kansas</option>
-                                <option>Mountain View</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="job-type">Job Type</label>
-                            <select class="selectpicker border rounded" id="job-type" data-style="btn-black" data-width="100%" data-live-search="true" title="Select Job Type">
-                                <option>Part Time</option>
-                                <option>Full Time</option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="job-description">Job Description</label>
-                            <div class="editor" id="editor-1">
-                                <p>Write Job Description!</p>
-                            </div>
-                        </div>
-
-
-                        <h3 class="text-black my-5 border-bottom pb-2">Company Details</h3>
-                        <div class="form-group">
-                            <label for="company-name">Company Name</label>
-                            <input type="text" class="form-control" id="company-name" placeholder="e.g. New York">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="company-tagline">Tagline (Optional)</label>
-                            <input type="text" class="form-control" id="company-tagline" placeholder="e.g. New York">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="job-description">Company Description (Optional)</label>
-                            <div class="editor" id="editor-2">
-                                <p>Description</p>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="company-website">Website (Optional)</label>
-                            <input type="text" class="form-control" id="company-website" placeholder="https://">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="company-website-fb">Facebook Username (Optional)</label>
-                            <input type="text" class="form-control" id="company-website-fb" placeholder="companyname">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="company-website-tw">Twitter Username (Optional)</label>
-                            <input type="text" class="form-control" id="company-website-tw" placeholder="companyname">
-                        </div>
-                        <div class="form-group">
-                            <label for="company-website-tw">Linkedin Username (Optional)</label>
-                            <input type="text" class="form-control" id="company-website-tw" placeholder="companyname">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="company-website-tw d-block">Upload Logo</label> <br>
-                            <label class="btn btn-primary btn-md btn-file">
-                                Browse File<input type="file" hidden>
-                            </label>
-                        </div>*@
