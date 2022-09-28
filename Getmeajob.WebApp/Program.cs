@@ -1,7 +1,25 @@
+using Getmeajob.Data;
+using Getmeajob.Interface;
+using Getmeajob.Repository;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddScoped<ICompany, CompanyRepo>();
+builder.Services.AddScoped<IJob, JobRepo>();
+builder.Services.AddScoped<IUser, UserRepo>();
+
+
+
+
+var connectionString = builder.Configuration.GetConnectionString("DevConnection");
+
+builder.Services.AddDbContext<GetmeajobDbContext>(option =>
+option.UseSqlServer(connectionString), ServiceLifetime.Transient);
 
 var app = builder.Build();
 

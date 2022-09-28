@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="~/fe/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/fe/css/animate.min.css">
 
-   @* <link rel="stylesheet" href="~/fe/css/quill.snow.css">*@
+    @* <link rel="stylesheet" href="~/fe/css/quill.snow.css">*@
 
     @RenderSection("link", required: false)
 
@@ -47,14 +47,18 @@
 
                     <div class="container-fluid">
                         <div class="row align-items-center">
-                            <div class="mb-4 site-logo col-6"><a href="#">JobBoard</a></div>
+                            <div class="mb-4 site-logo col-6 bg-light">
+                                <a href="#">
+                                    <img src="~/fe/images//smalllogo.gif">
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="border p-3 mb-4 rounded">
                         <p class="mb-0 font-weight-bold"><span>For Employers</span></p>
                         <ul class="list-unstyled block__47528 mb-0">
                             <li><a href="#">Search resumes</a></li>
-                            <li><a href="#">Submit a job</a></li>
+                            <li><a asp-action="Create" asp-controller="Job">Submit a job</a></li>
                             <li><a href="#">Modify a job</a></li>
                             <li><a href="#">Useful tips</a></li>
                         </ul>
@@ -162,7 +166,7 @@
                             </div>
                         </header>
 
-                       
+
                         <div class="">
                             @RenderBody()
                         </div>
@@ -234,8 +238,6 @@
     </section>
 
 
-
-
     <!-- SCRIPTS -->
     <script src="~/fe/js/jquery.min.js"></script>
     <script src="~/fe/js/bootstrap.bundle.min.js"></script>
@@ -267,6 +269,8 @@
             document.getElementById("mySidenav").style.display = none;
         }
     </script>
+
+    
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

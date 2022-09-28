@@ -1,0 +1,359 @@
+﻿@using Getmeajob.Model
+@model JobM
+
+@{
+    ViewData["Title"] = "Submit job Page";
+}
+@section link{
+    <link rel="stylesheet" href="~/fe/css/quill.snow.css">
+}
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold">Submit A Job</h1>
+                    <div class="custom-breadcrumbs">
+                        <a href="#">Home</a> <span class="mx-2 slash">/</span>
+                        <a href="#">Job</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Post a Job</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="site-section">
+        <div class="container">
+
+            <form asp-action="Create" method="post">
+
+                <div id="formOne">
+
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-12 mb-2 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h2>Submit A Job: Name</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-lg-12">
+                            <div class="p-2 p-md-5 border rounded">
+                                <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
+                                    Please enter your name and the name of the company that is hiring. During any part of the submission process, feel free to write "Anonymous" where appropriate.
+                                </p>
+
+                                <div class="form-group">
+                                    <label>Your name:</label>
+                                    <input asp-for="user.FullName" type="text" class="form-control" placeholder="Enter Your name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Company* name</label>
+                                    <input asp-for="company.CompanyName" type="text" class="form-control" placeholder="Enter the name of the company the candidate will be working for">
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row align-items-center mb-5">
+
+                        <div class="col-lg-4 ml-auto">
+                            <div class="row ">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-6 ">
+                                    <a href="#formTwo" id="btnContinueOne" class="btn btn-block btn-primary btn-md">Continue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="formTwo">
+
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-12 mb-2 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h2>Submit A Job: Contact Information</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-lg-12">
+                            <div class="p-2 p-md-5 border rounded">
+                                <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
+                                    Please enter the location the candidate will be working at.
+                                </p>
+
+                                <div class="form-group">
+                                    <label>Street address:</label>
+                                    <input asp-for="company.StreetAddress" type="text" class="form-control" placeholder="Street address">
+                                </div>
+                                <div class="form-group">
+                                    <label>City:</label>
+                                    <input asp-for="company.City" type="text" class="form-control" placeholder="City">
+                                </div>
+                                <div class="form-group">
+                                    <label>State / Province:</label>
+                                    <input asp-for="company.State" type="text" class="form-control" placeholder="please enter two character code, if applicable">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>ZIP/Postal code:</label>
+                                    <input asp-for="company.Zip" type="text" class="form-control" placeholder="ZIP/Postal code">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Country:</label>
+                                    <input asp-for="company.Country" type="text" class="form-control" placeholder="please enter two character code">
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>City:</label>
+                                    <input asp-for="company.City" type="text" class="form-control" placeholder="City">
+                                </div>
+
+                                <p class="text-black mb-4 mt-4 border-bottom pb-2 font-weight-bold">
+                                    If you wish, you may also enter contact telephone and fax numbers.
+                                </p>
+
+                                <div class="form-group">
+                                    <label>Telephone:</label>
+                                    <input asp-for="company.Telephone" type="text" class="form-control" placeholder="Telephone">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Fax:</label>
+                                    <input asp-for="company.Fax" type="text" class="form-control" placeholder="Fax">
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row align-items-center mb-5">
+
+                        <div class="col-lg-4 ml-auto">
+                            <div class="row ">
+                                <div class="col-6">
+                                    <a href="#formOne" id="btnPreviousOne" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Previous</a>
+                                </div>
+                                <div class="col-6 ">
+                                    <a href="#formThree" id="btnContinueTwo" class="btn btn-block btn-primary btn-md">Continue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="formThree">
+
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-12 mb-2 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h2>Submit A Job: Job </h2>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-lg-12">
+                            <div class="p-2 p-md-5 border rounded">
+                                <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
+                                    Please enter the job title and job description.
+                                </p>
+
+                                <div class="form-group">
+                                    <label>Job title: </label>
+                                    <input asp-for="JobTitle" type="text" class="form-control" placeholder="Enter Job title">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label>Job description</label>
+                                    <textarea asp-for="JobDescription" class="form-control" rows="20" placeholder="">Please replace the text in this box with your job description. 
+         Do not enter your name, email, phone or fax number, address, or URLs in this box. If you do so, your submission may be rejected.
+                                                        </textarea>
+
+                                </div>
+
+                                <p class="text-black mb-2 border-bottom pb-2 font-weight-bold">
+                                    If you wish, you may also enter the salary range.Please do not use special characters such as $ or ,
+                                </p>
+
+                                <div class="form-group">
+                                    <label>Lower bound: </label>
+                                    <input asp-for="LowerBound" type="text" class="form-control" placeholder="Enter Lower bound">
+                                </div>
+                                <div class="form-group">
+                                    <label>Upper bound:</label>
+                                    <input asp-for="UpperBound" type="text" class="form-control" placeholder="Enter Upper bound:">
+                                </div>
+                                <div class="form-group">
+                                    <label>Currency:</label>
+                                    <input asp-for="Currency" type="text" class="form-control" placeholder="Enter Currency:">
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row align-items-center mb-5">
+
+                        <div class="col-lg-4 ml-auto">
+                            <div class="row ">
+                                <div class="col-6">
+                                    <a href="#formTwo" id="btnPreviousTwo" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Previous</a>
+                                </div>
+                                <div class="col-6 ">
+                                    <a href="#formFour" id="btnContinueThree" class="btn btn-block btn-primary btn-md">Continue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="formFour">
+
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-12 mb-2 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <h2>Submit A Job: Email Address and Password</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-lg-12">
+                            <div class="p-2 p-md-5 border rounded">
+                                <p class="text-black mb-2 pb-2 font-weight-bold">
+                                    Finally, please enter your email address. We will mail you a confirmation, which you must accept to have your submission considered for posting. If you don't want to enter your main email address, you can sign up for a <a href="http://www.getmeajobmail.com/" target="_blank"> free email account at getmeajobmail.com</a>.
+                                </p>
+
+                                <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
+                                    Your password will allow you to edit or delete your posting. Please enter a unique password - that is, one which is not used anywhere else except on getmeajob.com. Passwords may be viewed by others.
+                                </p>
+
+                                <div class="form-group">
+                                    <label>Your name:</label>
+                                    <input id="emailAdd" asp-for="user.Email" type="text" class="form-control" placeholder="Enter Email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input asp-for="user.Password" type="text" class="form-control" placeholder="Enter Password">
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row align-items-center mb-5">
+
+                        <div class="col-lg-4 ml-auto">
+                            <div class="row ">
+                                <div class="col-6">
+                                    <a href="#formThree" id="btnPreviousThree" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Previous</a>
+                                </div>
+                                <div class="col-6 ">
+                                    <button type="submit" class="btn btn-block btn-primary btn-md">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </section>
+
+
+
+    @section script{
+
+    <script src="~/fe/js/quill.min.js"></script>
+
+    }
+
+    @section Scripts{
+
+    <script type="text/javascript">
+        $('#formTwo').hide();
+        $('#formThree').hide();
+        $('#formFour').hide();
+
+        $("#btnContinueOne").click(function() {
+            $('#formOne').hide();
+            $('#formTwo').show();
+        });
+
+        $("#btnContinueTwo").click(function() {
+            $('#formOne').hide();
+            $('#formTwo').hide();
+            $('#formThree').show();
+        });
+
+        $("#btnContinueThree").click(function() {
+            $('#formOne').hide();
+            $('#formTwo').hide();
+            $('#formThree').hide();
+            $('#formFour').show();
+        });
+
+        $("#btnPreviousOne").click(function() {
+            $('#formTwo').hide();
+            $('#formOne').show();
+            $('#formThree').hide();
+        });
+
+        $("#btnPreviousTwo").click(function() {
+            $('#formTwo').show();
+            $('#formOne').hide();
+            $('#formThree').hide();
+        });
+
+        $("#btnPreviousThree").click(function() {
+            $('#formThree').show();
+            $('#formOne').hide();
+            $('#formTwo').hide();
+            $('#formFour').hide();
+        });
+
+        var usremail = $('#emailAdd').val();
+        alert(usremail)
+        if (usremail != "") {
+            $('#formOne').hide();
+            $('#formTwo').show();
+        };
+
+
+    </script>
+
+    }
+
+
