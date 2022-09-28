@@ -428,7 +428,9 @@ body {
       visibility: visible; }
 
 h1, h2, h3, h4 {
-  color: #000; }
+    /*color: #000;*/
+    color: rgb(204, 255, 204) !important;
+}
 
 .site-section {
   padding-top: 7rem;
@@ -441,7 +443,9 @@ h1, h2, h3, h4 {
       padding-bottom: 3rem; } }
 
 .text-black {
-  color: #000 !important; }
+    /*color: #000 !important;*/
+    color: rgb(204, 255, 204)!important;
+}
 
 .home-section {
   position: relative; }
@@ -636,7 +640,9 @@ h1, h2, h3, h4 {
   box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.4); }
 
 .form-group label {
-  color: #000; }
+    /*color: #000;*/
+    color: rgb(204, 255, 204);
+}
 
 .editor {
   height: 375px; }
@@ -768,7 +774,9 @@ h1, h2, h3, h4 {
   display: block; }
 
 .custom-breadcrumbs a {
-  color: #165bba; }
+    /*color: #165bba;*/
+    color: rgb(204, 255, 204);
+}
   .custom-breadcrumbs a:hover {
     color: #fff; }
 
@@ -853,7 +861,10 @@ h1, h2, h3, h4 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5); }
+    background: rgba(0, 0, 0, 0); 
+    /*background: rgba(0, 0, 0, 0.5);*/ 
+
+  }
 
 .section-hero.overlay-2:before {
   background: rgba(125, 131, 132, 0.95); }
@@ -916,9 +927,10 @@ h1, h2, h3, h4 {
 
 .btn.btn-primary {
   color: #fff; }
-  .btn.btn-primary:hover {
-    background: #1724c3;
-    border-color: #1724c3; }
+    .btn.btn-primary:hover {
+        background:#8d8d05;
+        border-color:#8d8d05;
+    }
 
 .btn.btn-outline-white {
   background: transparent;

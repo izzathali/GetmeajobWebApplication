@@ -58,9 +58,10 @@ body {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #7f848c;
+    /*color: #7f848c;*/
+    color: rgb(204, 255, 204);
     text-align: left;
-    background-color: #fff
+    background-color: rgb(53, 96, 144)
 }
 
 [tabindex="-1"]:focus {
@@ -1781,7 +1782,8 @@ pre {
 .table {
     width: 100%;
     margin-bottom: 1rem;
-    color: #7f848c
+    /*color: #7f848c;*/
+    color: rgb(204, 255, 204);
 }
 
     .table td, .table th {
@@ -2649,8 +2651,10 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-primary {
     color: #212529;
-    background-color: #165bba;
-    border-color: #165bba
+    background-color: #97971e;
+    border-color: #97971e
+    /*background-color: #165bba;
+    border-color: #165bba*/
 }
 
     .btn-primary:hover {

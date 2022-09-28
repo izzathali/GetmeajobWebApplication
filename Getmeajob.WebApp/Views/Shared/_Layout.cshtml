@@ -22,7 +22,20 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="~/fe/css/style.css" asp-append-version="true">
 
+    <style>
+        a {
+            color: #ffff99;
+        }
 
+            a:hover {
+                color: #ffff99 !important;
+            }
+
+        footer {
+          position: absolute;
+          bottom:0px;
+        }
+    </style>
 </head>
 <body>
     <div id="overlayer"></div>
@@ -42,12 +55,13 @@
 
         <div class="row m-0 ">
 
-            <div class="col-3 col-lg-2 h-100 pl-2 pr-1 jm-sticky-top ">
+            <div class="col-3 col-lg-2 h-100 pl-2 pr-1 ">
                 <div class="container pl-3 ">
 
                     <div class="container-fluid">
                         <div class="row align-items-center">
-                            <div class="mb-4 site-logo col-6 bg-light">
+                            <div class="mb-4 site-logo col-6">
+                                <b>getmeajob.com</b>
                                 <a href="#">
                                     <img src="~/fe/images//smalllogo.gif">
                                 </a>
@@ -66,8 +80,8 @@
                     <div class="border p-3 mb-4 rounded">
                         <p class="mb-0 font-weight-bold"><span>For Job Seekers</span></p>
                         <ul class="list-unstyled block__47528 mb-0">
-                            <li><a asp-action="Search" asp-controller="Job" >Search jobs</a></li>
-                            <li><a asp-action="Create" asp-controller="Resume" >Submit a resume</a></li>
+                            <li><a asp-action="Search" asp-controller="Job">Search jobs</a></li>
+                            <li><a asp-action="Create" asp-controller="Resume">Submit a resume</a></li>
                             <li><a href="#">Modify a resume</a></li>
                             <li><a href="#">Delete a resume</a></li>
                             <li><a href="#">Useful tips</a></li>
@@ -143,24 +157,21 @@
                                 <div class="row align-items-center">
 
 
-                                    <nav class="mx-auto site-navigation">
-                                        <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+                                    @*  <nav class="mx-auto site-navigation">
+                                    <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
 
-                                            <li class="d-lg-none"><a href="#"><span class="mr-2">+</span> Post a Job</a></li>
-                                            <li class="d-lg-none"><a href="#">Log In</a></li>
-                                        </ul>
-                                    </nav>
+                                    <li class="d-lg-none"><a href="#"><span class="mr-2">+</span> Post a Job</a></li>
+                                    <li class="d-lg-none"><a href="#">Log In</a></li>
+                                    </ul>
+                                    </nav>*@
 
-                                    @*<a href="#" onclick="openNav()" class="d-sm-block d-md-none d-lg-none d-xl-none mt-lg-2"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>*@
-
-
-                                    <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
-                                        <div class="ml-auto">
-                                            <a href="#" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
-                                            <a href="#" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
-                                        </div>
-                                        <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+                                    @*  <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                                    <div class="ml-auto">
+                                    <a href="#" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-add"></span>Post a Job</a>
+                                    <a href="#" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span class="mr-2 icon-lock_outline"></span>Log In</a>
                                     </div>
+                                    <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+                                    </div>*@
 
                                 </div>
                             </div>
@@ -172,63 +183,26 @@
                         </div>
 
 
-                        <footer class="site-footer">
+                        <footer class="" >
 
-                            <a href="#top" class="smoothscroll scroll-top">
-                                <span class="icon-keyboard_arrow_up"></span>
-                            </a>
+                            <section  class="mb-2 pb-2">
+                                <div class="container">
 
-                            <div class="container">
-                                <div class="row mb-5">
-                                    <div class="col-6 col-md-3 mb-4 mb-md-0">
-                                        <h3>Search Trending</h3>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#">Web Design</a></li>
-                                            <li><a href="#">Graphic Design</a></li>
-                                            <li><a href="#">Web Developers</a></li>
-                                            <li><a href="#">Python</a></li>
-                                            <li><a href="#">HTML5</a></li>
-                                            <li><a href="#">CSS3</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-6 col-md-3 mb-4 mb-md-0">
-                                        <h3>Company</h3>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#">About Us</a></li>
-                                            <li><a href="#">Career</a></li>
-                                            <li><a href="#">Blog</a></li>
-                                            <li><a href="#">Resources</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-6 col-md-3 mb-4 mb-md-0">
-                                        <h3>Support</h3>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#">Support</a></li>
-                                            <li><a href="#">Privacy</a></li>
-                                            <li><a href="#">Terms of Service</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-6 col-md-3 mb-4 mb-md-0">
-                                        <h3>Contact Us</h3>
-                                        <div class="footer-social">
-                                            <a href="#"><span class="icon-facebook"></span></a>
-                                            <a href="#"><span class="icon-twitter"></span></a>
-                                            <a href="#"><span class="icon-instagram"></span></a>
-                                            <a href="#"><span class="icon-linkedin"></span></a>
+                                    <div class="row align-items-center mb-2">
+                                        <div class="col-lg-12 mb-2 mb-lg-0">
+                                            <div class="d-flex align-items-center text-center text-xs">
+                                                <div>
+                                                    <p class="mb-0">Use of <a href="#">www.getmeajob.com</a> is subject to certain <a href="#">rules and regulations</a>, detailed <a href="#">here</a>. <a href="#">Privacy and cookie statement.</a></p>
+                                                    <p class="mb-0"> <a href="#">Copyright © 1997 - 2022 Staticsites Inc.</a></p>
+                                                    <p class="mb-0"> <a href="#">Would you like to advertise on www.getmeajob.com? </a> </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                <div class="row text-center">
-                                    <div class="col-12">
-                                        <p class="copyright">
-                                            <small>
-                                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
-                                            </small>
-                                        </p>
                                     </div>
+
                                 </div>
-                            </div>
+                            </section>
                         </footer>
 
                     </div>
@@ -270,7 +244,7 @@
         }
     </script>
 
-    
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

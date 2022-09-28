@@ -6,22 +6,23 @@
 }
 
 <!-- HOME -->
-<section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+<section class="section-hero overlay inner-page bg-image pt-5" style="background-image: url('images/hero_1.jpg');" id="home-section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <h1 class="text-white font-weight-bold">Search Jobs Results</h1>
+        <div class="row pt-3 pb-0">
+             <div class="col-md-9">
+            </div>
+            <div class="col-md-3">
                 <div class="custom-breadcrumbs">
-                    <a href="#">Home</a> <span class="mx-2 slash">/</span>
-                    <a href="#">Free Job </a> <span class="mx-2 slash">/</span>
-                    <span class="text-white"><strong>Search Jobs Results</strong></span>
+                    <a href="#">Home</a> <span class="mx-2 slash">»</span>
+                    <a href="#">Free Job </a> <span class="mx-2 slash">»</span>
+                    <span class="text-white"><strong>Results</strong></span>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="site-section">
+<section class="site-section pt-0">
     <div class="container">
 
         <form asp-action="SearchResult" method="post">
@@ -30,7 +31,7 @@
                 <div class="col-lg-12 mb-2 mb-lg-0">
                     <div class="d-flex align-items-center">
                         <div>
-                            <h2>Search Jobs Results</h2>
+                            <h2 class="font-weight-bold" >Search Jobs Results</h2>
                         </div>
                     </div>
                 </div>
@@ -51,7 +52,7 @@
                             {
                                 <div class="form-group">
                                     <p>
-                                        @no. <span class="font-weight-bold"><u>@job.company?.CompanyName </u></span> - <span class="font-italic"> @job.company?.StreetAddress, @job.company?.City, @job.company?.State, @job.company?.Zip ,  @job.company?.Country </span> - <span> @job.JobTitle - </span> <a asp-action="Details" asp-route-id="@job.JobId" ><u>Show Job</u></a>
+                                        @no. <a asp-action="Details" asp-route-id="@job.JobId" ><span class="font-weight-bold"><u>@job.company?.CompanyName </u></span></a> - <span class="font-italic"> @job.company?.StreetAddress, @job.company?.City, @job.company?.State, @job.company?.Zip ,  @job.company?.Country </span> - <span> @job.JobTitle - </span> <a asp-action="Details" asp-route-id="@job.JobId" target="_blank" ><u>Show Job</u></a>
                                     </p>
                                 </div>
                             }
