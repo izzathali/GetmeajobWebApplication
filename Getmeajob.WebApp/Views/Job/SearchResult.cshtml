@@ -1,0 +1,80 @@
+﻿@using Getmeajob.Model
+@model IEnumerable<JobM>
+
+@{
+    ViewData["Title"] = "Search List Page";
+}
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">Search Jobs Results</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="#">Home</a> <span class="mx-2 slash">/</span>
+                    <a href="#">Free Job </a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>Search Jobs Results</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+
+        <form asp-action="SearchResult" method="post">
+
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h2>Search Jobs Results</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-12">
+                    <div class="p-2 p-md-5">
+                        <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
+                            We found these jobs matching your search criteria.
+                        </p>
+                        @{
+                            int no = 1;
+                        }
+                        @foreach (var job in Model)
+                        {
+                            if (no <= 20)
+                            {
+                                <div class="form-group">
+                                    <p>
+                                        @no. <span class="font-weight-bold"><u>@job.company?.CompanyName </u></span> - <span class="font-italic"> @job.company?.StreetAddress, @job.company?.City, @job.company?.State, @job.company?.Zip ,  @job.company?.Country </span> - <span> @job.JobTitle - </span> <a asp-action="Details" asp-route-id="@job.JobId" ><u>Show Job</u></a>
+                                    </p>
+                                </div>
+                            }
+                            no++;
+
+                            if (no >= 20)
+                            {
+                                <hr />
+                                <p class="text-black font-weight-bold mt-3 mb-3 pb-2 ">
+                                    We found more than 20 jobs. Please try again with more specific criteria.
+                                </p>
+                            }
+                        }
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</section>

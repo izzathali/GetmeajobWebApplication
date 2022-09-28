@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Getmeajob.Model\Getmeajob.Model.csproj" />
-    <ProjectReference Include="..\Getmeajob.ViewModel\Getmeajob.ViewModel.csproj" />
-  </ItemGroup>
-
 </Project>

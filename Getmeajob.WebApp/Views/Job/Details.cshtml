@@ -1,0 +1,125 @@
+﻿@using Getmeajob.Model
+@model JobM
+
+@{
+    ViewData["Title"] = "Job Details Page";
+}
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">Job Details</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="#">Home</a> <span class="mx-2 slash">/</span>
+                    <a href="#">Job</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>Details</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+
+       
+
+
+
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h4>@Model.company?.CompanyName, @Model.JobTitle </h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="text-right font-italic">
+                            Name:
+                        </td>
+                        <td>
+                            @Model.company?.CompanyName
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right font-italic">
+                            Company's address:
+                        </td>
+                        <td>
+                            @Model.company?.StreetAddress , <br />
+                            @Model.company?.City , @Model.company?.State <br />
+                            , @Model.company?.Zip , @Model.company?.Country
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right font-italic">
+                            Email:
+                        </td>
+                        <td>
+                            @Model.user?.Email
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right font-italic">
+                            Job title:
+                        </td>
+                        <td>
+                            @Model.JobTitle
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right font-italic">
+                            Job description:
+                        </td>
+                        <td>
+                            @Model.JobDescription
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <div class="row align-items-center mb-5">
+
+                <div class="col-lg-4 ml-auto">
+                    <div class="row ">
+                        
+                        <div class="col-12 ">
+                            <input type="hidden" asp-for="@Model.user.FullName"  />
+                            <input type="hidden" asp-for="@Model.user.Email"  />
+                            <input type="hidden" asp-for="@Model.user.Password"  />
+                            <input type="hidden" asp-for="@Model.company.CompanyName"  />
+                            <input type="hidden" asp-for="@Model.company.StreetAddress"  />
+                            <input type="hidden" asp-for="@Model.company.City"  />
+                            <input type="hidden" asp-for="@Model.company.State"  />
+                            <input type="hidden" asp-for="@Model.company.Zip"  />
+                            <input type="hidden" asp-for="@Model.company.Country"  />
+                            <input type="hidden" asp-for="@Model.company.Telephone"  />
+                            <input type="hidden" asp-for="@Model.company.Fax"  />
+
+                            <input type="hidden" asp-for="@Model.JobTitle"  />
+                            <input type="hidden" asp-for="@Model.JobDescription"  />
+                            <input type="hidden" asp-for="@Model.LowerBound"  />
+                            <input type="hidden" asp-for="@Model.UpperBound"  />
+                            <input type="hidden" asp-for="@Model.Currency"  />
+                            <a href="#" >Email Job to Yourself or Refer This Job »</a> <br />
+                            <a href="#" >Contact Company »</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+
+
+</section>

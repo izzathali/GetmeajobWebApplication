@@ -1,4 +1,5 @@
 ﻿using Getmeajob.Model;
+using Getmeajob.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Getmeajob.Interface
 {
     public interface IJob : ICrud<JobM>
     {
-
+        public Task<IEnumerable<JobM>> GetByJobTitleOrLocation(JobSearchVM search);
     }
 }

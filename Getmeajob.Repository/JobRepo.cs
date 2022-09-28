@@ -1,6 +1,8 @@
 ﻿using Getmeajob.Data;
 using Getmeajob.Interface;
 using Getmeajob.Model;
+using Getmeajob.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,14 +32,34 @@ namespace Getmeajob.Repository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<JobM>> GetAll()
+        public async Task<IEnumerable<JobM>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _dbContext
+                .Jobs
+                .Where(u => u.IsDeleted == false)
+                .Include(i => i.user)
+                .Include(i => i.company)
+                .ToListAsync();
         }
 
-        public Task<JobM> GetById(int id)
+        public async Task<JobM> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext
+               .Jobs
+               .Where(u => u.IsDeleted == false && u.JobId == id)
+               .Include(i => i.user)
+               .Include(i => i.company)
+               .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<JobM>> GetByJobTitleOrLocation(JobSearchVM search)
+        {
+            return await _dbContext
+               .Jobs
+               .Where(u => u.IsDeleted == false && u.JobTitle.Contains(search.Name) || u.company.StreetAddress.Contains(search.Location) || u.company.City.Contains(search.Location) || u.company.State.Contains(search.Location) || u.company.Zip.Contains(search.Location) || u.company.Country.Contains(search.Location))
+               .Include(i => i.user)
+               .Include(i => i.company)
+               .ToListAsync();
         }
 
         public Task<int> Update(JobM t)
