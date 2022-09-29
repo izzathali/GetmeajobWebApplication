@@ -22,6 +22,15 @@ namespace Getmeajob.WebApp.Controllers
         {
             return View();
         }
+        public IActionResult Legal()
+        {
+            return View();
+        }
+        public IActionResult Tips(string type)
+        {
+            ViewBag.Type = type;   
+            return View();
+        }
         public IActionResult Contact()
         {
             return View();

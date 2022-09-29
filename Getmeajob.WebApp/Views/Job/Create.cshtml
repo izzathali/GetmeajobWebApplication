@@ -305,8 +305,13 @@
         $('#formFour').hide();
 
         $("#btnContinueOne").click(function() {
-            $('#formOne').hide();
-            $('#formTwo').show();
+            var fullname = $('#user_FullName').val();
+            var companyname = $('#company_CompanyName').val();
+
+            if(fullname != "" && companyname != "" ){
+                $('#formOne').hide();
+                $('#formTwo').show();
+            }
         });
 
         $("#btnContinueTwo").click(function() {
