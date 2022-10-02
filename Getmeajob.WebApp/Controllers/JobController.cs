@@ -48,7 +48,7 @@ namespace Getmeajob.WebApp.Controllers
         }
         // GET: JobController/Verify
         public ActionResult Verify(JobM j)
-        {
+        {            
             return View(j);
         }
         // GET: JobController/Confirm 
@@ -102,6 +102,7 @@ namespace Getmeajob.WebApp.Controllers
                 {
                     if (!String.IsNullOrEmpty(jobM.JobTitle) && !String.IsNullOrEmpty(jobM.JobDescription))
                     {
+                        jobM.JobDescription.Replace(Environment.NewLine, "<br/>");
                         return View("Verify", jobM);
                     }
                     else

@@ -1,8 +1,10 @@
 ﻿using Getmeajob.ViewModel;
 using Getmeajob.WebApp.Models;
 using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
+using MimeKit.Text;
 using System.Diagnostics;
 
 namespace Getmeajob.WebApp.Controllers
@@ -41,31 +43,35 @@ namespace Getmeajob.WebApp.Controllers
         [HttpPost]
         public IActionResult Emailed(QuestionVM questionVM)
         {
-            SendEmail("testg9921@gmail.com", "Password@123","izzath.info@gmail.com","this is subject","this is body");
-            return View();
+            if (questionVM != null)
+            {
+                if (questionVM.contactVM != null)
+                {
+                    SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm", "izzath.info@gmail.com", questionVM?.contactVM?.Email, "getmeajob.com - Contact Us", "I still have a question", questionVM?.contactVM?.Message);
+                    return View();
+                }
+            }
+            return View(nameof(Contact));
         }
 
-        public void SendEmail(string fromEmail, string fromPassword, string sendEmail,string subject,string body)
+        public void SendEmail(string fromEmail, string fromPassword, string ToEmail, string SenderEmail, string subject, string bodyHeading, string body)
         {
             try
             {
+                // create email message
+                var email = new MimeMessage();
+                email.From.Add(MailboxAddress.Parse(fromEmail));
+                email.To.Add(MailboxAddress.Parse(ToEmail));
+                email.Subject = subject;
+                email.Body = new TextPart(TextFormat.Html) { Text = "<h2>" + bodyHeading + " </h2> <br/> <br/>  <b> Question from </b> : <p> " + SenderEmail + "</p> <br/> <br/> <p> " + body + " </p> " };
 
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Contact Us", fromEmail));
-                message.To.Add(new MailboxAddress("pritom", sendEmail));
-                message.Subject = "Getmeajob Contact Us";
-                message.Body = new TextPart("plain")
-                {
-                    Text = body,
-                };
-                using (var client = new SmtpClient())
-                {
-                    client.Connect("smtp.gmail.com", 587, false);
-                    client.Authenticate(fromEmail, fromPassword);
+                // send email
+                using var smtp = new SmtpClient();
+                smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
 
-                    client.Send(message);
-                    client.Disconnect(true);
-                }
+                smtp.Authenticate(fromEmail, fromPassword);
+                smtp.Send(email);
+                smtp.Disconnect(true);
 
             }
             catch (Exception ex)

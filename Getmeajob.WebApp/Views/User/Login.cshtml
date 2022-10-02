@@ -1,0 +1,165 @@
+﻿@using Getmeajob.Model
+@model UserM
+
+@{
+    ViewData["Title"] = "Login Page";
+}
+@section link{
+    <link rel="stylesheet" href="~/fe/css/quill.snow.css">
+
+    <link href="~/fe/toastr/toastr.css" rel="stylesheet">
+}
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image pt-5" style="background-image: url('images/hero_1.jpg');" id="home-section">
+        <div class="container">
+            <div class="row pt-3 pb-0">
+                <div class="col-md-9">
+                </div>
+                <div class="col-md-3">
+                    <div class="custom-breadcrumbs ">
+                        <a href="#">Home</a> <span class="mx-2 slash">»</span>
+                        <a href="#">Delete Your Resume</a> <span class="mx-2 slash">»</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="site-section pt-0">
+        <div class="container">
+
+
+            <div class="row align-items-center mb-3">
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="align-items-center">
+                        @if (ViewBag.stype == "submitjob")
+                    {
+                        <div>
+                            <h2 class="font-weight-bold mb-3">Submit a Job: Free Job Posting</h2>
+                        </div>
+                        <div>
+                            <h4 class="font-weight-bold">New Visitors</h4>
+                        </div>
+                        <div class="p-2 p-md-5 ">
+
+                            <p class="text-black mb-2 pb-2 font-weight-bold">
+                                Notice: All jobs are reviewed for quality control purposes before they appear. If your submission is accepted, it will be posted for free. Otherwise, it will not appear. Please do not contact us regarding when your jobs will appear.
+                            </p>
+                            <p class="text-black mb-2 pb-2 font-weight-bold">
+                                Free posting is subject to the terms and conditions of this site.
+                            </p>
+
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+
+        </div>
+        @if (ViewBag.stype == "submitjob")
+        {
+
+            <div class="row align-items-center mb-0">
+
+                <div class="col-lg-4 ml-auto">
+                    <div class="row ">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-10 ">
+                            <a id="btnLogin" class="btn btn-block btn-primary btn-md">Continue on to free job posting »</a>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row  align-items-center mb-2">
+                <div class="col-12 ">
+                    <div>
+                        <h4 class="font-weight-bold">Existing Visitors</h4>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        <form asp-action="Create" method="post">
+
+            <div class="row mb-0">
+                <div class="col-lg-12">
+                    <div class="p-2 p-md-5  ">
+                        <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
+                            Please enter the email address and password you used to post this job.
+                        </p>
+
+                        <div class="form-group">
+                            <label>Email address you used:</label>
+                            <input asp-for="Email" type="text" class="form-control" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label>Password you used:</label>
+                            <input asp-for="Password" type="text" class="form-control" placeholder="Enter password">
+                        </div>
+
+                        <p class="text-black mb-1 border-bottom pb-0 font-weight-bold">
+                            For security reasons, we are unable to provide you with your password.
+                        </p>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row align-items-center mb-5">
+
+                <div class="col-lg-4 ml-auto">
+                    <div class="row ">
+                        <div class="col-6">
+                        </div>
+                        <div class="col-6 ">
+                            <a id="btnLogin" class="btn btn-block btn-primary btn-md">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+@section script{
+
+    <script src="~/fe/js/quill.min.js"></script>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="~/fe/toastr/toastr.js"></script>
+
+
+    }
+
+    @section Scripts{
+
+    <script type="text/javascript">
+        $("#btnLogin").click(function() {
+            //var fullname = $('#Email').val();
+            //var companyname = $('#Password').val();
+
+
+            //if (fullname == "") {
+            //    Command: toastr["error"]("Please enter Your Email", "Error");
+            //    return
+            //}
+            //else if (companyname == "") {
+            //    Command: toastr["error"]("Please enter password", "Error");
+            //    return
+            //}
+
+        });
+
+    </script>
+}
