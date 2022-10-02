@@ -11,5 +11,6 @@ namespace Getmeajob.Interface
     public interface IJob : ICrud<JobM>
     {
         public Task<IEnumerable<JobM>> GetByJobTitleOrLocation(JobSearchVM search);
+        public Task<JobM> GetByUserId(int id);
     }
 }

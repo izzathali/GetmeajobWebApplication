@@ -18,6 +18,6 @@ namespace Getmeajob.Model
         public string Zip { get; set; } = string.Empty;
         public string Country { get; set; } = string.Empty;
         public string? Telephone { get; set; }
-        public string? Fax { get; set; } 
+        public string? Fax { get; set; }
     }
 }

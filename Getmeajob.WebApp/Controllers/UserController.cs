@@ -1,10 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Getmeajob.Interface;
+using Getmeajob.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Getmeajob.WebApp.Controllers
 {
     public class UserController : Controller
     {
+        private readonly IUser _iUser;
+        public UserController(IUser iUser)
+        {
+            _iUser = iUser;
+        }
         // GET: UserController
         public ActionResult Index()
         {
@@ -14,6 +21,24 @@ namespace Getmeajob.WebApp.Controllers
         {
             ViewBag.stype = stype;
             return View();
+        }
+        // POST: UserController/Login
+        [HttpPost]
+        public async Task<ActionResult> LoginAuth(UserM userM)
+        {
+            UserM usr = await _iUser.GetByEmailAndPass(userM);
+
+            if (usr == null)
+            {
+                UserM u = new UserM();
+                u.IsInvalidUser = true;
+
+                return RedirectToAction("Create","Job",u);
+            }
+            else
+            {
+                return RedirectToAction("Create", "Job",usr);
+            }
         }
         // GET: UserController/Details/5
         public ActionResult Details(int id)

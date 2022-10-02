@@ -62,6 +62,14 @@ namespace Getmeajob.Repository
                .ToListAsync();
         }
 
+        public async Task<JobM> GetByUserId(int id)
+        {
+            return await _dbContext.Jobs
+                .Where(i => i.IsDeleted == false && i.UserId == id)
+                .Include(i => i.company)
+                .FirstOrDefaultAsync();
+        }
+
         public Task<int> Update(JobM t)
         {
             throw new NotImplementedException();

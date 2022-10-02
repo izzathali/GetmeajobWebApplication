@@ -65,11 +65,16 @@ namespace Getmeajob.Data.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Zip")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CompanyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Companies");
                 });
@@ -256,6 +261,17 @@ namespace Getmeajob.Data.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Getmeajob.Model.CompanyM", b =>
+                {
+                    b.HasOne("Getmeajob.Model.UserM", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Getmeajob.Model.JobM", b =>

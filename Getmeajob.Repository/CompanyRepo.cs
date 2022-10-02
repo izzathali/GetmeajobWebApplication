@@ -39,7 +39,6 @@ namespace Getmeajob.Repository
         {
             throw new NotImplementedException();
         }
-
         public Task<int> Update(CompanyM t)
         {
             throw new NotImplementedException();

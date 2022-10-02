@@ -9,5 +9,7 @@ namespace Getmeajob.Interface
 {
     public interface IUser : ICrud<UserM>
     {
+        public Task<UserM> GetByEmailAndPass(UserM u);
+        public Task<UserM> GetByEmail(UserM u);
     }
 }

@@ -9,6 +9,6 @@ namespace Getmeajob.Interface
 {
     public interface ICompany : ICrud<CompanyM>
     {
-
+       
     }
 }

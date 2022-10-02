@@ -28,7 +28,7 @@ namespace Getmeajob.WebApp.Controllers
             return View();
         }
         // POST: JobController/SearchResult/
-        public async Task<ActionResult> SearchResult (JobSearchVM jobSearch)
+        public async Task<ActionResult> SearchResult(JobSearchVM jobSearch)
         {
             var result = await _iJob.GetByJobTitleOrLocation(jobSearch);
             return View(result);
@@ -41,14 +41,39 @@ namespace Getmeajob.WebApp.Controllers
         }
 
         // GET: JobController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create(UserM? userM)
         {
             JobM j = new JobM();
+            try
+            {
+
+                if (userM != null && userM.UserId > 0)
+                {
+                    j.user = userM;
+                    j.UserId = userM.UserId;
+                    JobM Postedjob = await _iJob.GetByUserId(userM.UserId);
+                    if (Postedjob != null)
+                    {
+                        j.company = Postedjob.company;
+                        j.CompanyId = Postedjob.CompanyId;
+                    }
+                }
+                else if (userM != null && userM.IsInvalidUser == true)
+                {
+                    ViewBag.InvalidUser = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
             return View(j);
         }
         // GET: JobController/Verify
         public ActionResult Verify(JobM j)
-        {            
+        {
             return View(j);
         }
         // GET: JobController/Confirm 
@@ -60,19 +85,22 @@ namespace Getmeajob.WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (j.UserId == 0)
+                    if (j.UserId > 0)
                     {
-                        int userid = await _iUser.Create(j.user);
-                        j.UserId = userid;
+                        //int userid = await _iUser.Create(j.user);
+                        //j.UserId = userid;
                         j.user = null;
 
-                        int companyid = await _iCompany.Create(j.company);
+                        //int companyid = await _iCompany.Create(j.company);
 
-                        j.CompanyId = companyid;
+                        //j.CompanyId = companyid;
                         j.company = null;
 
                     }
-
+                    else
+                    {
+                        j.user.Type = "Employers";
+                    }
                     int changes = await _iJob.Create(j);
 
                     if (changes > 0)
@@ -82,6 +110,7 @@ namespace Getmeajob.WebApp.Controllers
                     }
                     else
                     {
+
                     }
                 }
             }
@@ -94,12 +123,24 @@ namespace Getmeajob.WebApp.Controllers
         // POST: JobController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(JobM jobM)
+        public async Task<ActionResult> Create(JobM jobM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    if (!string.IsNullOrEmpty(jobM.user.FullName) && jobM.UserId == 0 )
+                    {
+                        jobM.user.Type = "Employers";
+                        var usr = await _iUser.GetByEmail(jobM.user);
+
+                        if (usr != null)
+                        {
+                            //View("Create",jobM);
+                            View();
+                        }
+
+                    }
                     if (!String.IsNullOrEmpty(jobM.JobTitle) && !String.IsNullOrEmpty(jobM.JobDescription))
                     {
                         jobM.JobDescription.Replace(Environment.NewLine, "<br/>");

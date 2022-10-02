@@ -69,7 +69,7 @@
                         <div class="col-2">
                         </div>
                         <div class="col-10 ">
-                            <a id="btnLogin" class="btn btn-block btn-primary btn-md">Continue on to free job posting »</a>
+                            <a asp-action="Create" asp-controller="Job" class="btn btn-block btn-primary btn-md">Continue on to free job posting »</a>
                         </div>
 
 
@@ -86,7 +86,7 @@
         }
 
 
-        <form asp-action="Create" method="post">
+        <form asp-action="LoginAuth" asp-controller="User" method="post">
 
             <div class="row mb-0">
                 <div class="col-lg-12">
@@ -121,7 +121,7 @@
                         <div class="col-6">
                         </div>
                         <div class="col-6 ">
-                            <a id="btnLogin" class="btn btn-block btn-primary btn-md">Login</a>
+                            <button type="submit" class="btn btn-block btn-primary btn-md">Login</button>
                         </div>
                     </div>
                 </div>

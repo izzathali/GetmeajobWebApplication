@@ -1,6 +1,7 @@
 ﻿using Getmeajob.Data;
 using Getmeajob.Interface;
 using Getmeajob.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,20 @@ namespace Getmeajob.Repository
         public Task<IEnumerable<UserM>> GetAll()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<UserM> GetByEmail(UserM u)
+        {
+            return await _dbContext.Users
+                .Where(i => i.IsDeleted == false && i.Email == u.Email && i.Type == u.Type)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<UserM> GetByEmailAndPass(UserM u)
+        {
+            return await _dbContext.Users
+                .Where(i => i.IsDeleted == false && i.Email == u.Email && i.Password == u.Password)
+                .FirstOrDefaultAsync();
         }
 
         public Task<UserM> GetById(int id)
