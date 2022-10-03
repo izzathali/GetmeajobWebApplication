@@ -25,9 +25,10 @@ namespace Getmeajob.WebApp.Controllers
         }
 
         // GET: ResumeController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var res = await _iResume.GetById(id);
+            return View(res);
         }
 
         // GET: ResumeController/Create
@@ -143,45 +144,110 @@ namespace Getmeajob.WebApp.Controllers
         }
 
         // GET: ResumeController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int rid)
         {
-            return View();
+            var resume = await _iResume.GetById(rid);
+
+            return View(resume);
         }
 
         // POST: ResumeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(ResumeM resM)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    if (!string.IsNullOrEmpty(resM.user.FullName) && resM.UserId == 0)
+                    {
+                        var usr = await _iUser.GetByEmail(resM.user);
+
+                        if (usr != null)
+                        {
+                            //View("Create",jobM);
+                            View();
+                        }
+
+                    }
+                    if (!String.IsNullOrEmpty(resM.JobTitle) && !String.IsNullOrEmpty(resM.Resume))
+                    {
+                        //jobM.JobDescription.Replace(Environment.NewLine, "<br/>");
+                        //return RedirectToAction("Verify", jobM);
+                        ViewBag.page = "Verify";
+                        View(resM);
+                    }
+                    else
+                    {
+                        View(resM);
+                    }
+                }
             }
             catch
             {
-                return View();
+                //_notyf.Error("Something went wrong!!", 4);
             }
-        }
 
-        // GET: ResumeController/Delete/5
-        public ActionResult Delete(int id)
+            return View(resM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditConfirm(ResumeM r)
         {
-            return View();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    r.user.UserId = r.UserId;
+                   r.jobseeker.JobSeekerId = r.JobSeekerId;
+
+                    int changes = await _iResume.Update(r);
+
+                    if (changes > 0)
+                    {
+                        return View();
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return RedirectToAction(nameof(Edit), r);
+        }
+        // GET: ResumeController/Delete/5
+        public async Task<ActionResult> Delete(int rid)
+        {
+            var job = await _iResume.GetById(rid);
+            return View(job);
         }
 
         // POST: ResumeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteConfirm(ResumeM res)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+
+                int changes = await _iResume.Delete(res.ResumeId);
+
+                if (changes > 0)
+                {
+                    return View();
+
+                }
             }
             catch
             {
-                return View();
             }
+            ViewBag.Error = true;
+            return View();
         }
     }
 }

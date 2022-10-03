@@ -1,8 +1,8 @@
 ﻿@using Getmeajob.Model
-@model JobM
+@model ResumeM
 
 @{
-    ViewData["Title"] = "Edit job Page";
+    ViewData["Title"] = "Delete resume Page";
 }
 @section link{
     <link rel="stylesheet" href="~/fe/css/quill.snow.css">
@@ -17,26 +17,28 @@
                 <div class="col-md-9">
                 </div>
                 <div class="col-md-3">
-                    <div class="custom-breadcrumbs ">
+                    <div class="custom-breadcrumbs">
                         <a href="#">Home</a> <span class="mx-2 slash">»</span>
-                        <a href="#">Job</a> <span class="mx-2 slash">»</span>
-                        <span><strong>Modify your Job</strong></span>
+                        <a href="#">Resume</a> <span class="mx-2 slash">»</span>
+                        <span class="text-white"><strong>Delete</strong></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-
     <section class="site-section pt-0">
         <div class="container">
+
+            <form asp-action="DeleteConfirm" method="post">
+
+
 
                 <div class="row align-items-center mb-5">
                     <div class="col-lg-12 mb-2 mb-lg-0">
                         <div class="d-flex align-items-center">
                             <div>
-                                <h2 class="font-weight-bold">Delete Your Job: Verify Details</h2>
+                                <h2 class="font-weight-bold">Delete your Resume: Verify Details</h2>
                             </div>
                         </div>
                     </div>
@@ -75,20 +77,12 @@
                         </tr>
                         <tr>
                             <td class="text-right">
-                                Company's name:
-                            </td>
-                            <td>
-                                @Model.company?.CompanyName
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
                                 Company's address:
                             </td>
                             <td>
-                                @Model.company?.StreetAddress , <br />
-                                @Model.company?.City , @Model.company?.State <br />
-                                , @Model.company?.Zip , @Model.company?.Country
+                                @Model.jobseeker?.StreetAddress , <br />
+                                @Model.jobseeker?.City , @Model.jobseeker?.State <br />
+                                , @Model.jobseeker?.Zip , @Model.jobseeker?.Country
                             </td>
                         </tr>
                         <tr>
@@ -96,7 +90,7 @@
                                 Telephone:
                             </td>
                             <td>
-                                @Model.company?.Telephone
+                                @Model.jobseeker?.Telephone
                             </td>
                         </tr>
                         <tr>
@@ -109,10 +103,10 @@
                         </tr>
                         <tr>
                             <td class="text-right">
-                                Job description:
+                                Resume:
                             </td>
                             <td>
-                                @Model.JobDescription
+                                @Model.Resume
                             </td>
                         </tr>
                         <tr>
@@ -130,17 +124,17 @@
 
 
 
-              @*  <div class="row mb-5">
+                <div class="row mb-5">
                     <div class="col-lg-12">
                         <div class="p-2 p-md-5">
                             <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
-                                <input  required type="checkbox" /> Check this box if you have read, understood, and agree to comply with the <a href="#"> terms and conditions </a> of this site.
+                                <input asp-for="IsTermsAccepted" required type="checkbox" /> Check this box if you have read, understood, and agree to comply with the <a href="#"> terms and conditions </a> of this site.
                             </p>
 
                         </div>
                     </div>
 
-                </div>*@
+                </div>
 
                 <div class="row align-items-center mb-5">
 
@@ -149,11 +143,15 @@
                             <div class="col-6">
                             </div>
                             <div class="col-6 ">
-                                <a asp-action="DeleteConfirm" asp-route-jid="@Model.JobId" class="btn btn-block btn-primary btn-md">Confirm Delete</a>
+                                <input type="hidden" asp-for="@Model.ResumeId" />
+                               
+                                <button type="submit" class="btn btn-block btn-primary btn-md">Finish</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+            </form>
 
         </div>
 
@@ -163,25 +161,13 @@
 
 
 
-
-
     @section script{
 
     <script src="~/fe/js/quill.min.js"></script>
-
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script src="~/fe/toastr/toastr.js"></script>
-
-
     }
 
-    @section Scripts{
 
-    <script type="text/javascript">
-       
-
-    </script>
-
-    }
 
 

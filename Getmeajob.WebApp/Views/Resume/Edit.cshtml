@@ -1,8 +1,8 @@
 ﻿@using Getmeajob.Model
-@model JobM
+@model ResumeM
 
 @{
-    ViewData["Title"] = "Edit job Page";
+    ViewData["Title"] = "Modify resume Page";
 }
 @section link{
     <link rel="stylesheet" href="~/fe/css/quill.snow.css">
@@ -17,19 +17,19 @@
                 <div class="col-md-9">
                 </div>
                 <div class="col-md-3">
-                    <div class="custom-breadcrumbs ">
+                    <div class="custom-breadcrumbs">
                         <a href="#">Home</a> <span class="mx-2 slash">»</span>
-                        <a href="#">Job</a> <span class="mx-2 slash">»</span>
-                        <span><strong>Modify your Job</strong></span>
+                        <a href="#">Resume</a> <span class="mx-2 slash">»</span>
+                        <span class="text-white"><strong>Modify</strong></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-@if (ViewBag.page == "Verify")
+    @if (ViewBag.page == "Verify")
 {
+
     <section class="site-section pt-0">
         <div class="container">
 
@@ -41,7 +41,7 @@
                     <div class="col-lg-12 mb-2 mb-lg-0">
                         <div class="d-flex align-items-center">
                             <div>
-                                <h2 class="font-weight-bold">Modify Your Job: Verify Details</h2>
+                                <h2 class="font-weight-bold">Modify your Resume: Verify Details</h2>
                             </div>
                         </div>
                     </div>
@@ -80,20 +80,12 @@
                         </tr>
                         <tr>
                             <td class="text-right">
-                                Company's name:
-                            </td>
-                            <td>
-                                @Model.company?.CompanyName
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
                                 Company's address:
                             </td>
                             <td>
-                                @Model.company?.StreetAddress , <br />
-                                @Model.company?.City , @Model.company?.State <br />
-                                , @Model.company?.Zip , @Model.company?.Country
+                                @Model.jobseeker?.StreetAddress , <br />
+                                @Model.jobseeker?.City , @Model.jobseeker?.State <br />
+                                , @Model.jobseeker?.Zip , @Model.jobseeker?.Country
                             </td>
                         </tr>
                         <tr>
@@ -101,7 +93,7 @@
                                 Telephone:
                             </td>
                             <td>
-                                @Model.company?.Telephone
+                                @Model.jobseeker?.Telephone
                             </td>
                         </tr>
                         <tr>
@@ -114,10 +106,10 @@
                         </tr>
                         <tr>
                             <td class="text-right">
-                                Job description:
+                                Resume:
                             </td>
                             <td>
-                                @Model.JobDescription
+                                @Model.Resume
                             </td>
                         </tr>
                         <tr>
@@ -163,24 +155,23 @@
                             <div class="col-6">
                             </div>
                             <div class="col-6 ">
-                                <input type="hidden" asp-for="@Model.JobId" />
+                                <input type="hidden" asp-for="@Model.ResumeId" />
                                 <input type="hidden" asp-for="@Model.UserId" />
-                                <input type="hidden" asp-for="@Model.CompanyId" />
+                                <input type="hidden" asp-for="@Model.JobSeekerId" />
                                 <input type="hidden" asp-for="@Model.user.FullName" />
                                 <input type="hidden" asp-for="@Model.user.Email" />
                                 <input type="hidden" asp-for="@Model.user.Password" />
                                 <input type="hidden" asp-for="@Model.user.Type" />
-                                <input type="hidden" asp-for="@Model.company.CompanyName" />
-                                <input type="hidden" asp-for="@Model.company.StreetAddress" />
-                                <input type="hidden" asp-for="@Model.company.City" />
-                                <input type="hidden" asp-for="@Model.company.State" />
-                                <input type="hidden" asp-for="@Model.company.Zip" />
-                                <input type="hidden" asp-for="@Model.company.Country" />
-                                <input type="hidden" asp-for="@Model.company.Telephone" />
-                                <input type="hidden" asp-for="@Model.company.Fax" />
+                                <input type="hidden" asp-for="@Model.jobseeker.StreetAddress" />
+                                <input type="hidden" asp-for="@Model.jobseeker.City" />
+                                <input type="hidden" asp-for="@Model.jobseeker.State" />
+                                <input type="hidden" asp-for="@Model.jobseeker.Zip" />
+                                <input type="hidden" asp-for="@Model.jobseeker.Country" />
+                                <input type="hidden" asp-for="@Model.jobseeker.Telephone" />
+                                <input type="hidden" asp-for="@Model.jobseeker.Fax" />
 
                                 <input type="hidden" asp-for="@Model.JobTitle" />
-                                <input type="hidden" asp-for="@Model.JobDescription" />
+                                <input type="hidden" asp-for="@Model.Resume" />
                                 <input type="hidden" asp-for="@Model.LowerBound" />
                                 <input type="hidden" asp-for="@Model.UpperBound" />
                                 <input type="hidden" asp-for="@Model.Currency" />
@@ -217,7 +208,7 @@ else
                                     </p>
                                 }
                                 <div>
-                                    <h2 class="font-weight-bold">Modify Your Job: Name</h2>
+                                    <h2 class="font-weight-bold">Modify Your Resume: Name</h2>
                                 </div>
                             </div>
                         </div>
@@ -227,19 +218,13 @@ else
                         <div class="col-lg-12">
                             <div class="p-2 p-md-5  ">
                                 <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
-                                    Please enter your name and the name of the company that is hiring. During any part of the submission process, feel free to write "Anonymous" where appropriate.
+                                    Please enter your name. During any part of the submission process, feel free to write "Anonymous" where appropriate.
                                 </p>
 
                                 <div class="form-group">
                                     <label>Your name:</label>
                                     <input asp-for="user.FullName" type="text" class="form-control" placeholder="Enter Your name">
                                 </div>
-                                <div class="form-group">
-                                    <label>Company* name</label>
-                                    <input asp-for="company.CompanyName" type="text" class="form-control" placeholder="Enter the name of the company the candidate will be working for">
-                                </div>
-
-
 
                             </div>
                         </div>
@@ -267,7 +252,7 @@ else
                         <div class="col-lg-12 mb-2 mb-lg-0">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h2 class="font-weight-bold">Modify Your Job: Contact Information</h2>
+                                    <h2 class="font-weight-bold">Modify Your Resume: Contact Information</h2>
                                 </div>
                             </div>
                         </div>
@@ -277,31 +262,31 @@ else
                         <div class="col-lg-12">
                             <div class="p-2 p-md-5  ">
                                 <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
-                                    Please enter the location the candidate will be working at.
+                                    Please enter your own address.
                                 </p>
 
                                 <div class="form-group">
                                     <label>Street address:</label>
-                                    <input asp-for="company.StreetAddress" type="text" class="form-control" placeholder="Street address">
+                                    <input asp-for="jobseeker.StreetAddress" type="text" class="form-control" placeholder="Street address">
                                 </div>
                                 <div class="form-group">
                                     <label>City:</label>
-                                    <input asp-for="company.City" type="text" class="form-control" placeholder="City">
+                                    <input asp-for="jobseeker.City" type="text" class="form-control" placeholder="City">
                                 </div>
                                 <div class="form-group">
                                     <label>State / Province:</label>
-                                    <input asp-for="company.State" type="text" class="form-control" placeholder="please enter two character code, if applicable">
+                                    <input asp-for="jobseeker.State" type="text" class="form-control" placeholder="please enter two character code, if applicable">
                                 </div>
 
                                 <div class="form-group">
                                     <label>ZIP/Postal code:</label>
-                                    <input asp-for="company.Zip" type="text" class="form-control" placeholder="ZIP/Postal code">
+                                    <input asp-for="jobseeker.Zip" type="text" class="form-control" placeholder="ZIP/Postal code">
                                 </div>
 
 
                                 <div class="form-group">
                                     <label>Country:</label>
-                                    <input asp-for="company.Country" type="text" class="form-control" placeholder="please enter two character code">
+                                    <input asp-for="jobseeker.Country" type="text" class="form-control" placeholder="please enter two character code">
                                 </div>
 
                                 <p class="text-black mb-4 mt-4 border-bottom pb-2 font-weight-bold">
@@ -310,12 +295,12 @@ else
 
                                 <div class="form-group">
                                     <label>Telephone:</label>
-                                    <input asp-for="company.Telephone" type="text" class="form-control" placeholder="Telephone">
+                                    <input asp-for="jobseeker.Telephone" type="text" class="form-control" placeholder="Telephone">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Fax:</label>
-                                    <input asp-for="company.Fax" type="text" class="form-control" placeholder="Fax">
+                                    <input asp-for="jobseeker.Fax" type="text" class="form-control" placeholder="Fax">
                                 </div>
 
                             </div>
@@ -344,7 +329,7 @@ else
                         <div class="col-lg-12 mb-2 mb-lg-0">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h2 class="font-weight-bold">Modify Your Job: Job </h2>
+                                    <h2 class="font-weight-bold">Modify Your Resume: Resume </h2>
                                 </div>
                             </div>
                         </div>
@@ -354,7 +339,7 @@ else
                         <div class="col-lg-12">
                             <div class="p-2 p-md-5  ">
                                 <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
-                                    Please enter the job title and job description.
+                                    Please enter your job title and your resume.
                                 </p>
 
                                 <div class="form-group">
@@ -362,9 +347,10 @@ else
                                     <input asp-for="JobTitle" type="text" class="form-control" placeholder="Enter Job title">
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label>Job description</label>
-                                    <textarea type="text" asp-for="JobDescription" class="form-control" rows="20" placeholder="Please replace the text in this box with your job description.Do not enter your name, email, phone or fax number, address, or URLs in this box. If you do so, your submission may be rejected.">
-                                                                                </textarea>
+                                    <label>Resume (No HTML, please)</label>
+                                    <textarea asp-for="Resume" class="form-control" rows="20" placeholder="Please replace the text in this box with your job description.Do not enter your name, email, phone or fax number, address, or URLs in this box. If you do so, your submission may be rejected." >
+                                                                    
+                                                                </textarea>
 
                                 </div>
 
@@ -384,8 +370,6 @@ else
                                     <label>Currency:</label>
                                     <input asp-for="Currency" type="text" class="form-control" placeholder="Enter Currency:">
                                 </div>
-
-
 
                             </div>
                         </div>
@@ -414,7 +398,7 @@ else
                         <div class="col-lg-12 mb-2 mb-lg-0">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h2 class="font-weight-bold">Modify Your Job: Email Address and Password</h2>
+                                    <h2 class="font-weight-bold">Modify Your Resume: Email Address and Password</h2>
                                 </div>
                             </div>
                         </div>
@@ -431,10 +415,9 @@ else
                                     Your password will allow you to edit or delete your posting. Please enter a unique password - that is, one which is not used anywhere else except on getmeajob.com. Passwords may be viewed by others.
                                 </p>
 
-
                                 <div class="form-group">
-                                    <label>Email:</label>
-                                    <input id="emailAdd" asp-for="user.Email" type="text" class="form-control" placeholder="Enter Email">
+                                    <label>Your Email:</label>
+                                    <input asp-for="user.Email" type="text" class="form-control" placeholder="Enter Email">
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
@@ -456,12 +439,9 @@ else
                                     <a href="#formThree" id="btnPreviousThree" class="btn btn-block btn-light btn-md"><span class="icon-open_in_new mr-2"></span>Previous</a>
                                 </div>
                                 <div class="col-6 ">
-
-
-                                    <input asp-for="JobId" type="hidden">
                                     <input asp-for="UserId" type="hidden">
-                                    <input asp-for="user.Type" type="hidden">
-                                    <input asp-for="CompanyId" type="hidden">
+                                    <input asp-for="ResumeId" type="hidden">
+                                    <input type="hidden" asp-for="user.Type" value="Employees" />
 
                                     <button type="button" id="btnContinueFour" class="btn btn-block btn-primary btn-md">Continue</button>
                                     <button type="submit" style="display:none" id="btnSubmit" class="btn btn-block btn-primary btn-md">Continue</button>
@@ -475,19 +455,16 @@ else
             </form>
         </div>
     </section>
-}
 
+}
 
 
 
 @section script{
 
     <script src="~/fe/js/quill.min.js"></script>
-
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script src="~/fe/toastr/toastr.js"></script>
-
-
     }
 
     @section Scripts{
@@ -497,49 +474,47 @@ else
         $('#formThree').hide();
         $('#formFour').hide();
 
+
         $("#btnContinueOne").click(function() {
             var fullname = $('#user_FullName').val();
-            var companyname = $('#company_CompanyName').val();
-
 
             if (fullname == "") {
                 Command: toastr["error"]("Please enter Your name", "Error");
                 return
             }
-            else if (companyname == "") {
-                Command: toastr["error"]("Please enter company name", "Error");
-                return
-            }
-            else if (fullname != "" && companyname != "") {
+            else if (fullname != "") {
                 $('#formOne').hide();
                 $('#formTwo').show();
             }
+
+
         });
 
         $("#btnContinueTwo").click(function() {
-            var company_StreetAddress = $('#company_StreetAddress').val();
-            var company_City = $('#company_City').val();
-            var company_State = $('#company_State').val();
-            var company_Zip = $('#company_Zip').val();
-            var company_Country = $('#company_Country').val();
 
-            if (company_StreetAddress == "") {
+            var jobseeker_StreetAddress = $('#jobseeker_StreetAddress').val();
+            var jobseeker_City = $('#jobseeker_City').val();
+            var jobseeker_State = $('#jobseeker_State').val();
+            var jobseeker_Zip = $('#jobseeker_Zip').val();
+            var jobseeker_Country = $('#jobseeker_Country').val();
+
+            if (jobseeker_StreetAddress == "") {
                 Command: toastr["error"]("Please enter street address!", "Error");
                 return
             }
-            else if (company_City == "") {
+            else if (jobseeker_City == "") {
                 Command: toastr["error"]("Please enter city!", "Error");
                 return
             }
-            else if (company_State == "") {
+            else if (jobseeker_State == "") {
                 Command: toastr["error"]("Please enter state!", "Error");
                 return
             }
-            else if (company_Zip == "") {
+            else if (jobseeker_Zip == "") {
                 Command: toastr["error"]("Please enter zip!", "Error");
                 return
             }
-            else if (company_Country == "") {
+            else if (jobseeker_Country == "") {
                 Command: toastr["error"]("Please enter country!", "Error");
                 return
             }
@@ -549,19 +524,18 @@ else
                 $('#formThree').show();
             }
 
-
         });
 
         $("#btnContinueThree").click(function() {
             var JobTitle = $('#JobTitle').val()
-            var JobDescription = $('#JobDescription').val()
+            var Resume = $('#Resume').val()
 
             if (JobTitle == "") {
                 Command: toastr["error"]("Please enter Job title!", "Error");
                 return
             }
-            else if (JobDescription == "") {
-                Command: toastr["error"]("Please enter Job Description!", "Error");
+            else if (Resume == "") {
+                Command: toastr["error"]("Please enter Resume!", "Error");
                 return
             }
             else {
@@ -570,6 +544,7 @@ else
                 $('#formThree').hide();
                 $('#formFour').show();
             }
+
         });
 
         $("#btnContinueFour").click(function() {
@@ -590,7 +565,6 @@ else
         });
 
 
-
         $("#btnPreviousOne").click(function() {
             $('#formTwo').hide();
             $('#formOne').show();
@@ -609,13 +583,6 @@ else
             $('#formTwo').hide();
             $('#formFour').hide();
         });
-
-        var usremail = $('#emailAdd').val();
-        //alert(usremail)
-        if (usremail != "") {
-            $('#formOne').hide();
-            $('#formTwo').show();
-        };
 
         toastr.options = {
             "closeButton": true,

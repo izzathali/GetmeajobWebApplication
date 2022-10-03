@@ -26,9 +26,13 @@ namespace Getmeajob.Repository
             return t.ResumeId;
         }
 
-        public Task<int> Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
+            ResumeM r = _dbContext.Resumes.FirstOrDefault(j => j.ResumeId == id);
+            r.IsDeleted = true;
+
+            _dbContext.Resumes.Update(r);
+            return await _dbContext.SaveChangesAsync();
         }
 
         public Task<IEnumerable<ResumeM>> GetAll()
@@ -47,9 +51,14 @@ namespace Getmeajob.Repository
 
         }
 
-        public Task<ResumeM> GetById(int id)
+        public async Task<ResumeM> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext
+              .Resumes
+              .Where(u => u.IsDeleted == false && u.ResumeId == id)
+              .Include(i => i.user)
+              .Include(i => i.jobseeker)
+              .FirstOrDefaultAsync();
         }
 
         public async Task<ResumeM> GetByUserId(int id)
@@ -60,9 +69,10 @@ namespace Getmeajob.Repository
               .FirstOrDefaultAsync();
         }
 
-        public Task<int> Update(ResumeM t)
+        public async Task<int> Update(ResumeM t)
         {
-            throw new NotImplementedException();
+            _dbContext.Resumes.Update(t);
+            return await _dbContext.SaveChangesAsync();
         }
     }
 }

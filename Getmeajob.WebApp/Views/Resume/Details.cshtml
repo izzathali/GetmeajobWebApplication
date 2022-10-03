@@ -1,8 +1,8 @@
 ﻿@using Getmeajob.Model
-@model JobM
+@model ResumeM
 
 @{
-    ViewData["Title"] = "Job Details Page";
+    ViewData["Title"] = "Resume Details Page";
 }
 
 <!-- HOME -->
@@ -14,7 +14,7 @@
             <div class="col-md-3">             
                 <div class="custom-breadcrumbs">
                     <a href="#">Home</a> <span class="mx-2 slash">»</span>
-                    <a href="#">Job</a> <span class="mx-2 slash">»</span>
+                    <a href="#">Resume</a> <span class="mx-2 slash">»</span>
                     <span class="text-white"><strong>Details</strong></span>
                 </div>
             </div>
@@ -29,8 +29,8 @@
                 <div class="col-lg-12 mb-2 mb-lg-0">
                     <div class="d-flex align-items-center">
                         <div>
-                            <h2 class="font-weight-bold mb-2" >Job Details</h2>
-                            <h4 class="font-weight-bold" >@Model.company?.CompanyName, @Model.JobTitle </h4>
+                            <h2 class="font-weight-bold mb-2" >Resume Details</h2>
+                            <h4 class="font-weight-bold" >@Model.user?.FullName, @Model.JobTitle </h4>
                         </div>
                     </div>
                 </div>
@@ -44,17 +44,17 @@
                             Name:
                         </td>
                         <td>
-                            @Model.company?.CompanyName
+                            @Model.user.FullName
                         </td>
                     </tr>
                     <tr>
                         <td class="text-right font-italic">
-                            Company's address:
+                            Address:
                         </td>
                         <td>
-                            @Model.company?.StreetAddress , <br />
-                            @Model.company?.City , @Model.company?.State <br />
-                            , @Model.company?.Zip , @Model.company?.Country
+                            @Model.jobseeker.StreetAddress , <br />
+                            @Model.jobseeker.City , @Model.jobseeker.State <br />
+                            , @Model.jobseeker.Zip , @Model.jobseeker.Country
                         </td>
                     </tr>
                     <tr>
@@ -75,10 +75,10 @@
                     </tr>
                     <tr>
                         <td class="text-right font-italic">
-                            Job description:
+                            Resume:
                         </td>
                         <td>
-                            @Model.JobDescription
+                            @Model.Resume
                         </td>
                     </tr>
                 </tbody>
@@ -88,30 +88,27 @@
 
             <div class="row align-items-center mb-5">
 
-                <div class="col-lg-4 ml-auto">
+                <div class="col-lg-5 ml-auto">
                     <div class="row ">
                         
                         <div class="col-12 ">
                             <input type="hidden" asp-for="@Model.user.FullName"  />
                             <input type="hidden" asp-for="@Model.user.Email"  />
                             <input type="hidden" asp-for="@Model.user.Password"  />
-                            <input type="hidden" asp-for="@Model.company.CompanyName"  />
-                            <input type="hidden" asp-for="@Model.company.StreetAddress"  />
-                            <input type="hidden" asp-for="@Model.company.City"  />
-                            <input type="hidden" asp-for="@Model.company.State"  />
-                            <input type="hidden" asp-for="@Model.company.Zip"  />
-                            <input type="hidden" asp-for="@Model.company.Country"  />
-                            <input type="hidden" asp-for="@Model.company.Telephone"  />
-                            <input type="hidden" asp-for="@Model.company.Fax"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.StreetAddress"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.City"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.State"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.Zip"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.Country"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.Telephone"  />
+                            <input type="hidden" asp-for="@Model.jobseeker.Fax"  />
 
                             <input type="hidden" asp-for="@Model.JobTitle"  />
-                            <input type="hidden" asp-for="@Model.JobDescription"  />
+                            <input type="hidden" asp-for="@Model.Resume"  />
                             <input type="hidden" asp-for="@Model.LowerBound"  />
                             <input type="hidden" asp-for="@Model.UpperBound"  />
                             <input type="hidden" asp-for="@Model.Currency"  />
-
-
-                            <a href="mailto:?subject=@Model.JobTitle&body=https://localhost:7035/Job/Details/@Model.JobId">Email Job to Yourself or Refer This Job »</a>  <br />
+                            <a href="#" >Email Resume to Yourself or Refer This Resume »</a> <br />
                             <a href="#" >Contact Company »</a>
                         </div>
                     </div>
