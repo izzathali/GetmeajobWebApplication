@@ -2,7 +2,7 @@
 @model JobM
 
 @{
-    ViewData["Title"] = "Submit job Page";
+    ViewData["Title"] = "Edit job Page";
 }
 @section link{
     <link rel="stylesheet" href="~/fe/css/quill.snow.css">
@@ -20,19 +20,20 @@
                     <div class="custom-breadcrumbs ">
                         <a href="#">Home</a> <span class="mx-2 slash">»</span>
                         <a href="#">Job</a> <span class="mx-2 slash">»</span>
-                        <span><strong>Submit a Job</strong></span>
+                        <span><strong>Modify your Job</strong></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+
 @if (ViewBag.page == "Verify")
 {
     <section class="site-section pt-0">
         <div class="container">
 
-            <form asp-action="Confirm" method="post">
+            <form asp-action="EditConfirm" method="post">
 
 
 
@@ -201,7 +202,7 @@ else
     <section class="site-section pt-0">
         <div class="container">
 
-            <form asp-action="Create" method="post">
+            <form asp-action="Edit" method="post">
 
                 <div id="formOne">
 
@@ -456,9 +457,10 @@ else
                                 <div class="col-6 ">
 
 
+                                    <input asp-for="JobId" type="hidden">
                                     <input asp-for="UserId" type="hidden">
+                                    <input asp-for="user.Type" type="hidden">
                                     <input asp-for="CompanyId" type="hidden">
-                                    <input type="hidden" asp-for="user.Type" />
 
                                     <button type="button" id="btnContinueFour" class="btn btn-block btn-primary btn-md">Continue</button>
                                     <button type="submit" style="display:none" id="btnSubmit" class="btn btn-block btn-primary btn-md">Continue</button>
@@ -473,6 +475,7 @@ else
         </div>
     </section>
 }
+
 
 
 

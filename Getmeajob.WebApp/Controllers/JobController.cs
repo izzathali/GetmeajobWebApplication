@@ -18,9 +18,11 @@ namespace Getmeajob.WebApp.Controllers
             _iCompany = iCompany;
         }
         // GET: JobController
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int uid,string page)
         {
-            return View();
+            ViewBag.page = page;
+            var jobs = await _iJob.GetAllByUserId(uid);
+            return View(jobs);
         }
         // GET: JobController/Search
         public ActionResult Search()
@@ -72,9 +74,11 @@ namespace Getmeajob.WebApp.Controllers
             return View(j);
         }
         // GET: JobController/Verify
-        public ActionResult Verify(JobM j)
+        public async Task<ActionResult> Verify(JobM jobM)
         {
-            return View(j);
+            //j.user = await _iUser.GetById(j.UserId);
+            //j.company = await _iCompany.GetById(j.CompanyId);
+            return View(jobM);
         }
         // GET: JobController/Confirm 
         [HttpPost]
@@ -87,14 +91,7 @@ namespace Getmeajob.WebApp.Controllers
                 {
                     if (j.UserId > 0)
                     {
-                        //int userid = await _iUser.Create(j.user);
-                        //j.UserId = userid;
                         j.user = null;
-
-                        //int companyid = await _iCompany.Create(j.company);
-
-                        //j.CompanyId = companyid;
-                        j.company = null;
 
                     }
                     else
@@ -117,9 +114,34 @@ namespace Getmeajob.WebApp.Controllers
             catch
             {
             }
-            return RedirectToAction(nameof(Verify), j);
+            return RedirectToAction(nameof(Create), j);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditConfirm(JobM j)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    int changes = await _iJob.Update(j);
 
+                    if (changes > 0)
+                    {
+                        return RedirectToAction("Confirm",j);
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return RedirectToAction(nameof(Edit), j);
+        }
         // POST: JobController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -143,8 +165,10 @@ namespace Getmeajob.WebApp.Controllers
                     }
                     if (!String.IsNullOrEmpty(jobM.JobTitle) && !String.IsNullOrEmpty(jobM.JobDescription))
                     {
-                        jobM.JobDescription.Replace(Environment.NewLine, "<br/>");
-                        return View("Verify", jobM);
+                        //jobM.JobDescription.Replace(Environment.NewLine, "<br/>");
+                        //return RedirectToAction("Verify", jobM);
+                        ViewBag.page = "Verify";
+                        View(jobM);
                     }
                     else
                     {
@@ -161,24 +185,52 @@ namespace Getmeajob.WebApp.Controllers
         }
 
         // GET: JobController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int jid)
         {
-            return View();
+            var job = await _iJob.GetById(jid);
+
+            return View(job);
         }
 
         // POST: JobController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(JobM job)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    if (!string.IsNullOrEmpty(job.user.FullName) && job.UserId == 0)
+                    {
+                        var usr = await _iUser.GetByEmail(job.user);
+
+                        if (usr != null)
+                        {
+                            //View("Create",jobM);
+                            View();
+                        }
+
+                    }
+                    if (!String.IsNullOrEmpty(job.JobTitle) && !String.IsNullOrEmpty(job.JobDescription))
+                    {
+                        //jobM.JobDescription.Replace(Environment.NewLine, "<br/>");
+                        //return RedirectToAction("Verify", jobM);
+                        ViewBag.page = "Verify";
+                        View(job);
+                    }
+                    else
+                    {
+                        View(job);
+                    }
+                }
             }
             catch
             {
-                return View();
+                //_notyf.Error("Something went wrong!!", 4);
             }
+
+            return View(job);
         }
 
         // GET: JobController/Delete/5

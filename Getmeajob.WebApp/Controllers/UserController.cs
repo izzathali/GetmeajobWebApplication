@@ -8,9 +8,11 @@ namespace Getmeajob.WebApp.Controllers
     public class UserController : Controller
     {
         private readonly IUser _iUser;
-        public UserController(IUser iUser)
+        private readonly IJob _iJob;
+        public UserController(IUser iUser, IJob iJob)
         {
             _iUser = iUser;
+            _iJob = iJob;
         }
         // GET: UserController
         public ActionResult Index()
@@ -19,27 +21,51 @@ namespace Getmeajob.WebApp.Controllers
         }
         public ActionResult Login(string? stype)
         {
-            ViewBag.stype = stype;
-            return View();
+            UserM user = new UserM();
+            user.page = stype;
+
+            return View(user);
+        }
+        // GET: UserController/Invalid
+        public ActionResult Invalid(UserM? user)
+        {
+            return View(user);
         }
         // POST: UserController/Login
         [HttpPost]
         public async Task<ActionResult> LoginAuth(UserM userM)
         {
+            if (userM == null) return View();
+
             UserM usr = await _iUser.GetByEmailAndPass(userM);
 
-            if (usr == null)
+            if (userM.page == "submitjob")
             {
-                UserM u = new UserM();
-                u.IsInvalidUser = true;
 
-                return RedirectToAction("Create","Job",u);
+                if (usr == null)
+                {
+                    UserM u = new UserM();
+                    u.IsInvalidUser = true;
+
+                    return RedirectToAction("Create", "Job", u);
+                }
+                else
+                {
+                    return RedirectToAction("Create", "Job", usr);
+                }
             }
-            else
+            else if (userM.page == "modifyjob" || userM.page == "deletejob")
             {
-                return RedirectToAction("Create", "Job",usr);
+                if (usr != null)
+                {
+                    return RedirectToAction("Index", "Job", new {uid = usr.UserId,page = userM.page});
+                }
             }
+          
+            return RedirectToAction("Invalid",userM);
+
         }
+        
         // GET: UserController/Details/5
         public ActionResult Details(int id)
         {

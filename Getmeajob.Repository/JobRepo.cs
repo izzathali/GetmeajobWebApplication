@@ -42,6 +42,16 @@ namespace Getmeajob.Repository
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<JobM>> GetAllByUserId(int id)
+        {
+            return await _dbContext
+               .Jobs
+               .Where(u => u.IsDeleted == false && u.UserId == id)
+               .Include(i => i.user)
+               .Include(i => i.company)
+               .ToListAsync();
+        }
+
         public async Task<JobM> GetById(int id)
         {
             return await _dbContext
@@ -70,9 +80,10 @@ namespace Getmeajob.Repository
                 .FirstOrDefaultAsync();
         }
 
-        public Task<int> Update(JobM t)
+        public async Task<int> Update(JobM t)
         {
-            throw new NotImplementedException();
+            _dbContext.Update(t);
+            return await _dbContext.SaveChangesAsync();
         }
     }
 }

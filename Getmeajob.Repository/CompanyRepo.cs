@@ -1,6 +1,7 @@
 ﻿using Getmeajob.Data;
 using Getmeajob.Interface;
 using Getmeajob.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,9 +36,11 @@ namespace Getmeajob.Repository
             throw new NotImplementedException();
         }
 
-        public Task<CompanyM> GetById(int id)
+        public async Task<CompanyM> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Companies
+                .Where(i => i.IsDeleted == false && i.CompanyId == id)
+                .FirstOrDefaultAsync();
         }
         public Task<int> Update(CompanyM t)
         {

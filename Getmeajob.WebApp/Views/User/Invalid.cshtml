@@ -1,0 +1,79 @@
+﻿@using Getmeajob.Model
+@model UserM
+
+@{
+    ViewData["Title"] = "Invalid Page";
+}
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image pt-5" style="background-image: url('images/hero_1.jpg');" id="home-section">
+    <div class="container">
+        <div class="row pt-3 pb-0">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3">
+                <div class="custom-breadcrumbs">
+                    <a href="#">Home</a> <span class="mx-2 slash">»</span>
+                    <a href="#">
+                        @if (@Model.page == "modifyjob")
+                        {
+                            <p>
+                                Modify your Job
+                            </p>
+                        }
+                        @if (@Model.page == "deletejob")
+                        {
+                            <p>
+                                Delete your Job
+                            </p>
+                        }
+                    </a> <span class="mx-2 slash">»</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section pt-0">
+    <div class="container">
+
+        <form asp-action="SearchResult" method="post">
+
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h2 class="font-weight-bold">Matching Results</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-12">
+                    <div class="p-2 p-md-5">
+                        <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
+                            We were unable to find any jobs which matched your email address and password. Please
+
+                            @if (@Model.page == "modifyjob")
+                            {
+                                <a asp-action="Login" asp-route-stype="modifyjob" >try again</a>
+                            }
+                            @if (@Model.page == "deletejob")
+                            {
+                                <a asp-action="Login" asp-route-stype="deletejob" >try again</a>
+                            }
+
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</section>
