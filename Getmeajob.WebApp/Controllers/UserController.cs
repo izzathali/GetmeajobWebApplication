@@ -61,7 +61,29 @@ namespace Getmeajob.WebApp.Controllers
                     return RedirectToAction("Index", "Job", new {uid = usr.UserId,page = userM.page});
                 }
             }
-          
+            else if (userM.page == "submitresume")
+            {
+
+                if (usr == null)
+                {
+                    UserM u = new UserM();
+                    u.IsInvalidUser = true;
+
+                    return RedirectToAction("Create", "Resume", u);
+                }
+                else
+                {
+                    return RedirectToAction("Create", "Resume", usr);
+                }
+            }
+            else if (userM.page == "modifyresume" || userM.page == "deleteresume")
+            {
+                if (usr != null)
+                {
+                    return RedirectToAction("Index", "Resume", new { uid = usr.UserId, page = userM.page });
+                }
+            }
+
             return RedirectToAction("Invalid",userM);
 
         }

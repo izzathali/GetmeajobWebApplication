@@ -1,6 +1,7 @@
 ﻿using Getmeajob.Data;
 using Getmeajob.Interface;
 using Getmeajob.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,9 +36,28 @@ namespace Getmeajob.Repository
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<ResumeM>> GetAllByUserId(int id)
+        {
+            return await _dbContext
+              .Resumes
+              .Where(u => u.IsDeleted == false && u.UserId == id)
+              .Include(i => i.user)
+              .Include(i => i.jobseeker)
+              .ToListAsync();
+
+        }
+
         public Task<ResumeM> GetById(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ResumeM> GetByUserId(int id)
+        {
+            return await _dbContext.Resumes
+              .Where(i => i.IsDeleted == false && i.UserId == id)
+              .Include(i => i.jobseeker)
+              .FirstOrDefaultAsync();
         }
 
         public Task<int> Update(ResumeM t)

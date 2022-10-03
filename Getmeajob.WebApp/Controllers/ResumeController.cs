@@ -17,9 +17,11 @@ namespace Getmeajob.WebApp.Controllers
             _iJobSeeker = iJobSeeker;
         }
         // GET: ResumeController
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int uid, string page)
         {
-            return View();
+            ViewBag.page = page;
+            var jobs = await _iResume.GetAllByUserId(uid);
+            return View(jobs);
         }
 
         // GET: ResumeController/Details/5
@@ -29,9 +31,36 @@ namespace Getmeajob.WebApp.Controllers
         }
 
         // GET: ResumeController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create(UserM? userM)
         {
-            return View();
+            ResumeM j = new ResumeM();
+            try
+            {
+
+                if (userM != null && userM.UserId > 0)
+                {
+                    j.user = userM;
+                    j.UserId = userM.UserId;
+                    ResumeM PostedResume = await _iResume.GetByUserId(userM.UserId);
+
+                    if (PostedResume != null)
+                    {
+                        j.jobseeker = PostedResume.jobseeker;
+                        j.JobSeekerId = PostedResume.JobSeekerId;
+                    }
+                }
+                else if (userM != null && userM.IsInvalidUser == true)
+                {
+                    ViewBag.InvalidUser = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return View(j);
         }
         // GET: ResumeController/Verify
         public ActionResult Verify(ResumeM r)
@@ -47,19 +76,12 @@ namespace Getmeajob.WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (r.UserId == 0)
+                    if (r.UserId > 0)
                     {
-                        int userid = await _iUser.Create(r.user);
-                        r.UserId = userid;
                         r.user = null;
 
-                        int companyid = await _iJobSeeker.Create(r.jobseeker);
-
-                        r.JobSeekerId = companyid;
-                        r.jobseeker = null;
-
                     }
-
+                  
                     int changes = await _iResume.Create(r);
 
                     if (changes > 0)
@@ -69,27 +91,42 @@ namespace Getmeajob.WebApp.Controllers
                     }
                     else
                     {
+
                     }
                 }
             }
             catch
             {
             }
-            return RedirectToAction(nameof(Verify), r);
+            return RedirectToAction(nameof(Create), r);
         }
 
         // POST: ResumeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ResumeM resumeM)
+        public async Task<ActionResult> Create(ResumeM resumeM)
         {
             try
             {
+
                 if (ModelState.IsValid)
                 {
+                    if (!string.IsNullOrEmpty(resumeM.user.FullName) && resumeM.UserId == 0)
+                    {
+                        //resumeM.user.Type = "Employees";
+                        var usr = await _iUser.GetByEmail(resumeM.user);
+
+                        //if (usr != null)
+                        //{
+                        //    //View("Create",jobM);
+                        //    View();
+                        //}
+
+                    }
                     if (!String.IsNullOrEmpty(resumeM.JobTitle) && !String.IsNullOrEmpty(resumeM.Resume))
                     {
-                        return View("Verify", resumeM);
+                        ViewBag.page = "Verify";
+                        View(resumeM);
                     }
                     else
                     {

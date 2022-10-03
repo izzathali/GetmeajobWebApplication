@@ -19,7 +19,7 @@
                 <div class="col-md-3">
                     <div class="custom-breadcrumbs ">
                         <a href="#">Home</a> <span class="mx-2 slash">»</span>
-                        <a href="#">Delete Your Resume</a> <span class="mx-2 slash">»</span>
+                        <a href="#">Login</a> <span class="mx-2 slash">»</span>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="row align-items-center mb-3">
                 <div class="col-lg-12 mb-2 mb-lg-0">
                     <div class="align-items-center">
-                        @if (Model.page == "submitjob")
+                    @if (Model.page == "submitjob")
                     {
                         <div>
                             <h2 class="font-weight-bold mb-3">Submit a Job: Free Job Posting</h2>
@@ -66,7 +66,38 @@
                             <h2 class="font-weight-bold mb-3">Delete Your Job Posting</h2>
                         </div>
                     }
+                    @if (Model.page == "submitresume")
+                    {
+                        <div>
+                            <h2 class="font-weight-bold mb-3">Submit a Resume: Free Resume Posting</h2>
+                        </div>
+                        <div>
+                            <h4 class="font-weight-bold">New Visitors</h4>
+                        </div>
+                        <div class="p-2 p-md-5 ">
 
+                            <p class="text-black mb-2 pb-2 font-weight-bold">
+                                Notice: All resumes are reviewed for quality control purposes before they appear. If your submission is accepted, it will be posted for free. Otherwise, it will not appear. Please do not contact us regarding when your resumes will appear.
+                            </p>
+                            <p class="text-black mb-2 pb-2 font-weight-bold">
+                                Free posting is subject to the terms and conditions of this site.
+                            </p>
+
+                        </div>
+
+                    }
+                     @if (Model.page == "modifyresume")
+                    {
+                        <div>
+                            <h2 class="font-weight-bold mb-3">Modify Your Resume Posting</h2>
+                        </div>
+                    } 
+                    @if (Model.page == "deleteresume")
+                    {
+                        <div>
+                            <h2 class="font-weight-bold mb-3">Delete Your Resume Posting</h2>
+                        </div>
+                    }
                 </div>
             </div>
 
@@ -96,7 +127,29 @@
                 </div>
             </div>
         }
+         @if (Model.page == "submitresume")
+        {
 
+            <div class="row align-items-center mb-0">
+
+                <div class="col-lg-4 ml-auto">
+                    <div class="row ">
+                        <div class="col-12 ">
+                            <a asp-action="Create" asp-controller="Resume" class="btn btn-block btn-primary btn-md">Continue on to free resume posting »</a>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row  align-items-center mb-2">
+                <div class="col-12 ">
+                    <div>
+                        <h4 class="font-weight-bold">Existing Visitors</h4>
+                    </div>
+                </div>
+            </div>
+        }
 
         <form asp-action="LoginAuth" asp-controller="User" method="post">
 

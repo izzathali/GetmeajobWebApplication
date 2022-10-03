@@ -18,7 +18,7 @@ namespace Getmeajob.WebApp.Controllers
             _iCompany = iCompany;
         }
         // GET: JobController
-        public async Task<ActionResult> Index(int uid,string page)
+        public async Task<ActionResult> Index(int uid, string page)
         {
             ViewBag.page = page;
             var jobs = await _iJob.GetAllByUserId(uid);
@@ -152,18 +152,19 @@ namespace Getmeajob.WebApp.Controllers
         {
             try
             {
+
                 if (ModelState.IsValid)
                 {
-                    if (!string.IsNullOrEmpty(jobM.user.FullName) && jobM.UserId == 0 )
+                    if (!string.IsNullOrEmpty(jobM.user.FullName) && jobM.UserId == 0)
                     {
                         jobM.user.Type = "Employers";
                         var usr = await _iUser.GetByEmail(jobM.user);
 
-                        if (usr != null)
-                        {
-                            //View("Create",jobM);
-                            View();
-                        }
+                        //if (usr != null)
+                        //{
+                        //    //View("Create",jobM);
+                        //    View();
+                        //}
 
                     }
                     if (!String.IsNullOrEmpty(jobM.JobTitle) && !String.IsNullOrEmpty(jobM.JobDescription))
@@ -248,14 +249,14 @@ namespace Getmeajob.WebApp.Controllers
         {
             try
             {
-                
-                    int changes = await _iJob.Delete(jid);
 
-                    if (changes > 0)
-                    {
-                        return View();
+                int changes = await _iJob.Delete(jid);
 
-                    }
+                if (changes > 0)
+                {
+                    return View();
+
+                }
             }
             catch
             {

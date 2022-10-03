@@ -14,8 +14,7 @@
             <div class="col-md-3">
                 <div class="custom-breadcrumbs">
                     <a href="#">Home</a> <span class="mx-2 slash">/</span>
-                    <a href="#">Resume</a> <span class="mx-2 slash">/</span>
-                    <span class="text-white"><strong>Submit a Resume</strong></span>
+                    <a href="#">Submit a Resume</a> <span class="mx-2 slash">/</span>
                 </div>
             </div>
         </div>
@@ -27,6 +26,9 @@
 
         <form asp-action="Create" method="post">
 
+            <input type="hidden" asp-for="@Model.UserId" />
+            <input type="hidden" asp-for="@Model.JobSeekerId" />
+            <input type="hidden" asp-for="@Model.user.UserId" />
             <input type="hidden" asp-for="@Model.user.FullName" />
             <input type="hidden" asp-for="@Model.user.Email" />
             <input type="hidden" asp-for="@Model.user.Password" />

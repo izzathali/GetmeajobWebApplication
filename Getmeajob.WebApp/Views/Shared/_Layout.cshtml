@@ -83,9 +83,9 @@
 
                         <ul class="list-unstyled block__47528 mb-0">
                             <li><a asp-action="Search" asp-controller="Job">Search jobs</a></li>
-                            <li><a asp-action="Create" asp-controller="Resume">Submit a resume</a></li>
-                            <li><a href="#">Modify a resume</a></li>
-                            <li><a href="#">Delete a resume</a></li>
+                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="submitresume" >Submit a resume</a></li>
+                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="modifyresume" >Modify a resume</a></li>
+                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="deleteresume" >Delete a resume</a></li>
                             <li><a asp-action="Tips" asp-controller="Home" asp-route-type="employees" >Useful tips</a></li>
                         </ul>
                     </div>

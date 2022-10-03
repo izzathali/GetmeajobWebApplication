@@ -27,6 +27,169 @@
         </div>
     </section>
 
+    @if (ViewBag.page == "Verify")
+{
+
+    <section class="site-section pt-0">
+        <div class="container">
+
+            <form asp-action="Confirm" method="post">
+
+
+
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-12 mb-2 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h2 class="font-weight-bold">Submit A Resume: Verify Details</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
+                    Please make sure that everything you have submitted is correct, including your email address. If you do not reply to your confirmation email, your job will not be posted.
+                </p>
+
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="text-right">
+                                Your name:
+                            </td>
+                            <td>
+                                @Model.user?.FullName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                Email:
+                            </td>
+                            <td>
+                                @Model.user?.Email
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                Your password::
+                            </td>
+                            <td>
+                                @Model.user?.Password
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                Company's address:
+                            </td>
+                            <td>
+                                @Model.jobseeker?.StreetAddress , <br />
+                                @Model.jobseeker?.City , @Model.jobseeker?.State <br />
+                                , @Model.jobseeker?.Zip , @Model.jobseeker?.Country
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                Telephone:
+                            </td>
+                            <td>
+                                @Model.jobseeker?.Telephone
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                Job title:
+                            </td>
+                            <td>
+                                @Model.JobTitle
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                Job description:
+                            </td>
+                            <td>
+                                @Model.Resume
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                Salary range:
+                            </td>
+                            <td>
+                                @Model.LowerBound - @Model.UpperBound @Model.Currency
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+
+
+                <div class="row mb-5">
+                    <div class="col-lg-12">
+                        <div class="p-2 p-md-5">
+                            <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
+                                <input asp-for="IsTermsAccepted" required type="checkbox" /> Check this box if you have read, understood, and agree to comply with the <a href="#"> terms and conditions </a> of this site.
+                            </p>
+
+                            <div class="form-group">
+                                <label>How did you hear about us:</label>
+                                <input asp-for="Source" type="text" required class="form-control" placeholder="Please be specific (e.g. name of search engine, name of magazine or book, etc.)">
+                            </div>
+
+                            <p class="text-black mb-3 pb-2 ">
+                                <span class="font-weight-bold"> Before you continue! </span> Be sure to add getmeajob.com to your list of Safe Senders. For example, if you are using Hotmail, choose Options, Safe and blocked Senders, Safe senders, and add getmeajob.com to the list. Otherwise, you may not receive the confirmation email and your <span class="font-weight-bold">  submission will be rejected.</span>
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row align-items-center mb-5">
+
+                    <div class="col-lg-4 ml-auto">
+                        <div class="row ">
+                            <div class="col-6">
+                            </div>
+                            <div class="col-6 ">
+                                <input type="hidden" asp-for="@Model.ResumeId" />
+                                <input type="hidden" asp-for="@Model.UserId" />
+                                <input type="hidden" asp-for="@Model.JobSeekerId" />
+                                <input type="hidden" asp-for="@Model.user.FullName" />
+                                <input type="hidden" asp-for="@Model.user.Email" />
+                                <input type="hidden" asp-for="@Model.user.Password" />
+                                <input type="hidden" asp-for="@Model.user.Type" />
+                                <input type="hidden" asp-for="@Model.jobseeker.StreetAddress" />
+                                <input type="hidden" asp-for="@Model.jobseeker.City" />
+                                <input type="hidden" asp-for="@Model.jobseeker.State" />
+                                <input type="hidden" asp-for="@Model.jobseeker.Zip" />
+                                <input type="hidden" asp-for="@Model.jobseeker.Country" />
+                                <input type="hidden" asp-for="@Model.jobseeker.Telephone" />
+                                <input type="hidden" asp-for="@Model.jobseeker.Fax" />
+
+                                <input type="hidden" asp-for="@Model.JobTitle" />
+                                <input type="hidden" asp-for="@Model.Resume" />
+                                <input type="hidden" asp-for="@Model.LowerBound" />
+                                <input type="hidden" asp-for="@Model.UpperBound" />
+                                <input type="hidden" asp-for="@Model.Currency" />
+                                <button type="submit" class="btn btn-block btn-primary btn-md">Finish</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+
+    </section>
+}
+else
+{
 
     <section class="site-section pt-0">
         <div class="container">
@@ -37,7 +200,13 @@
 
                     <div class="row align-items-center mb-5">
                         <div class="col-lg-12 mb-2 mb-lg-0">
-                            <div class="d-flex align-items-center">
+                            <div class="align-items-center">
+                                @if (ViewBag.InvalidUser == true)
+                                {
+                                    <p class="text-black mb-2  pb-2 font-italic">
+                                        We were unable to locate a matching entry with the email and password you supplied. Please go back and try again, or feel free to start your submission without retaining your previous information.
+                                    </p>
+                                }
                                 <div>
                                     <h2 class="font-weight-bold">Submit a Resume: Name</h2>
                                 </div>
@@ -179,9 +348,9 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label>Resume (No HTML, please)</label>
-                                    <textarea asp-for="Resume" class="form-control" rows="20" placeholder="">
-                                                                Please replace the text in this box with your resume.Do not enter your name, email, phone or fax number, address, or URLs in this box.If you do so, your submission may be rejected.
-                                                            </textarea>
+                                    <textarea asp-for="Resume" class="form-control" rows="20" placeholder="Please replace the text in this box with your job description.Do not enter your name, email, phone or fax number, address, or URLs in this box. If you do so, your submission may be rejected." >
+                                                                    
+                                                                </textarea>
 
                                 </div>
 
@@ -272,7 +441,7 @@
                                 <div class="col-6 ">
                                     <input asp-for="UserId" type="hidden">
                                     <input asp-for="ResumeId" type="hidden">
-                                    <input type="hidden" asp-for="user.Type" />
+                                    <input type="hidden" asp-for="user.Type" value="Employees" />
 
                                     <button type="button" id="btnContinueFour" class="btn btn-block btn-primary btn-md">Continue</button>
                                     <button type="submit" style="display:none" id="btnSubmit" class="btn btn-block btn-primary btn-md">Continue</button>
@@ -287,9 +456,11 @@
         </div>
     </section>
 
+}
 
 
-    @section script{
+
+@section script{
 
     <script src="~/fe/js/quill.min.js"></script>
     <script src="//code.jquery.com/jquery.min.js"></script>

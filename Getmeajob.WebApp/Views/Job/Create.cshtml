@@ -162,6 +162,7 @@
                             <div class="col-6">
                             </div>
                             <div class="col-6 ">
+                                <input type="hidden" asp-for="@Model.JobId" />
                                 <input type="hidden" asp-for="@Model.UserId" />
                                 <input type="hidden" asp-for="@Model.CompanyId" />
                                 <input type="hidden" asp-for="@Model.user.FullName" />
@@ -458,7 +459,7 @@ else
 
                                     <input asp-for="UserId" type="hidden">
                                     <input asp-for="CompanyId" type="hidden">
-                                    <input type="hidden" asp-for="user.Type" />
+                                    <input type="hidden" asp-for="user.Type" value="Employers" />
 
                                     <button type="button" id="btnContinueFour" class="btn btn-block btn-primary btn-md">Continue</button>
                                     <button type="submit" style="display:none" id="btnSubmit" class="btn btn-block btn-primary btn-md">Continue</button>
