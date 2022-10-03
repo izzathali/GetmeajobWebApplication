@@ -56,10 +56,10 @@
                                     <p>
                                         @no.
                                         @if(ViewBag.page == "modifyjob"){
-                                             <a asp-action="Edit" asp-route-jid="@job.JobId"><span class="font-weight-bold"><u>@job.company?.CompanyName </u></span></a> <span class="font-italic"> -  @job.company?.StreetAddress, @job.company?.City, @job.company?.State, @job.company?.Zip ,  @job.company?.Country </span> <span> - @job.JobTitle - </span> <a asp-action="Details" asp-route-jid="@job.JobId" target="_blank"><u>Show Job</u></a> <a asp-action="Edit" asp-route-jid="@job.JobId" target="_blank"><u>Modify Job</u></a>
+                                             <a asp-action="Edit" asp-route-jid="@job.JobId"><span class="font-weight-bold"><u>@job.company?.CompanyName </u></span></a> <span class="font-italic"> -  @job.company?.StreetAddress, @job.company?.City, @job.company?.State, @job.company?.Zip ,  @job.company?.Country </span> <span> - @job.JobTitle - </span> <a asp-action="Details" asp-route-id="@job.JobId" target="_blank"><u>Show Job</u></a> <a asp-action="Edit" asp-route-jid="@job.JobId" target="_blank"><u>Modify Job</u></a>
                                         }
                                         @if(ViewBag.page == "deletejob"){
-                                            <a asp-action="Edit" asp-route-jid="@job.JobId"><span class="font-weight-bold"><u>@job.company?.CompanyName </u></span></a>  <span class="font-italic"> - @job.company?.StreetAddress, @job.company?.City, @job.company?.State, @job.company?.Zip ,  @job.company?.Country </span> <span> - @job.JobTitle - </span> <a asp-action="Details" asp-route-jid="@job.JobId" target="_blank"><u>Show Job</u></a> <a asp-action="Edit" asp-route-jid="@job.JobId" target="_blank"><u>Delete Job</u></a>
+                                            <a asp-action="Delete" asp-route-jid="@job.JobId"><span class="font-weight-bold"><u>@job.company?.CompanyName </u></span></a>  <span class="font-italic"> - @job.company?.StreetAddress, @job.company?.City, @job.company?.State, @job.company?.Zip ,  @job.company?.Country </span> <span> - @job.JobTitle - </span> <a asp-action="Details" asp-route-id="@job.JobId" target="_blank"><u>Show Job</u></a> <a asp-action="Delete" asp-route-jid="@job.JobId" target="_blank"><u>Delete Job</u></a>
                                         }
                                     </p>
                                 </div>

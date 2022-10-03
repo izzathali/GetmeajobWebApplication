@@ -55,9 +55,10 @@ namespace Getmeajob.Repository
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(UserM t)
+        public async Task<int> Update(UserM t)
         {
-            throw new NotImplementedException();
+            _dbContext.Users.Update(t);
+            return await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -27,9 +27,13 @@ namespace Getmeajob.Repository
             return t.JobId;
         }
 
-        public Task<int> Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
+            JobM j = _dbContext.Jobs.FirstOrDefault(j => j.JobId == id);
+            j.IsDeleted = true;
+
+            _dbContext.Jobs.Update(j);
+            return await _dbContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<JobM>> GetAll()
@@ -82,7 +86,7 @@ namespace Getmeajob.Repository
 
         public async Task<int> Update(JobM t)
         {
-            _dbContext.Update(t);
+            _dbContext.Jobs.Update(t);
             return await _dbContext.SaveChangesAsync();
         }
     }

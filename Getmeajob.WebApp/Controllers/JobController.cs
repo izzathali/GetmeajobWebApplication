@@ -124,11 +124,14 @@ namespace Getmeajob.WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    j.user.UserId = j.UserId;
+                    j.company.CompanyId = j.CompanyId;
+
                     int changes = await _iJob.Update(j);
 
                     if (changes > 0)
                     {
-                        return RedirectToAction("Confirm",j);
+                        return View();
 
                     }
                     else
@@ -234,24 +237,31 @@ namespace Getmeajob.WebApp.Controllers
         }
 
         // GET: JobController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int jid)
         {
-            return View();
+            var job = await _iJob.GetById(jid);
+            return View(job);
         }
 
         // POST: JobController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteConfirm(int jid)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                
+                    int changes = await _iJob.Delete(jid);
+
+                    if (changes > 0)
+                    {
+                        return View();
+
+                    }
             }
             catch
             {
-                return View();
             }
+            ViewBag.Error = true;
+            return View();
         }
     }
 }

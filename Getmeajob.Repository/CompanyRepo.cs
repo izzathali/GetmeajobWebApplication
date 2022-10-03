@@ -42,9 +42,10 @@ namespace Getmeajob.Repository
                 .Where(i => i.IsDeleted == false && i.CompanyId == id)
                 .FirstOrDefaultAsync();
         }
-        public Task<int> Update(CompanyM t)
+        public async Task<int> Update(CompanyM t)
         {
-            throw new NotImplementedException();
+            _dbContext.Companies.Update(t);
+            return await _dbContext.SaveChangesAsync();
         }
     }
 }
