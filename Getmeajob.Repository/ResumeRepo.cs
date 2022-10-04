@@ -1,6 +1,7 @@
 ﻿using Getmeajob.Data;
 using Getmeajob.Interface;
 using Getmeajob.Model;
+using Getmeajob.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -59,6 +60,16 @@ namespace Getmeajob.Repository
               .Include(i => i.user)
               .Include(i => i.jobseeker)
               .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<ResumeM>> GetByJobTitleOrLocation(JobSearchVM search)
+        {
+            return await _dbContext
+              .Resumes
+              .Where(u => u.IsDeleted == false && u.JobTitle.Contains(search.Name) || u.jobseeker.StreetAddress.Contains(search.Location) || u.jobseeker.City.Contains(search.Location) || u.jobseeker.State.Contains(search.Location) || u.jobseeker.Zip.Contains(search.Location) || u.jobseeker.Country.Contains(search.Location))
+              .Include(i => i.user)
+              .Include(i => i.jobseeker)
+              .ToListAsync();
         }
 
         public async Task<ResumeM> GetByUserId(int id)

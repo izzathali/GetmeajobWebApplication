@@ -1,4 +1,5 @@
-﻿using Getmeajob.ViewModel;
+﻿using Getmeajob.Interface;
+using Getmeajob.ViewModel;
 using Getmeajob.WebApp.Models;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -12,7 +13,13 @@ namespace Getmeajob.WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private readonly ICompany _iCompany;
+        private readonly IJobSeeker _iJobSeeker;
+        public HomeController(ICompany iCompany, IJobSeeker iJobSeeker)
+        {
+            _iCompany = iCompany;
+            _iJobSeeker = iJobSeeker;
+        }
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -36,7 +43,43 @@ namespace Getmeajob.WebApp.Controllers
             ViewBag.Type = type;
             return View();
         }
-        public IActionResult Contact(QuestionVM? question)
+        public IActionResult Contact(string stype, int id)
+        {
+            ContactVM con = new ContactVM();
+            con.stype = stype;
+            con.id = id;
+
+            return View(con);
+        }
+        public async Task<IActionResult> SendMail(ContactVM contactVM)
+        {
+            try
+            {
+                if (contactVM != null)
+                {
+                    if (contactVM.stype == "Company")
+                    {
+                        var company = await _iCompany.GetById(Convert.ToInt32(contactVM.id));
+                        //SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm", "izzath.info@gmail.com", company?.Email, "getmeajob.com - Contact Us", "I still have a question", questionVM?.contactVM?.Message);
+
+                    }
+                    if (contactVM.stype == "Candidate")
+                    {
+                        var company = await _iJobSeeker.GetById(Convert.ToInt32(contactVM.id));
+                    }
+
+
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
+            return View();
+        }
+        public IActionResult ContactUs(QuestionVM? question)
         {
             return View(question);
         }
@@ -51,7 +94,7 @@ namespace Getmeajob.WebApp.Controllers
                     return View();
                 }
             }
-            return View(nameof(Contact));
+            return View(nameof(ContactUs));
         }
 
         public void SendEmail(string fromEmail, string fromPassword, string ToEmail, string SenderEmail, string subject, string bodyHeading, string body)

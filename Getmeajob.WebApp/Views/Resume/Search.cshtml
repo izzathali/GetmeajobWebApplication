@@ -1,0 +1,86 @@
+﻿@using Getmeajob.ViewModel
+@model JobSearchVM
+
+@{
+    ViewData["Title"] = "Search Resume Page";
+}
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image pt-5" style="background-image: url('images/hero_1.jpg');" id="home-section">
+    <div class="container">
+        <div class="row pt-3 pb-0">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3 ">
+                <div class="custom-breadcrumbs">
+                    <a href="#">Home</a> <span class="mx-2 slash">/</span>
+                    <a href="#">Free Resume </a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>Search</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section pt-0">
+    <div class="container">
+
+        <form asp-action="SearchResult" method="post">
+
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h2 class="font-weight-bold">Free Resume Search</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-12">
+                    <div class="p-2 p-md-5">
+                        <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
+                            Please enter search terms to search for Resume.
+                        </p>
+
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input asp-for="Name" type="text" class="form-control" placeholder="Name" />
+                            <input asp-for="FullPhrase" type="checkbox" class="input-control d-inline" />
+                            <label>NEW! Full phrase search</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input asp-for="Location" type="text" class="form-control" placeholder="Location" />
+                        </div>
+
+                        <p class="text-black mb-3 pb-2 ">
+                            You may want to try singular and plural forms. <br />
+                            Abbreviations may be used when searching by location.
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row align-items-center mb-2">
+
+                <div class="col-lg-4 ml-auto">
+                    <div class="row ">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9 ">
+                            <button type="submit" class="btn btn-block btn-primary btn-md">Search Resumes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+
+</section>

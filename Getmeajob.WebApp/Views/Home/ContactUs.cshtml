@@ -1,0 +1,442 @@
+﻿@using Getmeajob.ViewModel
+@model QuestionVM
+@{
+    ViewData["Title"] = "Contact Page";
+}
+@section link{
+    <link rel="stylesheet" href="~/fe/css/quill.snow.css">
+}
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image pt-5" style="background-image: url('images/hero_1.jpg');" id="home-section">
+        <div class="container">
+            <div class="row pt-3 pb-0">
+                <div class="col-md-9">
+                </div>
+                <div class="col-md-3">
+                    <div class="custom-breadcrumbs">
+                        <a href="#">Home</a> <span class="mx-2 slash">»</span>
+                        <a href="#">Contact Us</a> <span class="mx-2 slash">»</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="site-section pt-0 mb-4">
+        <div class="container">
+
+
+            <div class="row align-items-center mb-4">
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="d-flex align-items-center border-bottom">
+                        <div>
+                            <h2 class="font-weight-bold font-italic">Contact Us</h2>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            @if (@Model != null)
+        {
+            @if (@Model.QuestionNo == 1)
+            {
+                <div class="row align-items-center mb-0">
+                    <div class="col-lg-12 mb-1 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold font-italic">How can I use www.getmeajob.com?</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="p-2 p-md-5">
+                            <p class="text-black mb-3 pb-2 ">
+                                Our database of more recent resumes and job listings can currently be searched free of charge from us by visiting <a href="http://www.getmeajob.com/">http://www.getmeajob.com/ </a> and clicking on the links "Search resumes" or "Search job listings." Jobs and resumes can be submitted by clicking on the links "Submit resume" or "Submit job listing." Hints on writing job offers and resumes can be found in the "Employers Only" and "Employees Only" sections of the site.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            }
+            else if (@Model.QuestionNo == 2)
+            {
+                <div class="row align-items-center mb-0">
+                    <div class="col-lg-12 mb-1 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold font-italic">Why is my job or resume submission not appearing?</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="p-2 p-md-5">
+                            <p class="text-black mb-3 pb-2 ">
+                                If your job or resume does not appear after visiting the URL in your confirmation email, please be advised that we do scan all submissions before posting them. If the material you are submitting does not conform to our terms and conditions, it may be rejected. Please review our terms and conditions before submitting your job or resume.
+                            </p>
+                            <p class="text-black mb-3 pb-2 ">
+                                We may also ignore submissions from people who post duplicates or do not fill in fields appropriately.
+                            </p>
+                            <p class="text-black mb-3 pb-2 ">
+                                Lastly, since jobs and resumes are scanned before they appear for quality control, please allow the period of time indicated to you after you posted your job or resume.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            }
+            else if (@Model.QuestionNo == 3 || @Model.QuestionNo == 9)
+            {
+                <div class="row align-items-center mb-0">
+                    <div class="col-lg-12 mb-1 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold font-italic">Advertising / I would like a link to my site.</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="p-2 p-md-5">
+                            <p class="text-black mb-3 pb-2 ">
+                                For banner advertising opportunities, please visit <a href="http://www.getmeajob.com/advertise/">http://www.getmeajob.com/advertise/. </a> Please do not confuse this advertising with submitting a job or submitting a resume. Banners are graphics which appear on a web page and can be used to link to another web site. They can be used to quickly draw the attention of visitors of the site.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            }
+            else if (@Model.QuestionNo == 4)
+            {
+                <div class="row align-items-center mb-0">
+                    <div class="col-lg-12 mb-1 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold font-italic">Is this service really free?</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="p-2 p-md-5">
+                            <p class="text-black mb-3 pb-2 ">
+                                At the time of this writing, we are accepting resume and job offering submissions free of charge from us, and jobs and resumes can currently be searched free of charge from us. This service is free when accessed through our standard web interface. Please note that we may choose to delete your posting when we want (in many cases, after a month).
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            }
+            else if (@Model.QuestionNo == 5)
+            {
+                <div class="row align-items-center mb-0">
+                    <div class="col-lg-12 mb-1 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold font-italic">Post my job listing or resume.</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="p-2 p-md-5">
+                            <p class="text-black mb-3 pb-2 ">
+                                If you want to have your resume or job listing posted, please visit <a href="http://www.getmeajob.com/"> http://www.getmeajob.com/ </a> for more details. Except in highly unusual circumstances, we will not post your resume or job listing for you.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            }
+            else if (@Model.QuestionNo == 6)
+            {
+                <div class="row align-items-center mb-0">
+                    <div class="col-lg-12 mb-1 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold font-italic">Give me a listing of jobs or resumes matching this criteria.</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="p-2 p-md-5">
+                            <p class="text-black mb-3 pb-2 ">
+                                To search for job or resumes, please visit <a href="http://www.getmeajob.com/">http://www.getmeajob.com/ </a>  and use our search engine. Note that our main job and resume database is updated frequently, so please check back to see the new jobs and resumes that are added!
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            }
+            else if (@Model.QuestionNo == 7)
+            {
+                <div class="row align-items-center mb-0">
+                    <div class="col-lg-12 mb-1 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold font-italic">Delete my job listing or resume.</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="p-2 p-md-5">
+                            <p class="text-black mb-3 pb-2 ">
+                                To delete jobs or resumes, please visit <a href="http://www.getmeajob.com/">http://www.getmeajob.com/</a> and click the Delete Job or Delete Resume link on the left side of the page.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            }
+            else if (@Model.QuestionNo == 8)
+            {
+                <div class="row align-items-center mb-0">
+                    <div class="col-lg-12 mb-1 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold font-italic">I forgot my password!</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="p-2 p-md-5">
+                            <p class="text-black mb-3 pb-2 ">
+                                If you have forgotten your password, please enter your email address below and click Continue. Your password will be emailed to you, unless you have indicated otherwise.
+                            </p>
+                            <p class="text-black mb-3 pb-2 ">
+                                Note: You can change your password reminder preferences by editing your jobs or resumes.
+                            </p>
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control" placeholder="Enter Email">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row align-items-center mb-1">
+
+                    <div class="col-lg-4 ml-auto">
+                        <div class="row ">
+                            <div class="col-6">
+                            </div>
+                            <div class="col-6 ">
+                                <button type="button" class="btn btn-block btn-primary btn-md">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (@Model.QuestionNo == 11 || @Model.QuestionNo == 12)
+            {
+                <div class="row align-items-center mb-0">
+                    <div class="col-lg-12 mb-1 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold font-italic">Received a response to your submission</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-lg-12">
+                        <div class="p-2 p-md-5">
+                            <p class="text-black mb-3 pb-2 ">
+                                We are not affiliated with the companies or individuals that may contact you in regards to your free posting. Please contact them directly for more information. If you are not comfortable in giving out your email address, please visit <a href="www.getmeajobmail.com"> www.getmeajobmail.com</a>  and sign up for a free email address.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            }
+            else if (@Model.QuestionNo == 10)
+            {
+                <div class="row align-items-center mb-0">
+                    <div class="col-lg-12 mb-1 mb-lg-0">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h4 class="font-weight-bold font-italic">I still have a question</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <form asp-action="Emailed" method="post" >
+
+
+                    <div class="row mb-2">
+                        <div class="col-lg-12">
+                            <div class="p-2 p-md-5">
+                                <p class="text-black mb-3 pb-2 ">
+                                    Before continuing, please verify your question is not already answered by choosing the relevant category from the drop down list. Personal support for questions already answered in the list is available at a rate of $30 USD per incident.
+                                </p>
+                                <p class="text-black mb-3 pb-2 ">
+                                    To ensure you receive our reply, please include sufficient detail in your question, and please be sure to add getmeajob.com to your email program's whitelist.
+                                </p>
+
+                                <div class="form-group">
+                                    <label>Your Email</label>
+                                    <input asp-for="contactVM.Email" type="text" class="form-control" placeholder="Enter Email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Your message:</label>
+                                    <textarea asp-for="contactVM.Message" rows="6" type="text" class="form-control" placeholder="Enter message">
+
+                                        </textarea>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row align-items-center mb-1">
+
+                        <div class="col-lg-4 ml-auto">
+                            <div class="row ">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-6 ">
+                                    <button type="submit" class="btn btn-block btn-primary btn-md">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+
+            }
+
+            if (Model.QuestionNo > 0)
+            {
+                <div class="col-12 border-bottom"></div>
+            }
+
+        }
+
+
+        <form asp-action="Contact">
+
+            <div class="row mb-2">
+                <div class="col-lg-12">
+                    <div class="p-2 p-md-5">
+                        <p class="text-black mb-3 pb-2 ">
+                            What would you like to contact us about?
+                        </p>
+
+                        <div class="form-group">
+                            <select asp-for="QuestionNo" id="question" type="text" class="form-control">
+                                <option value="1">How can i use www.getmeajob.com</option>
+                                <option value="2">Why is my job or resume submission not appearing?</option>
+                                <option value="3">I would like a link to my site.</option>
+                                <option value="4">Is this service really free?</option>
+                                <option value="5">Post my job listing or resume.</option>
+                                <option value="6">Give me a listing of jobs or resumes matching this criteria.</option>
+                                <option value="7">Delete my job listing or resume.</option>
+                                <option value="8">I forgot my password!</option>
+                                <option value="9">I have a question about banner advertising.</option>
+                                <option value="11">I received a job offer by email.</option>
+                                <option value="12">I received a resume by email.</option>
+                                <option value="10">I have another question not in this list.</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row align-items-center mb-1">
+
+                <div class="col-lg-4 ml-auto">
+                    <div class="row ">
+                        <div class="col-6">
+                        </div>
+                        <div class="col-6 ">
+                            <button type="submit" class="btn btn-block btn-primary btn-md" id="question_ask">Ask</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <div class="p-2 p-md-5">
+
+                    <p class="text-black mb-3 pb-2 ">
+                        Thank you for your interest in www.getmeajob.com!
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+@section Scripts{
+    <script type="text/javascript">
+        $("#question_ask").click(function() {
+
+        }
+
+
+    </script>
+     }
+
+    @section script
+    {
+    <script src="~/fe/js/quill.min.js"></script>
+}

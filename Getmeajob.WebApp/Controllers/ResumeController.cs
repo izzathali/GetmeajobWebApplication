@@ -1,5 +1,6 @@
 ﻿using Getmeajob.Interface;
 using Getmeajob.Model;
+using Getmeajob.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -220,6 +221,18 @@ namespace Getmeajob.WebApp.Controllers
             }
             return RedirectToAction(nameof(Edit), r);
         }
+        public ActionResult Search()
+        {
+            return View();
+        }
+        // POST: JobController/SearchResult/
+        public async Task<ActionResult> SearchResult(JobSearchVM jobSearch)
+        {
+            var result = await _iResume.GetByJobTitleOrLocation(jobSearch);
+            return View(result);
+        }
+
+
         // GET: ResumeController/Delete/5
         public async Task<ActionResult> Delete(int rid)
         {
