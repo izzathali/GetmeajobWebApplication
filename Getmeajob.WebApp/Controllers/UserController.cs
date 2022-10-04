@@ -37,6 +37,15 @@ namespace Getmeajob.WebApp.Controllers
         {
             if (userM == null) return View();
 
+            if (userM.page == "submitjob" || userM.page == "modifyjob" || userM.page == "deletejob")
+            {
+                userM.Type = "Employers";
+            }
+            if (userM.page == "submitresume" || userM.page == "modifyresume" || userM.page == "deleteresume")
+            {
+                userM.Type = "Employees";
+            }
+
             UserM usr = await _iUser.GetByEmailAndPass(userM);
 
             if (userM.page == "submitjob")

@@ -1,1 +1,103 @@
-﻿
+﻿@using Getmeajob.Model
+
+@{
+    ViewData["Title"] = "Contact Page";
+}
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image pt-5" style="background-image: url('images/hero_1.jpg');" id="home-section">
+    <div class="container">
+        <div class="row pt-3 pb-0">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3">
+                <div class="custom-breadcrumbs">
+                    <a href="#">Home</a> <span class="mx-2 slash">»</span>
+                    <span class="text-white"><strong>Contact</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section pt-0">
+    <div class="container">
+
+        @if (ViewBag.success == true)
+        {
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="align-items-center">
+                        <div>
+                            <h2 class="font-weight-bold">Contacting @ViewBag.stype</h2>
+                        </div>
+                        <div>
+                            <p>You have successfully sent an email to the candidate.</p>
+                        </div>
+                        <div>
+                            <p>getmeajob.com wishes you the best of luck, but please note that, at this point, getmeajob.com has no control over when you will receive a reply, if at all.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        else
+        {
+
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-12 mb-2 mb-lg-0">
+                <div class="align-items-center">
+                    <div>
+                        <h2 class="font-weight-bold">Contact: Not authorized</h2>
+                    </div>
+                    <div>
+                        <p>You are not authorized to view this page.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <div class="p-2 p-md-5">
+                    <div>
+                        <h4 class="font-weight-bold">Your next step...</h4>
+                    </div>
+                    <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
+                        You aren't authorized to view this page. To make up for the inconvenience, you may choose one of these special offers!
+                    </p>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-lg-12">
+                <div class="p-2 p-md-5">
+                    <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
+                        Details
+                    </p>
+                    <p class="text-black mb-3 pb-2 ">
+                        This page may appear if you entered the security code incorrectly. In that case, please go back and retry.
+                    </p>
+                    <p class="text-black mb-3 pb-2 ">
+                        Otherwise, if you feel you have received this page in error, please <a asp-action="ContactUs" asp-action="Home">contact us</a> and let us know exactly what you were trying to do. Please be as specific as possible. If you were making a submission or trying to contact an individual, please include a brief summary of what you wrote.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+        }
+
+
+
+    </div>
+
+
+</section>

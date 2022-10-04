@@ -15,14 +15,16 @@ namespace Getmeajob.WebApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ICompany _iCompany;
         private readonly IJobSeeker _iJobSeeker;
-        public HomeController(ICompany iCompany, IJobSeeker iJobSeeker)
-        {
-            _iCompany = iCompany;
-            _iJobSeeker = iJobSeeker;
-        }
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IJob _iJob;
+        private readonly IUser _iUser;
+
+        public HomeController(ILogger<HomeController> logger, ICompany iCompany, IJobSeeker iJobSeeker, IUser iUser, IJob iJob)
         {
             _logger = logger;
+            _iCompany = iCompany;
+            _iJobSeeker = iJobSeeker;
+            _iUser = iUser;
+            _iJob = iJob;
         }
 
         public IActionResult Index()
@@ -49,6 +51,13 @@ namespace Getmeajob.WebApp.Controllers
             con.stype = stype;
             con.id = id;
 
+            Random rd = new Random();
+
+            con.No1 = rd.Next(1, 20);
+            con.No2 = rd.Next(1, 20);
+
+            con.result = con.No1 + con.No2;
+
             return View(con);
         }
         public async Task<IActionResult> SendMail(ContactVM contactVM)
@@ -57,27 +66,41 @@ namespace Getmeajob.WebApp.Controllers
             {
                 if (contactVM != null)
                 {
-                    if (contactVM.stype == "Company")
+                    if (contactVM.Answer == contactVM.result)
                     {
-                        var company = await _iCompany.GetById(Convert.ToInt32(contactVM.id));
-                        //SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm", "izzath.info@gmail.com", company?.Email, "getmeajob.com - Contact Us", "I still have a question", questionVM?.contactVM?.Message);
+                        var job = await _iJob.GetById(Convert.ToInt32(contactVM.id));
+
+                        if (job != null)
+                        {
+                            if (contactVM.stype == "Company")
+                            {
+                                ViewBag.stype = "Company";
+                                SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm",job.user?.Email,contactVM.Email, "getmeajob.com - Contact", "This is regarding "+job.JobTitle + " Job", contactVM?.Message);
+                                ViewBag.success = true;
+                            }
+                            if (contactVM.stype == "Candidate")
+                            {
+                                ViewBag.stype = "Candidate";
+                                SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm",job.user?.Email,contactVM.Email, "getmeajob.com - Contact", "This is regarding "+job.JobTitle + " Resume", contactVM?.Message);
+                                ViewBag.success = true;
+                            }
+
+                        }
+
+                        return View();
 
                     }
-                    if (contactVM.stype == "Candidate")
-                    {
-                        var company = await _iJobSeeker.GetById(Convert.ToInt32(contactVM.id));
-                    }
-
-
+                    ViewBag.success = false;
                     return View();
+
                 }
             }
             catch (Exception ex)
             {
 
             }
-            
-            return View();
+
+            return RedirectToAction(nameof(Contact), contactVM);
         }
         public IActionResult ContactUs(QuestionVM? question)
         {

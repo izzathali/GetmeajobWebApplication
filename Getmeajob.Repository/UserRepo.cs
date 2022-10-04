@@ -46,7 +46,7 @@ namespace Getmeajob.Repository
         public async Task<UserM> GetByEmailAndPass(UserM u)
         {
             return await _dbContext.Users
-                .Where(i => i.IsDeleted == false && i.Email == u.Email && i.Password == u.Password)
+                .Where(i => i.IsDeleted == false && i.Email == u.Email && i.Password == u.Password && i.Type == u.Type)
                 .FirstOrDefaultAsync();
         }
 

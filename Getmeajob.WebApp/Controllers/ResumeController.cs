@@ -228,7 +228,7 @@ namespace Getmeajob.WebApp.Controllers
         // POST: JobController/SearchResult/
         public async Task<ActionResult> SearchResult(JobSearchVM jobSearch)
         {
-            var result = await _iResume.GetByJobTitleOrLocation(jobSearch);
+            IEnumerable<ResumeM> result = await _iResume.GetByJobTitleOrLocation(jobSearch);
             return View(result);
         }
 

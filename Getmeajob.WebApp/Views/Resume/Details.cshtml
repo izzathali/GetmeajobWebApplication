@@ -110,7 +110,7 @@
                             <input type="hidden" asp-for="@Model.Currency"  />
 
                             <a href="mailto:?subject=@Model.JobTitle&body=https://localhost:7035/Resume/Details/@Model.ResumeId">Email Resume to Yourself or Refer This Resume »</a>  <br />
-                            <a  asp-action="Contact" asp-controller="Home" asp-route-stype="Candidate" asp-route-id="@Model.JobSeekerId" >Contact Candidate »</a>
+                            <a  asp-action="Contact" asp-controller="Home" asp-route-stype="Candidate" asp-route-id="@Model.ResumeId" >Contact Candidate »</a>
                         </div>
                     </div>
                 </div>

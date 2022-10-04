@@ -53,17 +53,35 @@
                 <div class="col-lg-12">
                     <div class="p-2 p-md-5">
                         <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
-                            We were unable to find any jobs which matched your email address and password. Please
+                            <p>
+                            @if (@Model.page == "modifyjob" || @Model.page == "deletejob")
+                            {
+                                <span>We were unable to find any jobs which matched your email address and password. Please </span>
+                            
+                            }
+
+                            @if (@Model.page == "modifyresume" || @Model.page == "deleteresume")
+                            {
+                                <span>We were unable to find any resumes which matched your email address and password. Please </span>
+                            }
 
                             @if (@Model.page == "modifyjob")
                             {
-                                <a asp-action="Login" asp-route-stype="modifyjob" >try again</a>
+                            <a asp-action="Login" asp-route-stype="modifyjob">try again</a>
                             }
                             @if (@Model.page == "deletejob")
                             {
-                                <a asp-action="Login" asp-route-stype="deletejob" >try again</a>
+                            <a asp-action="Login" asp-route-stype="deletejob">try again</a>
                             }
-
+                            @if (@Model.page == "modifyresume")
+                            {
+                            <a asp-action="Login" asp-route-stype="modifyresume">try again</a>
+                            }
+                            @if (@Model.page == "deleteresume")
+                            {
+                            <a asp-action="Login" asp-route-stype="deleteresume">try again</a>
+                            }
+                            </p>
                         </p>
 
                     </div>
