@@ -10,5 +10,6 @@ namespace Getmeajob.ViewModel
     {
         public int? QuestionNo { get; set; }
         public ContactVM? contactVM { get; set; }
+        public ForgotPassVM? forgotPassVM { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Getmeajob.Interface;
+using Getmeajob.Model;
 using Getmeajob.ViewModel;
 using Getmeajob.WebApp.Models;
 using MailKit.Net.Smtp;
@@ -40,6 +41,10 @@ namespace Getmeajob.WebApp.Controllers
         {
             return View();
         }
+        public IActionResult Advertise()
+        {
+            return View();
+        }
         public IActionResult Tips(string type)
         {
             ViewBag.Type = type;
@@ -75,13 +80,19 @@ namespace Getmeajob.WebApp.Controllers
                             if (contactVM.stype == "Company")
                             {
                                 ViewBag.stype = "Company";
-                                SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm",job.user?.Email,contactVM.Email, "getmeajob.com - Contact", "This is regarding "+job.JobTitle + " Job", contactVM?.Message);
+
+                                string body = "<h2>This is regarding " + job.JobTitle + " Job </h2> <br/> <br/>  <b> Question from </b> : <p> " + contactVM.Email + "</p> <br/> <br/> <p> " + contactVM?.Message + " </p> ";
+
+                                SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm",job.user?.Email, "getmeajob.com - Contact", body );
                                 ViewBag.success = true;
                             }
                             if (contactVM.stype == "Candidate")
                             {
                                 ViewBag.stype = "Candidate";
-                                SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm",job.user?.Email,contactVM.Email, "getmeajob.com - Contact", "This is regarding "+job.JobTitle + " Resume", contactVM?.Message);
+
+                                string body = "<h2>This is regarding " + job.JobTitle + " Resume </h2> <br/> <br/>  <b> Question from </b> : <p> " + contactVM.Email + "</p> <br/> <br/> <p> " + contactVM?.Message + " </p> ";
+
+                                SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm",job.user?.Email, "getmeajob.com - Contact", body);
                                 ViewBag.success = true;
                             }
 
@@ -113,14 +124,45 @@ namespace Getmeajob.WebApp.Controllers
             {
                 if (questionVM.contactVM != null)
                 {
-                    SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm", "izzath.info@gmail.com", questionVM?.contactVM?.Email, "getmeajob.com - Contact Us", "I still have a question", questionVM?.contactVM?.Message);
+                    string body = "<h2>I still have a question</h2> <br/> <br/>  <b> Question from </b> : <p> " + questionVM?.contactVM?.Email + "</p> <br/> <br/> <p> " + questionVM?.contactVM?.Message + " </p> ";
+                   
+                    SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm", "izzath.info@gmail.com","getmeajob.com - Contact Us",body);
+                    ViewBag.success = true;
+
                     return View();
                 }
             }
             return View(nameof(ContactUs));
         }
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(QuestionVM questionVM)
+        {
+            if (questionVM != null)
+            {
+                if (questionVM.forgotPassVM != null)
+                {
+                    UserM u = new UserM();
+                    u.Email = questionVM.forgotPassVM.Email;
+                    u.Type = questionVM.forgotPassVM.PostingType;
 
-        public void SendEmail(string fromEmail, string fromPassword, string ToEmail, string SenderEmail, string subject, string bodyHeading, string body)
+                    var user = await _iUser.GetByEmail(u);
+
+                    if (user != null)
+                    {
+                        
+                        string Body = @"<p>Your password for "+ user.Email +" is "+ user.Password + "</p> </br></br> " +
+                            "Security check: </br></br> " +
+                            "<p> You have received this email because you requested that your password be emailed to you AND when you submitted your job or resume, you had allowed your password to be mailed to you in the event that you forget it.  If this is not what you wanted, then please disregard this email or change your options by editing your posting.  Receiving this message does not put you on a mailing list.</p>";
+
+                        SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm", questionVM?.forgotPassVM?.Email,"getmeajob.com - Your password request ", Body);
+                        ViewBag.success = true;
+                    }
+                }
+            }
+            
+            return View();
+        }
+        public void SendEmail(string fromEmail, string fromPassword, string ToEmail,string subject, string body)
         {
             try
             {
@@ -129,7 +171,8 @@ namespace Getmeajob.WebApp.Controllers
                 email.From.Add(MailboxAddress.Parse(fromEmail));
                 email.To.Add(MailboxAddress.Parse(ToEmail));
                 email.Subject = subject;
-                email.Body = new TextPart(TextFormat.Html) { Text = "<h2>" + bodyHeading + " </h2> <br/> <br/>  <b> Question from </b> : <p> " + SenderEmail + "</p> <br/> <br/> <p> " + body + " </p> " };
+                //email.Body = new TextPart(TextFormat.Html) { Text = "<h2>" + bodyHeading + " </h2> <br/> <br/>  <b> Question from </b> : <p> " + SenderEmail + "</p> <br/> <br/> <p> " + body + " </p> " };
+                email.Body = new TextPart(TextFormat.Html) { Text = body };
 
                 // send email
                 using var smtp = new SmtpClient();
