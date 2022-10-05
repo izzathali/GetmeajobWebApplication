@@ -21,6 +21,7 @@
     <ProjectReference Include="..\Getmeajob.Data\Getmeajob.Data.csproj" />
     <ProjectReference Include="..\Getmeajob.Interfaces\Getmeajob.Interface.csproj" />
     <ProjectReference Include="..\Getmeajob.Repository\Getmeajob.Repository.csproj" />
+    <ProjectReference Include="..\Getmeajob.Service\Getmeajob.Service.csproj" />
     <ProjectReference Include="..\Getmeajob.ViewModel\Getmeajob.ViewModel.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 using Getmeajob.Data;
 using Getmeajob.Interface;
 using Getmeajob.Repository;
+using Getmeajob.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddScoped<IJob, JobRepo>();
 builder.Services.AddScoped<IUser, UserRepo>();
 builder.Services.AddScoped<IResume, ResumeRepo>();
 builder.Services.AddScoped<IJobSeeker, JobSeekerRepo>();
+
+builder.Services.AddScoped<IEmail, EmailSer>();
 
 
 

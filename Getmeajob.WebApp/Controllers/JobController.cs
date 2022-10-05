@@ -11,11 +11,14 @@ namespace Getmeajob.WebApp.Controllers
         private readonly IJob _iJob;
         private readonly IUser _iUser;
         private readonly ICompany _iCompany;
-        public JobController(IJob iJob, IUser iUser, ICompany iCompany)
+        private readonly IEmail _iEmail;
+
+        public JobController(IJob iJob, IUser iUser, ICompany iCompany,IEmail iEmail)
         {
             _iJob = iJob;
             _iUser = iUser;
             _iCompany = iCompany;
+            _iEmail = iEmail;
         }
         // GET: JobController
         public async Task<ActionResult> Index(int uid, string page)
@@ -98,10 +101,30 @@ namespace Getmeajob.WebApp.Controllers
                     {
                         j.user.Type = "Employers";
                     }
-                    int changes = await _iJob.Create(j);
+                    int jobid = await _iJob.Create(j);
 
-                    if (changes > 0)
+                    if (jobid > 0)
                     {
+                        var job = await _iJob.GetById(jobid);
+
+                        //string host = HttpContext.Request.Host.Value;
+                        string host = Request.Scheme + "://" + Request.Host.Value;
+                        string Url = host + "/Job/Verified?jid="+jobid;
+
+                        string Body = "<p> To continue your submission process, please go to the following URL:</p> <br/>" +
+                            " <p> " + Url + " </p> <br/>" +
+                            "<p> Find out about FREE magazine subscriptions at http://www.getmeajob.com/magazinesBrowse through our extensive list of Business, Computer, Engineering and Trade magazines and kick off 2009! </p> <br/>" +
+                            "<p> New!  Get more exposure for your listing on getmeajob.com with our new Front Page Listings feature.  Visit https://www.getmeajob.com/order/default.aspx?sitem=FPJOB&recordid=-15306861 to sign up today!  Full details of Front Page Listings are available at http://www.getmeajob.com/advertise/ </p> <br/> " +
+                            "<p> Please do not reply to this email.  Replies to this mailbox may be ignored.  If you need to contact us, please visit http://www.getmeajob.com and click Contact Us. </p> <br/> " +
+                            "<p> You have received this email because you have submitted a job or a resume on our web site, http://www.getmeajob.com/.  Submitting a job or a resume does not place you on a mailing list. If this is not what you have intended to do, do not reply to this email and do not visit the URL above. </p> <br/> " +
+                            "<p> Security check:  </ p> <br/> " +
+                            " <p> IP of submitter: [0000] </p> <br/>";
+
+                        _iEmail.SendEmail(new EmailVM { 
+                            EmailTo = job.user.Email,
+                            Subject= "ACTION REQUIRED: Please confirm getmeajob.com posting",
+                            Body= Body
+                        });
                         return View(j);
 
                     }
@@ -115,6 +138,25 @@ namespace Getmeajob.WebApp.Controllers
             {
             }
             return RedirectToAction(nameof(Create), j);
+        }
+        public async Task<ActionResult> Verified(int jid)
+        {
+            var job = await _iJob.GetById(jid);
+
+            if (job != null)
+            {
+                job.IsEmailVerified = true;
+                int changes = await _iJob.Update(job);
+
+                if (changes > 0)
+                {
+                    ViewBag.success = true;
+                }
+            }
+
+
+
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

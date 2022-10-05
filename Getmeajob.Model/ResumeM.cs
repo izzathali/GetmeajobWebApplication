@@ -21,7 +21,8 @@ namespace Getmeajob.Model
         public virtual JobSeekerM? jobseeker { get; set; }
         public int UserId { get; set; }
         public virtual UserM? user { get; set; }
-
+        public bool IsEmailVerified { get; set; }
+        public bool IsApproved { get; set; }
 
         [NotMapped]
         public bool IsTermsAccepted { get; set; }
