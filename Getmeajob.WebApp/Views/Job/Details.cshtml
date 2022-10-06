@@ -11,7 +11,7 @@
         <div class="row pt-3 pb-0">
             <div class="col-md-9">
             </div>
-            <div class="col-md-3">             
+            <div class="col-md-3">
                 <div class="custom-breadcrumbs">
                     <a href="#">Home</a> <span class="mx-2 slash">»</span>
                     <a href="#">Job</a> <span class="mx-2 slash">»</span>
@@ -25,98 +25,120 @@
 <section class="site-section pt-0">
     <div class="container">
 
-            <div class="row align-items-center mb-5">
-                <div class="col-lg-12 mb-2 mb-lg-0">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <h2 class="font-weight-bold mb-2" >Job Details</h2>
-                            <h4 class="font-weight-bold" >@Model.company?.CompanyName, @Model.JobTitle </h4>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <table class="table table-bordered">
-                <tbody>
-                    <tr>
-                        <td class="text-right font-italic">
-                            Name:
-                        </td>
-                        <td>
-                            @Model.company?.CompanyName
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-right font-italic">
-                            Company's address:
-                        </td>
-                        <td>
-                            @Model.company?.StreetAddress , <br />
-                            @Model.company?.City , @Model.company?.State <br />
-                            , @Model.company?.Zip , @Model.company?.Country
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-right font-italic">
-                            Email:
-                        </td>
-                        <td>
-                            @Model.user?.Email
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-right font-italic">
-                            Job title:
-                        </td>
-                        <td>
-                            @Model.JobTitle
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-right font-italic">
-                            Job description:
-                        </td>
-                        <td>
-                            @Model.JobDescription
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-
-            <div class="row align-items-center mb-5">
-
-                <div class="col-lg-4 ml-auto">
-                    <div class="row ">
-                        
-                        <div class="col-12 ">
-                            <input type="hidden" asp-for="@Model.user.FullName"  />
-                            <input type="hidden" asp-for="@Model.user.Email"  />
-                            <input type="hidden" asp-for="@Model.user.Password"  />
-                            <input type="hidden" asp-for="@Model.company.CompanyName"  />
-                            <input type="hidden" asp-for="@Model.company.StreetAddress"  />
-                            <input type="hidden" asp-for="@Model.company.City"  />
-                            <input type="hidden" asp-for="@Model.company.State"  />
-                            <input type="hidden" asp-for="@Model.company.Zip"  />
-                            <input type="hidden" asp-for="@Model.company.Country"  />
-                            <input type="hidden" asp-for="@Model.company.Telephone"  />
-                            <input type="hidden" asp-for="@Model.company.Fax"  />
-
-                            <input type="hidden" asp-for="@Model.JobTitle"  />
-                            <input type="hidden" asp-for="@Model.JobDescription"  />
-                            <input type="hidden" asp-for="@Model.LowerBound"  />
-                            <input type="hidden" asp-for="@Model.UpperBound"  />
-                            <input type="hidden" asp-for="@Model.Currency"  />
-
-
-                            <a href="mailto:?subject=@Model.JobTitle&body=https://localhost:7035/Job/Details/@Model.JobId">Email Job to Yourself or Refer This Job »</a>  <br />
-                            <a asp-action="Contact" asp-controller="Home" asp-route-stype="Company" asp-route-id="@Model.JobId" >Contact Company »</a>
-                        </div>
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-12 mb-2 mb-lg-0">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h2 class="font-weight-bold mb-2">Job Details</h2>
+                        <h4 class="font-weight-bold">
+                            @if (@Model != null && @Model.company != null)
+                            {
+                                @Model.company?.CompanyName <span>,</span>
+                            }
+                            @Model.JobTitle 
+                        </h4>
                     </div>
                 </div>
             </div>
+
+        </div>
+
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td class="text-right font-italic">
+                        Name:
+                    </td>
+                    <td>
+                        @Model.company?.CompanyName
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right font-italic">
+                        Company's address:
+                    </td>
+                    <td>
+                        @Model.company?.StreetAddress , <br />
+                        @Model.company?.City , @Model.company?.State <br />
+                        , @Model.company?.Zip , @Model.company?.Country
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right font-italic">
+                        Email:
+                    </td>
+                    <td>
+                        @Model.user?.Email
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right font-italic">
+                        Job title:
+                    </td>
+                    <td>
+                        @Model.JobTitle
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right font-italic">
+                        Job description:
+                    </td>
+                    <td>
+                        @Model.JobDescription
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right">
+                        Salary range:
+                    </td>
+                    <td>
+                        @Model.LowerBound - @Model.UpperBound  
+                        @if (@Model.Currency == "Other")
+                        {
+                            @Model.OtherCurrency
+                        }
+                        else
+                        {
+                            @Model.Currency
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <div class="row align-items-center mb-5">
+
+            <div class="col-lg-4 ml-auto">
+                <div class="row ">
+
+                    <div class="col-12 ">
+                        <input type="hidden" asp-for="@Model.user.FullName" />
+                        <input type="hidden" asp-for="@Model.user.Email" />
+                        <input type="hidden" asp-for="@Model.user.Password" />
+                        <input type="hidden" asp-for="@Model.company.CompanyName" />
+                        <input type="hidden" asp-for="@Model.company.StreetAddress" />
+                        <input type="hidden" asp-for="@Model.company.City" />
+                        <input type="hidden" asp-for="@Model.company.State" />
+                        <input type="hidden" asp-for="@Model.company.Zip" />
+                        <input type="hidden" asp-for="@Model.company.Country" />
+                        <input type="hidden" asp-for="@Model.company.Telephone" />
+                        <input type="hidden" asp-for="@Model.company.Fax" />
+
+                        <input type="hidden" asp-for="@Model.JobTitle" />
+                        <input type="hidden" asp-for="@Model.JobDescription" />
+                        <input type="hidden" asp-for="@Model.LowerBound" />
+                        <input type="hidden" asp-for="@Model.UpperBound" />
+                        <input type="hidden" asp-for="@Model.Currency" />
+
+
+                        <a href="mailto:?subject=@Model.JobTitle&body=https://localhost:7035/Job/Details/@Model.JobId">Email Job to Yourself or Refer This Job »</a>  <br />
+                        <a asp-action="Contact" asp-controller="Home" asp-route-stype="Company" asp-route-id="@Model.JobId">Contact Company »</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </div>

@@ -28,7 +28,7 @@
     </section>
 
 
-@if (ViewBag.page == "Verify")
+    @if (ViewBag.page == "Verify")
 {
     <section class="site-section pt-0">
         <div class="container">
@@ -125,7 +125,7 @@
                                 Salary range:
                             </td>
                             <td>
-                                @Model.LowerBound - @Model.UpperBound @Model.Currency
+                                @Model.LowerBound - @Model.UpperBound @if(@Model.Currency == "Other"){ @Model.OtherCurrency } else{ @Model.Currency } 
                             </td>
                         </tr>
                     </tbody>
@@ -184,6 +184,7 @@
                                 <input type="hidden" asp-for="@Model.LowerBound" />
                                 <input type="hidden" asp-for="@Model.UpperBound" />
                                 <input type="hidden" asp-for="@Model.Currency" />
+                                <input type="hidden" asp-for="@Model.OtherCurrency" />
                                 <button type="submit" class="btn btn-block btn-primary btn-md">Finish</button>
                             </div>
                         </div>
@@ -364,7 +365,7 @@ else
                                 <div class="form-group mb-3">
                                     <label>Job description</label>
                                     <textarea type="text" asp-for="JobDescription" class="form-control" rows="20" placeholder="Please replace the text in this box with your job description.Do not enter your name, email, phone or fax number, address, or URLs in this box. If you do so, your submission may be rejected.">
-                                                                                </textarea>
+                                                                                    </textarea>
 
                                 </div>
 
@@ -382,9 +383,12 @@ else
                                 </div>
                                 <div class="form-group">
                                     <label>Currency:</label>
-                                    <input asp-for="Currency" type="text" class="form-control" placeholder="Enter Currency:">
-                                </div>
+                                    <input class="input-form" type="radio" asp-for="Currency" value="USD" /> USD
+                                    <input class="input-form" type="radio" asp-for="Currency" value="CDN" /> CDN
+                                    <input class="input-form" type="radio" asp-for="Currency" value="Other" /> Other
 
+                                    <input asp-for="OtherCurrency" type="text" class="form-control" placeholder="Enter Other Currency:">
+                                </div>
 
 
                             </div>

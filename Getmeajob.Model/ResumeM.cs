@@ -17,6 +17,7 @@ namespace Getmeajob.Model
         public decimal? LowerBound { get; set; }
         public decimal? UpperBound { get; set; }
         public string? Currency { get; set; }
+        public string? OtherCurrency { get; set; }
         public int JobSeekerId { get; set; }
         public virtual JobSeekerM? jobseeker { get; set; }
         public int UserId { get; set; }
