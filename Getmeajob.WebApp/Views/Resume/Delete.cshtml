@@ -114,54 +114,46 @@
                                 Salary range:
                             </td>
                             <td>
-                                @Model.LowerBound - @Model.UpperBound @Model.Currency
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                @Model.LowerBound - @Model.UpperBound @if (@Model.Currency == "Other")
+                            {
+                                @Model.OtherCurrency
+                            }
+                            else
+                            {
+                                @Model.Currency
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
 
+            <div class="row align-items-center mb-5">
 
-
-
-                <div class="row mb-5">
-                    <div class="col-lg-12">
-                        <div class="p-2 p-md-5">
-                            <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
-                                <input asp-for="IsTermsAccepted" required type="checkbox" /> Check this box if you have read, understood, and agree to comply with the <a href="#"> terms and conditions </a> of this site.
-                            </p>
-
+                <div class="col-lg-4 ml-auto">
+                    <div class="row ">
+                        <div class="col-6">
                         </div>
-                    </div>
+                        <div class="col-6 ">
+                            <input type="hidden" asp-for="@Model.ResumeId" />
 
-                </div>
-
-                <div class="row align-items-center mb-5">
-
-                    <div class="col-lg-4 ml-auto">
-                        <div class="row ">
-                            <div class="col-6">
-                            </div>
-                            <div class="col-6 ">
-                                <input type="hidden" asp-for="@Model.ResumeId" />
-                               
-                                <button type="submit" class="btn btn-block btn-primary btn-md">Finish</button>
-                            </div>
+                            <button type="submit" class="btn btn-block btn-primary btn-md">Finish</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
-            </form>
+        </form>
 
-        </div>
-
-
-    </section>
+    </div>
 
 
+</section>
 
 
-    @section script{
+
+
+@section script{
 
     <script src="~/fe/js/quill.min.js"></script>
     <script src="//code.jquery.com/jquery.min.js"></script>

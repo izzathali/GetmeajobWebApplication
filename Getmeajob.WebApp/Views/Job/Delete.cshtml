@@ -32,140 +32,132 @@
     <section class="site-section pt-0">
         <div class="container">
 
-                <div class="row align-items-center mb-5">
-                    <div class="col-lg-12 mb-2 mb-lg-0">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <h2 class="font-weight-bold">Delete Your Job: Verify Details</h2>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
-                    Please make sure that everything you have submitted is correct, including your email address. If you do not reply to your confirmation email, your job will not be posted.
-                </p>
-
-                <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <td class="text-right">
-                                Your name:
-                            </td>
-                            <td>
-                                @Model.user?.FullName
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                Email:
-                            </td>
-                            <td>
-                                @Model.user?.Email
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                Your password::
-                            </td>
-                            <td>
-                                @Model.user?.Password
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                Company's name:
-                            </td>
-                            <td>
-                                @Model.company?.CompanyName
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                Company's address:
-                            </td>
-                            <td>
-                                @Model.company?.StreetAddress , <br />
-                                @Model.company?.City , @Model.company?.State <br />
-                                , @Model.company?.Zip , @Model.company?.Country
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                Telephone:
-                            </td>
-                            <td>
-                                @Model.company?.Telephone
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                Job title:
-                            </td>
-                            <td>
-                                @Model.JobTitle
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                Job description:
-                            </td>
-                            <td>
-                                @Model.JobDescription
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                Salary range:
-                            </td>
-                            <td>
-                                @Model.LowerBound - @Model.UpperBound @Model.Currency
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-
-
-
-              @*  <div class="row mb-5">
-                    <div class="col-lg-12">
-                        <div class="p-2 p-md-5">
-                            <p class="text-black mb-3 border-bottom pb-2 font-weight-bold">
-                                <input  required type="checkbox" /> Check this box if you have read, understood, and agree to comply with the <a href="#"> terms and conditions </a> of this site.
-                            </p>
-
-                        </div>
-                    </div>
-
-                </div>*@
-
-                <div class="row align-items-center mb-5">
-
-                    <div class="col-lg-4 ml-auto">
-                        <div class="row ">
-                            <div class="col-6">
-                            </div>
-                            <div class="col-6 ">
-                                <a asp-action="DeleteConfirm" asp-route-jid="@Model.JobId" class="btn btn-block btn-primary btn-md">Confirm Delete</a>
-                            </div>
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-12 mb-2 mb-lg-0">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h2 class="font-weight-bold">Delete Your Job: Verify Details</h2>
                         </div>
                     </div>
                 </div>
 
+            </div>
+
+            <p class="text-black mb-5 border-bottom pb-2 font-weight-bold">
+                Please make sure that everything you have submitted is correct, including your email address. If you do not reply to your confirmation email, your job will not be posted.
+            </p>
+
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="text-right">
+                            Your name:
+                        </td>
+                        <td>
+                            @Model.user?.FullName
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Email:
+                        </td>
+                        <td>
+                            @Model.user?.Email
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Your password::
+                        </td>
+                        <td>
+                            @Model.user?.Password
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Company's name:
+                        </td>
+                        <td>
+                            @Model.company?.CompanyName
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Company's address:
+                        </td>
+                        <td>
+                            @Model.company?.StreetAddress , <br />
+                            @Model.company?.City , @Model.company?.State <br />
+                            , @Model.company?.Zip , @Model.company?.Country
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Telephone:
+                        </td>
+                        <td>
+                            @Model.company?.Telephone
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Job title:
+                        </td>
+                        <td>
+                            @Model.JobTitle
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Job description:
+                        </td>
+                        <td>
+                            @Model.JobDescription
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            Salary range:
+                        </td>
+                        <td>
+                            @Model.LowerBound - @Model.UpperBound  @if (@Model.Currency == "Other")
+                        {
+                            @Model.OtherCurrency
+                        }
+                        else
+                        {
+                            @Model.Currency
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="row align-items-center mb-5">
+
+            <div class="col-lg-4 ml-auto">
+                <div class="row ">
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6 ">
+                        <a asp-action="DeleteConfirm" asp-route-jid="@Model.JobId" class="btn btn-block btn-primary btn-md">Confirm Delete</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-
-    </section>
-
+    </div>
 
 
+</section>
 
 
 
-    @section script{
+
+
+
+@section script{
 
     <script src="~/fe/js/quill.min.js"></script>
 
@@ -178,7 +170,7 @@
     @section Scripts{
 
     <script type="text/javascript">
-       
+
 
     </script>
 
