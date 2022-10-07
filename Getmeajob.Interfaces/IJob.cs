@@ -12,6 +12,7 @@ namespace Getmeajob.Interface
     {
         public Task<IEnumerable<JobM>> GetByJobTitleOrLocation(JobSearchVM search);
         public Task<JobM> GetByUserId(int id);
+        public Task<JobM> GetByJobCode(Guid code);
         public Task<IEnumerable<JobM>> GetAllByUserId(int id);
     }
 }

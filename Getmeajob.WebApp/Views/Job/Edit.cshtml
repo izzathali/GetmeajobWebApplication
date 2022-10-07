@@ -185,6 +185,7 @@
                                 <input type="hidden" asp-for="@Model.UpperBound" />
                                 <input type="hidden" asp-for="@Model.Currency" />
                                 <input type="hidden" asp-for="@Model.OtherCurrency" />
+                                <input type="hidden" asp-for="@Model.JobCode" />
                                 <button type="submit" class="btn btn-block btn-primary btn-md">Finish</button>
                             </div>
                         </div>
@@ -466,6 +467,7 @@ else
                                     <input asp-for="UserId" type="hidden">
                                     <input asp-for="user.Type" type="hidden">
                                     <input asp-for="CompanyId" type="hidden">
+                                    <input asp-for="JobCode" type="hidden">
 
                                     <button type="button" id="btnContinueFour" class="btn btn-block btn-primary btn-md">Continue</button>
                                     <button type="submit" style="display:none" id="btnSubmit" class="btn btn-block btn-primary btn-md">Continue</button>

@@ -24,6 +24,7 @@ namespace Getmeajob.Model
         public virtual UserM? user { get; set; }
         public bool IsEmailVerified { get; set; }
         public bool IsApproved { get; set; }
+        public Guid ResumeCode { get; set; }
 
         [NotMapped]
         public bool IsTermsAccepted { get; set; }

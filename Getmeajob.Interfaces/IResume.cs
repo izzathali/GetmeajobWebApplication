@@ -11,6 +11,7 @@ namespace Getmeajob.Interface
     public interface IResume : ICrud<ResumeM>
     {
         public Task<ResumeM> GetByUserId(int id);
+        public Task<ResumeM> GetByJobCode(Guid code);
         public Task<IEnumerable<ResumeM>> GetAllByUserId(int id);
         public Task<IEnumerable<ResumeM>> GetByJobTitleOrLocation(JobSearchVM search);
     }

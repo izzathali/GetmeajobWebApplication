@@ -66,6 +66,16 @@ namespace Getmeajob.Repository
                .FirstOrDefaultAsync();
         }
 
+        public async Task<JobM> GetByJobCode(Guid code)
+        {
+            return await _dbContext
+               .Jobs
+               .Where(u => u.IsDeleted == false && u.JobCode == code)
+               .Include(i => i.user)
+               .Include(i => i.company)
+               .FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<JobM>> GetByJobTitleOrLocation(JobSearchVM search)
         {
             return await _dbContext
