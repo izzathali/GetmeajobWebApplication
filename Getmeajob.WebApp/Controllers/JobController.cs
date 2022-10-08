@@ -100,6 +100,7 @@ namespace Getmeajob.WebApp.Controllers
                     else
                     {
                         j.user.Type = "Employers";
+                        j.user.UrlCode = Guid.NewGuid();
                     }
                    
                     j.JobCode = Guid.NewGuid(); 

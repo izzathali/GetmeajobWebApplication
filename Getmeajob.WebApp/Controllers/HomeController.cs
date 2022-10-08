@@ -18,14 +18,18 @@ namespace Getmeajob.WebApp.Controllers
         private readonly IJobSeeker _iJobSeeker;
         private readonly IJob _iJob;
         private readonly IUser _iUser;
+        private readonly IEmail _iEmail;
+        private readonly IResume _iResume;
 
-        public HomeController(ILogger<HomeController> logger, ICompany iCompany, IJobSeeker iJobSeeker, IUser iUser, IJob iJob)
+        public HomeController(ILogger<HomeController> logger, ICompany iCompany, IJobSeeker iJobSeeker, IUser iUser, IJob iJob, IEmail iEmail, IResume iResume)
         {
             _logger = logger;
             _iCompany = iCompany;
             _iJobSeeker = iJobSeeker;
             _iUser = iUser;
             _iJob = iJob;
+            _iEmail = iEmail;
+            _iResume = iResume;
         }
 
         public IActionResult Index()
@@ -73,29 +77,78 @@ namespace Getmeajob.WebApp.Controllers
                 {
                     if (contactVM.Answer == contactVM.result)
                     {
-                        var job = await _iJob.GetById(Convert.ToInt32(contactVM.id));
 
-                        if (job != null)
+                        if (contactVM.stype == "Company")
                         {
-                            if (contactVM.stype == "Company")
+                            var job = await _iJob.GetById(Convert.ToInt32(contactVM.id));
+
+                            if (job != null)
                             {
+
                                 ViewBag.stype = "Company";
 
-                                string body = "<h2>This is regarding " + job.JobTitle + " Job </h2> <br/> <br/>  <b> Question from </b> : <p> " + contactVM.Email + "</p> <br/> <br/> <p> " + contactVM?.Message + " </p> ";
+                                string host = Request.Scheme + "://" + Request.Host.Value;
+                                string Url = host + "/User/DeleteAll?code=" + job.user.UrlCode;
 
-                                SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm",job.user?.Email, "getmeajob.com - Contact", body );
+                                string body = "<p>Do not forward or reply to this email.  It contains personal information that can be used to delete all your postings on getmeajob.com. </p> </br> " +
+                                    "<p>You have received this email because of a response to a posting that you submitted on getmeajob.com.  To stop receiving all emails of this type, please visit www.getmeajob.com and delete your posting(s). </p> </br> " +
+                                    "<p>To immediately delete all your postings, you may also visit </br> "+Url+" </p>" +
+                                    "<p> " + contactVM.Email + " (" + contactVM.Name + ") writes: </p> </br>" +
+                                    "<p>-----START OF MESSAGE-----</ p> </br>" +
+                                    "<p> " + contactVM?.Message + " </p> </br>" +
+                                    "<p>-----END OF MESSAGE----- </ p> </br>" +
+                                    "<p>If desired, please contact " + contactVM.Email + " directly.</ p> </br>" +
+                                    "<p>getmeajob.com is not responsible for the contents of the messages sent through the system and cannot provide further details or clarifications.  You are requested to use your own judgment and common sense. </ p> </br>" +
+                                    "<p>Please do not reply to this email.  Replies to this mailbox may be ignored.  If you need to contact getmeajob.com, please visit http://www.getmeajob.com and click Contact Us. </ p> </br>";
+
+                                _iEmail.SendEmail(new EmailVM
+                                {
+                                    EmailTo = job.user.Email,
+                                    Subject = "getmeajob.com - Contact",
+                                    Body = body
+                                });
+
                                 ViewBag.success = true;
                             }
-                            if (contactVM.stype == "Candidate")
+
+                        }
+
+
+
+                        if (contactVM.stype == "Candidate")
+                        {
+                            var res = await _iResume.GetById(Convert.ToInt32(contactVM.id));
+
+                            if (res != null)
                             {
+
                                 ViewBag.stype = "Candidate";
 
-                                string body = "<h2>This is regarding " + job.JobTitle + " Resume </h2> <br/> <br/>  <b> Question from </b> : <p> " + contactVM.Email + "</p> <br/> <br/> <p> " + contactVM?.Message + " </p> ";
+                                string host = Request.Scheme + "://" + Request.Host.Value;
+                                string Url = host + "/User/DeleteAll?code=" + res.user.UrlCode;
 
-                                SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm",job.user?.Email, "getmeajob.com - Contact", body);
+                                string body = "<p>Do not forward or reply to this email.  It contains personal information that can be used to delete all your postings on getmeajob.com. </p> </br> " +
+                                    "<p>You have received this email because of a response to a posting that you submitted on getmeajob.com.  To stop receiving all emails of this type, please visit www.getmeajob.com and delete your posting(s). </p> </br> " +
+                                    "<p>To immediately delete all your postings, you may also visit </br> " + Url + " </p>" +
+                                    "<p> " + contactVM.Email + " (" + contactVM.Name + ") writes: </p> </br>" +
+                                    "<p>-----START OF MESSAGE-----</ p> </br>" +
+                                    "<p> " + contactVM?.Message + " </p> </br>" +
+                                    "<p>-----END OF MESSAGE----- </ p> </br>" +
+                                    "<p>If desired, please contact " + contactVM.Email + " directly.</ p> </br>" +
+                                    "<p>getmeajob.com is not responsible for the contents of the messages sent through the system and cannot provide further details or clarifications.  You are requested to use your own judgment and common sense. </ p> </br>" +
+                                    "<p>Please do not reply to this email.  Replies to this mailbox may be ignored.  If you need to contact getmeajob.com, please visit http://www.getmeajob.com and click Contact Us. </ p> </br>";
+
+                                _iEmail.SendEmail(new EmailVM
+                                {
+                                    EmailTo = res.user.Email,
+                                    Subject = "getmeajob.com - Contact",
+                                    Body = body
+                                });
+
+
                                 ViewBag.success = true;
-                            }
 
+                            }
                         }
 
                         return View();
@@ -125,8 +178,12 @@ namespace Getmeajob.WebApp.Controllers
                 if (questionVM.contactVM != null)
                 {
                     string body = "<h2>I still have a question</h2> <br/> <br/>  <b> Question from </b> : <p> " + questionVM?.contactVM?.Email + "</p> <br/> <br/> <p> " + questionVM?.contactVM?.Message + " </p> ";
-                   
-                    SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm", "izzath.info@gmail.com","getmeajob.com - Contact Us",body);
+
+                    _iEmail.SendEmail(new EmailVM {
+                        EmailTo = "testg9921@gmail.com",
+                        Subject = "getmeajob.com - Contact Us",
+                        Body = body
+                    });
                     ViewBag.success = true;
 
                     return View();
@@ -149,44 +206,24 @@ namespace Getmeajob.WebApp.Controllers
 
                     if (user != null)
                     {
-                        
-                        string Body = @"<p>Your password for "+ user.Email +" is "+ user.Password + "</p> </br></br> " +
+
+                        string Body = @"<p>Your password for " + user.Email + " is " + user.Password + "</p> </br></br> " +
                             "Security check: </br></br> " +
                             "<p> You have received this email because you requested that your password be emailed to you AND when you submitted your job or resume, you had allowed your password to be mailed to you in the event that you forget it.  If this is not what you wanted, then please disregard this email or change your options by editing your posting.  Receiving this message does not put you on a mailing list.</p>";
 
-                        SendEmail("testg9921@gmail.com", "gqgerpwfmfnzgmdm", questionVM?.forgotPassVM?.Email,"getmeajob.com - Your password request ", Body);
+                        _iEmail.SendEmail(new EmailVM
+                        {
+                            EmailTo = questionVM?.forgotPassVM?.Email,
+                            Subject = "getmeajob.com - Your password request",
+                            Body = Body
+                        });
+
                         ViewBag.success = true;
                     }
                 }
             }
-            
+
             return View();
-        }
-        public void SendEmail(string fromEmail, string fromPassword, string ToEmail,string subject, string body)
-        {
-            try
-            {
-                // create email message
-                var email = new MimeMessage();
-                email.From.Add(MailboxAddress.Parse(fromEmail));
-                email.To.Add(MailboxAddress.Parse(ToEmail));
-                email.Subject = subject;
-                //email.Body = new TextPart(TextFormat.Html) { Text = "<h2>" + bodyHeading + " </h2> <br/> <br/>  <b> Question from </b> : <p> " + SenderEmail + "</p> <br/> <br/> <p> " + body + " </p> " };
-                email.Body = new TextPart(TextFormat.Html) { Text = body };
-
-                // send email
-                using var smtp = new SmtpClient();
-                smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-
-                smtp.Authenticate(fromEmail, fromPassword);
-                smtp.Send(email);
-                smtp.Disconnect(true);
-
-            }
-            catch (Exception ex)
-            {
-
-            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

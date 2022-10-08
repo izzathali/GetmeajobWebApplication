@@ -36,6 +36,21 @@ namespace Getmeajob.Repository
             return await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<int> DeleteAllByUserId(int id)
+        {
+            var jobs = await _dbContext.Jobs
+                .Where(j => j.IsDeleted == false && j.UserId == id)
+                .ToListAsync();
+
+            foreach (var j in jobs)
+            {
+                j.IsDeleted = true;
+            }
+
+            _dbContext.Jobs.UpdateRange(jobs);
+            return await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<JobM>> GetAll()
         {
             return await _dbContext

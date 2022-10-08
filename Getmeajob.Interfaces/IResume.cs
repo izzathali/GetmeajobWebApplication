@@ -14,5 +14,6 @@ namespace Getmeajob.Interface
         public Task<ResumeM> GetByJobCode(Guid code);
         public Task<IEnumerable<ResumeM>> GetAllByUserId(int id);
         public Task<IEnumerable<ResumeM>> GetByJobTitleOrLocation(JobSearchVM search);
+        public Task<int> DeleteAllByUserId(int id);
     }
 }

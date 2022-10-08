@@ -11,5 +11,6 @@ namespace Getmeajob.Interface
     {
         public Task<UserM> GetByEmailAndPass(UserM u);
         public Task<UserM> GetByEmail(UserM u);
+        public Task<UserM> GetByCode(Guid code);
     }
 }

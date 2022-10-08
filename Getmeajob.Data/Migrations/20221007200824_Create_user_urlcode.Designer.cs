@@ -4,6 +4,7 @@ using Getmeajob.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Getmeajob.Data.Migrations
 {
     [DbContext(typeof(GetmeajobDbContext))]
-    partial class GetmeajobDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221007200824_Create_user_urlcode")]
+    partial class Create_user_urlcode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -278,6 +280,7 @@ namespace Getmeajob.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("UrlCode")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserId");

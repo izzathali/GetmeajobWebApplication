@@ -36,6 +36,23 @@ namespace Getmeajob.Repository
             return await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<int> DeleteAllByUserId(int id)
+        {
+
+            var resumes = await _dbContext.Resumes
+               .Where(j => j.IsDeleted == false && j.UserId == id)
+               .ToListAsync();
+
+            foreach (var r in resumes)
+            {
+                r.IsDeleted = true;
+            }
+
+            _dbContext.Resumes.UpdateRange(resumes);
+
+            return await _dbContext.SaveChangesAsync();
+        }
+
         public Task<IEnumerable<ResumeM>> GetAll()
         {
             throw new NotImplementedException();

@@ -144,7 +144,17 @@ namespace Getmeajob.WebApp.Controllers
                 return View();
             }
         }
+        // GET: UserController/Delete/
+        public async Task<ActionResult> DeleteAll(Guid code)
+        {
+            var usr = await _iUser.GetByCode(code);
+            if (usr == null)
+            {
+                ViewBag.Error = true;
+            }
 
+            return View(usr);
+        }
         // GET: UserController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -154,16 +164,29 @@ namespace Getmeajob.WebApp.Controllers
         // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteAllConfirm(UserM userM)
         {
+            if (userM == null)
+            {
+                    ViewBag.Error = true;
+                    return View();
+            }
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                int jobs = await _iJob.DeleteAllByUserId(userM.UserId);
+                int resumes = await _iJob.DeleteAllByUserId(userM.UserId);
+
+                if (jobs == 0 && resumes == 0)
+                {
+                    ViewBag.Error = true;
+                }
+
             }
             catch
             {
-                return View();
             }
+            return View();
         }
     }
 }

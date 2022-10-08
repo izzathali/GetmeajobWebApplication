@@ -88,6 +88,7 @@ namespace Getmeajob.WebApp.Controllers
                     else
                     {
                         r.user.Type = "Employees";
+                        r.user.UrlCode = Guid.NewGuid();
                     }
 
                     r.ResumeCode = Guid.NewGuid();

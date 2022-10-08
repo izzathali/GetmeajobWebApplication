@@ -36,6 +36,13 @@ namespace Getmeajob.Repository
             throw new NotImplementedException();
         }
 
+        public async Task<UserM> GetByCode(Guid code)
+        {
+            return await _dbContext.Users
+                .Where(i => i.IsDeleted == false && i.UrlCode == code)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<UserM> GetByEmail(UserM u)
         {
             return await _dbContext.Users
