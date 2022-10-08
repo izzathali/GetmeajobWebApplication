@@ -32,8 +32,8 @@
             }
 
         footer {
-          position: absolute;
-          bottom:0px;
+            position: absolute;
+            bottom: 0px;
         }
     </style>
 </head>
@@ -62,7 +62,7 @@
                         <div class="row align-items-center">
                             <div class="mb-4 site-logo col-6">
                                 <b>getmeajob.com</b>
-                                <a asp-action="Index" asp-controller="Home" >
+                                <a asp-action="Index" asp-controller="Home">
                                     <img src="~/fe/images//smalllogo.gif">
                                 </a>
                             </div>
@@ -71,11 +71,11 @@
                     <div class="border p-3 mb-4 rounded">
                         <p class="mb-0 font-weight-bold"><span>For Employers</span></p>
                         <ul class="list-unstyled block__47528 mb-0">
-                            <li><a asp-action="Search" asp-controller="Resume" >Search resumes</a></li>
-                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="submitjob" >Submit a job</a></li>
-                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="modifyjob" >Modify a job</a></li>
-                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="deletejob" >Delete a job</a></li>
-                            <li><a asp-action="Tips" asp-controller="Home" asp-route-type="employers" >Useful tips</a></li>
+                            <li><a asp-action="Search" asp-controller="Resume">Search resumes</a></li>
+                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="submitjob">Submit a job</a></li>
+                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="modifyjob">Modify a job</a></li>
+                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="deletejob">Delete a job</a></li>
+                            <li><a asp-action="Tips" asp-controller="Home" asp-route-type="employers">Useful tips</a></li>
                         </ul>
                     </div>
                     <div class="border p-3 mb-4 rounded">
@@ -83,10 +83,10 @@
 
                         <ul class="list-unstyled block__47528 mb-0">
                             <li><a asp-action="Search" asp-controller="Job">Search jobs</a></li>
-                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="submitresume" >Submit a resume</a></li>
-                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="modifyresume" >Modify a resume</a></li>
-                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="deleteresume" >Delete a resume</a></li>
-                            <li><a asp-action="Tips" asp-controller="Home" asp-route-type="employees" >Useful tips</a></li>
+                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="submitresume">Submit a resume</a></li>
+                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="modifyresume">Modify a resume</a></li>
+                            <li><a asp-action="Login" asp-controller="User" asp-route-stype="deleteresume">Delete a resume</a></li>
+                            <li><a asp-action="Tips" asp-controller="Home" asp-route-type="employees">Useful tips</a></li>
                         </ul>
                     </div>
 
@@ -110,8 +110,8 @@
                     <div class="border p-3 mb-4 rounded">
                         <p class="mb-0 font-weight-bold"><span>Get Noticed Fast</span></p>
                         <ul class="list-unstyled block__47528 mb-0">
-                            <li><a asp-action="Advertise" asp-controller="Home" > Your logo</a></li>
-                            <li><a asp-action="Advertise" asp-controller="Home" > Banner ads</a></li>
+                            <li><a asp-action="Advertise" asp-controller="Home"> Your logo</a></li>
+                            <li><a asp-action="Advertise" asp-controller="Home"> Banner ads</a></li>
                         </ul>
                     </div>
 
@@ -125,14 +125,14 @@
                     <div class="border p-3 mb-4 rounded">
                         <p class="mb-0 font-weight-bold"><span>Help</span></p>
                         <ul class="list-unstyled block__47528 mb-0">
-                            <li><a asp-action="ContactUs" asp-controller="Home" > Contact us</a></li>
+                            <li><a asp-action="ContactUs" asp-controller="Home"> Contact us</a></li>
                         </ul>
                     </div>
 
                     <div class="border p-3 mb-4 rounded">
                         <p class="mb-0 font-weight-bold"><span>Legal stuff</span></p>
                         <ul class="list-unstyled block__47528 mb-0">
-                            <li><a asp-action="Legal" asp-controller="Home" > Terms of use</a></li>
+                            <li><a asp-action="Legal" asp-controller="Home"> Terms of use</a></li>
                             <li><a asp-action="Privacy" asp-controller="Home"> Your privacy</a></li>
                         </ul>
                     </div>
@@ -209,6 +209,8 @@
         </div>
     </section>
 
+    
+    @RenderSection("script", required: false)
 
     <!-- SCRIPTS -->
     <script src="~/fe/js/jquery.min.js"></script>
@@ -223,7 +225,7 @@
     <script src="~/fe/js/owl.carousel.min.js"></script>
     @*<script src="~/fe/js/quill.min.js"></script>*@
 
-    @RenderSection("script", required: false)
+   
 
     <script src="~/fe/js/bootstrap-select.min.js"></script>
 
@@ -242,8 +244,13 @@
         }
     </script>
 
+    
 
+    @await Component.InvokeAsync("Notyf")
+    @await Component.InvokeAsync("Toastify")
 
     @await RenderSectionAsync("Scripts", required: false)
+
+
 </body>
 </html>

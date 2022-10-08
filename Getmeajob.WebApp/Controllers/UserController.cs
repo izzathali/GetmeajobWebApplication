@@ -1,7 +1,9 @@
-﻿using Getmeajob.Interface;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Getmeajob.Interface;
 using Getmeajob.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Getmeajob.WebApp.Controllers
 {
@@ -9,15 +11,47 @@ namespace Getmeajob.WebApp.Controllers
     {
         private readonly IUser _iUser;
         private readonly IJob _iJob;
-        public UserController(IUser iUser, IJob iJob)
+        IMemoryCache memoryCache;
+        public INotyfService _notifyService { get; }
+
+
+        public UserController(IUser iUser, IJob iJob, IMemoryCache memoryCache, INotyfService notifyService)
         {
             _iUser = iUser;
             _iJob = iJob;
+            this.memoryCache = memoryCache;
+            _notifyService = notifyService;
+
         }
         // GET: UserController
         public ActionResult Index()
         {
             return View();
+        }
+        public ActionResult Admin()
+        {
+            return View();
+        }
+        public async Task<ActionResult> AdminLogin(UserM u)
+        {
+            if (!string.IsNullOrEmpty(u.Email) && !string.IsNullOrEmpty(u.Password))
+            {
+                u.Type = "admin";
+                UserM usr = await _iUser.GetByEmailAndPass(u);
+
+                if (usr != null)
+                {
+                    memoryCache.Set("LoggedUser", u);
+
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                else
+                {
+                    _notifyService.Error("Invalid Email or Password");
+                }
+
+            }
+            return RedirectToAction("Admin");
         }
         public ActionResult Login(string? stype)
         {

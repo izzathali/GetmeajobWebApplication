@@ -1,3 +1,5 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Getmeajob.Data;
 using Getmeajob.Interface;
 using Getmeajob.Repository;
@@ -18,7 +20,8 @@ builder.Services.AddScoped<IJobSeeker, JobSeekerRepo>();
 
 builder.Services.AddScoped<IEmail, EmailSer>();
 
-
+builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
+builder.Services.AddToastify(config => { config.DurationInSeconds = 1000; config.Position = Position.Right; config.Gravity = Gravity.Bottom; });
 
 
 var connectionString = builder.Configuration.GetConnectionString("DevConnection");
@@ -40,6 +43,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseNotyf();
 
 app.UseAuthorization();
 
