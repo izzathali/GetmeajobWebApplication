@@ -53,16 +53,21 @@ namespace Getmeajob.Repository
             return await _dbContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<ResumeM>> GetAll()
+        public async Task<IEnumerable<ResumeM>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _dbContext
+             .Resumes
+             .Where(u => u.IsDeleted == false && u.IsEmailVerified == true && u.IsApproved == true)
+             .Include(i => i.user)
+             .Include(i => i.jobseeker)
+             .ToListAsync();
         }
 
         public async Task<IEnumerable<ResumeM>> GetAllByUserId(int id)
         {
             return await _dbContext
               .Resumes
-              .Where(u => u.IsDeleted == false && u.UserId == id)
+              .Where(u => u.IsDeleted == false && u.UserId == id && u.IsEmailVerified == true && u.IsApproved == true)
               .Include(i => i.user)
               .Include(i => i.jobseeker)
               .ToListAsync();
@@ -73,7 +78,7 @@ namespace Getmeajob.Repository
         {
             return await _dbContext
                .Resumes
-               .Where(u => u.IsDeleted == false && u.IsApproved == false)
+               .Where(u => u.IsDeleted == false && u.IsEmailVerified == true && u.IsApproved == false)
                .Include(i => i.user)
                .Include(i => i.jobseeker)
                .ToListAsync();
@@ -103,7 +108,7 @@ namespace Getmeajob.Repository
         {
             return await _dbContext
               .Resumes
-              .Where(u => u.IsDeleted == false && u.JobTitle.Contains(search.Name) || u.jobseeker.StreetAddress.Contains(search.Location) || u.jobseeker.City.Contains(search.Location) || u.jobseeker.State.Contains(search.Location) || u.jobseeker.Zip.Contains(search.Location) || u.jobseeker.Country.Contains(search.Location))
+              .Where(u => u.IsDeleted == false && u.IsEmailVerified == true && u.IsApproved == true && u.JobTitle.Contains(search.Name) || u.jobseeker.StreetAddress.Contains(search.Location) || u.jobseeker.City.Contains(search.Location) || u.jobseeker.State.Contains(search.Location) || u.jobseeker.Zip.Contains(search.Location) || u.jobseeker.Country.Contains(search.Location))
               .Include(i => i.user)
               .Include(i => i.jobseeker)
               .ToListAsync();
@@ -112,7 +117,7 @@ namespace Getmeajob.Repository
         public async Task<ResumeM> GetByUserId(int id)
         {
             return await _dbContext.Resumes
-              .Where(i => i.IsDeleted == false && i.UserId == id)
+              .Where(i => i.IsDeleted == false && i.UserId == id && i.IsEmailVerified == true && i.IsApproved == true)
               .Include(i => i.jobseeker)
               .FirstOrDefaultAsync();
         }

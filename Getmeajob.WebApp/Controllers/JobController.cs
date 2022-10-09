@@ -15,6 +15,8 @@ namespace Getmeajob.WebApp.Controllers
         private readonly ICompany _iCompany;
         private readonly IEmail _iEmail;
         IMemoryCache memoryCache;
+        private UserM Usr = new UserM();
+
         public INotyfService _notifyService { get; }
 
         public JobController(IJob iJob, IUser iUser, ICompany iCompany,IEmail iEmail, IMemoryCache memoryCache,INotyfService notyfService)
@@ -25,6 +27,8 @@ namespace Getmeajob.WebApp.Controllers
             _iEmail = iEmail;
             this.memoryCache = memoryCache;
             _notifyService = notyfService;
+
+            Usr = memoryCache.Get("LoggedUser") as UserM;
         }
         // GET: JobController
         public async Task<ActionResult> Index(int uid, string page)
@@ -35,11 +39,21 @@ namespace Getmeajob.WebApp.Controllers
         }
         public async Task<ActionResult> Unapproved()
         {
+            if (Usr == null || Usr.UserId == 0)
+            {
+                return RedirectToAction("Admin", "User");
+            }
+
             return View(await _iJob.GetAllUnapproved());
         }
 
         public async Task<ActionResult> approve(int jid)
         {
+            if (Usr == null || Usr.UserId == 0)
+            {
+                return RedirectToAction("Admin", "User");
+            }
+
             if (jid > 0)
             {
                 JobM job = await _iJob.GetById(jid);
@@ -84,6 +98,13 @@ namespace Getmeajob.WebApp.Controllers
         {
             var result = await _iJob.GetByJobTitleOrLocation(jobSearch);
             return View(result);
+        }
+        public async Task<ActionResult> QuickSearchResult(string search)
+        {
+            JobSearchVM se = new JobSearchVM();
+            se.Name = search;
+
+            return RedirectToAction(nameof(SearchResult), se);
         }
         // GET: JobController/Details/5
         public async Task<ActionResult> Details(int id)

@@ -55,7 +55,7 @@ namespace Getmeajob.Repository
         {
             return await _dbContext
                 .Jobs
-                .Where(u => u.IsDeleted == false)
+                .Where(u => u.IsDeleted == false && u.IsEmailVerified == true && u.IsApproved == true)
                 .Include(i => i.user)
                 .Include(i => i.company)
                 .ToListAsync();
@@ -65,7 +65,7 @@ namespace Getmeajob.Repository
         {
             return await _dbContext
                .Jobs
-               .Where(u => u.IsDeleted == false && u.UserId == id)
+               .Where(u => u.IsDeleted == false && u.UserId == id && u.IsEmailVerified == true && u.IsApproved == true)
                .Include(i => i.user)
                .Include(i => i.company)
                .ToListAsync();
@@ -75,7 +75,7 @@ namespace Getmeajob.Repository
         {
             return await _dbContext
                 .Jobs
-                .Where(u => u.IsDeleted == false && u.IsApproved == false)
+                .Where(u => u.IsDeleted == false && u.IsEmailVerified == true && u.IsApproved == false)
                 .Include(i => i.user)
                 .Include(i => i.company)
                 .ToListAsync();
@@ -105,7 +105,7 @@ namespace Getmeajob.Repository
         {
             return await _dbContext
                .Jobs
-               .Where(u => u.IsDeleted == false && u.JobTitle.Contains(search.Name) || u.company.StreetAddress.Contains(search.Location) || u.company.City.Contains(search.Location) || u.company.State.Contains(search.Location) || u.company.Zip.Contains(search.Location) || u.company.Country.Contains(search.Location))
+               .Where(u => u.IsDeleted == false && u.IsEmailVerified == true && u.IsApproved == true && u.JobTitle.Contains(search.Name) || u.company.StreetAddress.Contains(search.Location) || u.company.City.Contains(search.Location) || u.company.State.Contains(search.Location) || u.company.Zip.Contains(search.Location) || u.company.Country.Contains(search.Location))
                .Include(i => i.user)
                .Include(i => i.company)
                .ToListAsync();
@@ -114,7 +114,7 @@ namespace Getmeajob.Repository
         public async Task<JobM> GetByUserId(int id)
         {
             return await _dbContext.Jobs
-                .Where(i => i.IsDeleted == false && i.UserId == id)
+                .Where(i => i.IsDeleted == false && i.UserId == id && i.IsEmailVerified == true && i.IsApproved == true)
                 .Include(i => i.company)
                 .FirstOrDefaultAsync();
         }

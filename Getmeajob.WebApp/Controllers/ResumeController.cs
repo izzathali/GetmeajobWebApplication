@@ -16,6 +16,10 @@ namespace Getmeajob.WebApp.Controllers
         private readonly IEmail _iEmail;
         IMemoryCache memoryCache;
         public INotyfService _notifyService { get; }
+
+
+        private UserM Usr = new UserM();
+
         public ResumeController(IResume iResume, IUser iUser, IJobSeeker iJobSeeker, IEmail iEmail, IMemoryCache memoryCache,INotyfService notyfService)
         {
             _iResume = iResume;
@@ -24,6 +28,9 @@ namespace Getmeajob.WebApp.Controllers
             _iEmail = iEmail;
             this.memoryCache = memoryCache;
             _notifyService = notyfService;
+
+            Usr = memoryCache.Get("LoggedUser") as UserM;
+
         }
         // GET: ResumeController
         public async Task<ActionResult> Index(int uid, string page)
@@ -34,12 +41,22 @@ namespace Getmeajob.WebApp.Controllers
         }
         public async Task<ActionResult> Unapproved()
         {
+            if (Usr == null || Usr.UserId == 0)
+            {
+                return RedirectToAction("Admin", "User");
+            }
+
             var resumes = await _iResume.GetAllUnapproved();
             return View(resumes);
         }
         
         public async Task<ActionResult> approve(int rid)
         {
+            if (Usr == null || Usr.UserId == 0)
+            {
+                return RedirectToAction("Admin", "User");
+            }
+
             if (rid > 0)
             {
                 ResumeM res = await _iResume.GetById(rid);
