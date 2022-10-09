@@ -69,6 +69,16 @@ namespace Getmeajob.Repository
 
         }
 
+        public async Task<IEnumerable<ResumeM>> GetAllUnapproved()
+        {
+            return await _dbContext
+               .Resumes
+               .Where(u => u.IsDeleted == false && u.IsApproved == false)
+               .Include(i => i.user)
+               .Include(i => i.jobseeker)
+               .ToListAsync();
+        }
+
         public async Task<ResumeM> GetById(int id)
         {
             return await _dbContext

@@ -1,8 +1,10 @@
-﻿using Getmeajob.Interface;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Getmeajob.Interface;
 using Getmeajob.Model;
 using Getmeajob.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Getmeajob.WebApp.Controllers
 {
@@ -12,13 +14,17 @@ namespace Getmeajob.WebApp.Controllers
         private readonly IUser _iUser;
         private readonly ICompany _iCompany;
         private readonly IEmail _iEmail;
+        IMemoryCache memoryCache;
+        public INotyfService _notifyService { get; }
 
-        public JobController(IJob iJob, IUser iUser, ICompany iCompany,IEmail iEmail)
+        public JobController(IJob iJob, IUser iUser, ICompany iCompany,IEmail iEmail, IMemoryCache memoryCache,INotyfService notyfService)
         {
             _iJob = iJob;
             _iUser = iUser;
             _iCompany = iCompany;
             _iEmail = iEmail;
+            this.memoryCache = memoryCache;
+            _notifyService = notyfService;
         }
         // GET: JobController
         public async Task<ActionResult> Index(int uid, string page)
@@ -27,6 +33,47 @@ namespace Getmeajob.WebApp.Controllers
             var jobs = await _iJob.GetAllByUserId(uid);
             return View(jobs);
         }
+        public async Task<ActionResult> Unapproved()
+        {
+            return View(await _iJob.GetAllUnapproved());
+        }
+
+        public async Task<ActionResult> approve(int jid)
+        {
+            if (jid > 0)
+            {
+                JobM job = await _iJob.GetById(jid);
+
+                if (job != null)
+                {
+                    if (job.IsEmailVerified == true)
+                    {
+
+                        job.IsApproved = true;
+                        int changes = await _iJob.Update(job);
+                        if (changes > 0)
+                        {
+                            _notifyService.Success(job.JobTitle + " Job Approved ");
+                        }
+                        else
+                        {
+                            _notifyService.Error("Error! Something went wrong!");
+                        }
+                    }
+                    else
+                    {
+                        _notifyService.Error("Email not verified!");
+                    }
+                }
+                else
+                {
+                    _notifyService.Error("Resume not found!");
+                }
+
+            }
+            return RedirectToAction(nameof(Unapproved));
+        }
+
         // GET: JobController/Search
         public ActionResult Search()
         {

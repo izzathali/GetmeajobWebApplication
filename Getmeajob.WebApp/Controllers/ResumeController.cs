@@ -1,8 +1,10 @@
-﻿using Getmeajob.Interface;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Getmeajob.Interface;
 using Getmeajob.Model;
 using Getmeajob.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Getmeajob.WebApp.Controllers
 {
@@ -12,12 +14,16 @@ namespace Getmeajob.WebApp.Controllers
         private readonly IUser _iUser;
         private readonly IJobSeeker _iJobSeeker;
         private readonly IEmail _iEmail;
-        public ResumeController(IResume iResume, IUser iUser, IJobSeeker iJobSeeker, IEmail iEmail)
+        IMemoryCache memoryCache;
+        public INotyfService _notifyService { get; }
+        public ResumeController(IResume iResume, IUser iUser, IJobSeeker iJobSeeker, IEmail iEmail, IMemoryCache memoryCache,INotyfService notyfService)
         {
             _iResume = iResume;
             _iUser = iUser;
             _iJobSeeker = iJobSeeker;
             _iEmail = iEmail;
+            this.memoryCache = memoryCache;
+            _notifyService = notyfService;
         }
         // GET: ResumeController
         public async Task<ActionResult> Index(int uid, string page)
@@ -25,6 +31,47 @@ namespace Getmeajob.WebApp.Controllers
             ViewBag.page = page;
             var jobs = await _iResume.GetAllByUserId(uid);
             return View(jobs);
+        }
+        public async Task<ActionResult> Unapproved()
+        {
+            var resumes = await _iResume.GetAllUnapproved();
+            return View(resumes);
+        }
+        
+        public async Task<ActionResult> approve(int rid)
+        {
+            if (rid > 0)
+            {
+                ResumeM res = await _iResume.GetById(rid);
+
+                if (res != null)
+                {
+                    if (res.IsEmailVerified == true)
+                    {
+
+                        res.IsApproved = true;
+                        int changes = await _iResume.Update(res);
+                        if (changes > 0)
+                        {
+                            _notifyService.Success(res.JobTitle + " Resume Approved ");
+                        }
+                        else
+                        {
+                            _notifyService.Error("Error! Something went wrong!");
+                        }
+                    }
+                    else
+                    {
+                        _notifyService.Error("Email not verified!");
+                    }
+                }
+                else
+                {
+                    _notifyService.Error("Resume not found!");
+                }
+
+            }
+            return RedirectToAction(nameof(Unapproved));
         }
 
         // GET: ResumeController/Details/5
@@ -249,7 +296,7 @@ namespace Getmeajob.WebApp.Controllers
                 if (ModelState.IsValid)
                 {
                     r.user.UserId = r.UserId;
-                   r.jobseeker.JobSeekerId = r.JobSeekerId;
+                    r.jobseeker.JobSeekerId = r.JobSeekerId;
 
                     r.IsEmailVerified = false;
                     r.IsApproved = false;
