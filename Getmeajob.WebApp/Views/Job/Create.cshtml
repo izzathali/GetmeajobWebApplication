@@ -116,7 +116,7 @@
                                 Job description:
                             </td>
                             <td>
-                                @Model.JobDescription
+                                <span style="white-space: pre-line">@Model.JobDescription</span>                                
                             </td>
                         </tr>
                         <tr>
@@ -169,6 +169,7 @@
                                 <input type="hidden" asp-for="@Model.user.Email" />
                                 <input type="hidden" asp-for="@Model.user.Password" />
                                 <input type="hidden" asp-for="@Model.user.Type" />
+                                <input type="hidden" asp-for="@Model.user.UserId" />
                                 <input type="hidden" asp-for="@Model.company.CompanyName" />
                                 <input type="hidden" asp-for="@Model.company.StreetAddress" />
                                 <input type="hidden" asp-for="@Model.company.City" />
@@ -466,6 +467,14 @@ else
                                     <input asp-for="CompanyId" type="hidden">
                                     <input type="hidden" asp-for="user.Type" value="Employers" />
 
+                                    @if(@Model.user == null)
+                                    {
+                                        <input asp-for="user.UserId" value="0" type="hidden">
+                                    }
+                                    else{
+                                        <input asp-for="user.UserId" type="hidden">
+                                    }
+
                                     <button type="button" id="btnContinueFour" class="btn btn-block btn-primary btn-md">Continue</button>
                                     <button type="submit" style="display:none" id="btnSubmit" class="btn btn-block btn-primary btn-md">Continue</button>
                                 </div>
@@ -495,6 +504,7 @@ else
     @section Scripts{
 
     <script type="text/javascript">
+        $('#formOne').show();
         $('#formTwo').hide();
         $('#formThree').hide();
         $('#formFour').hide();
@@ -612,9 +622,10 @@ else
             $('#formFour').hide();
         });
 
-        var usremail = $('#emailAdd').val();
+        var user_FullName = $('#user_FullName').val();
+        var company_CompanyName = $('#company_CompanyName').val();
         //alert(usremail)
-        if (usremail != "") {
+        if (user_FullName != "" && company_CompanyName != "") {
             $('#formOne').hide();
             $('#formTwo').show();
         };

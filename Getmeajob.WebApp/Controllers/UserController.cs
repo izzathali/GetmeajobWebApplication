@@ -41,7 +41,7 @@ namespace Getmeajob.WebApp.Controllers
 
                 if (usr != null)
                 {
-                    memoryCache.Set("LoggedUser", u);
+                    memoryCache.Set("LoggedUser", usr);
 
                     return RedirectToAction("Index", "Dashboard");
                 }

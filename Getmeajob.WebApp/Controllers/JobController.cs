@@ -112,7 +112,6 @@ namespace Getmeajob.WebApp.Controllers
             var job = await _iJob.GetById(id);
             return View(job);
         }
-
         // GET: JobController/Create
         public async Task<ActionResult> Create(UserM? userM)
         {
@@ -124,7 +123,7 @@ namespace Getmeajob.WebApp.Controllers
                 {
                     j.user = userM;
                     j.UserId = userM.UserId;
-                    JobM Postedjob = await _iJob.GetByUserId(userM.UserId);
+                    JobM Postedjob = await _iJob.GetUnapprovedByUserId(userM.UserId);
                     if (Postedjob != null)
                     {
                         j.company = Postedjob.company;
@@ -288,7 +287,6 @@ namespace Getmeajob.WebApp.Controllers
         {
             try
             {
-
                 if (ModelState.IsValid)
                 {
                     if (!string.IsNullOrEmpty(jobM.user.FullName) && jobM.UserId == 0)
@@ -303,6 +301,18 @@ namespace Getmeajob.WebApp.Controllers
                         //}
 
                     }
+                    if (jobM.user != null && jobM.user.UserId > 0)
+                    {
+                        jobM.user = jobM.user;
+                        jobM.UserId = jobM.user.UserId;
+                        JobM Postedjob = await _iJob.GetUnapprovedByUserId(jobM.user.UserId);
+                        if (Postedjob != null)
+                        {
+                            jobM.company = Postedjob.company;
+                            jobM.CompanyId = Postedjob.CompanyId;
+                        }
+                    }
+
                     if (!String.IsNullOrEmpty(jobM.JobTitle) && !String.IsNullOrEmpty(jobM.JobDescription))
                     {
                         //jobM.JobDescription.Replace(Environment.NewLine, "<br/>");

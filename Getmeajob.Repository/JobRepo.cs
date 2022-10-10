@@ -119,6 +119,16 @@ namespace Getmeajob.Repository
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<JobM> GetUnapprovedByUserId(int id)
+        {
+            return await _dbContext
+               .Jobs
+               .Where(u => u.IsDeleted == false && u.UserId == id && u.IsApproved == false)
+               .Include(i => i.user)
+               .Include(i => i.company)
+               .FirstOrDefaultAsync();
+        }
+
         public async Task<int> Update(JobM t)
         {
             _dbContext.Jobs.Update(t);
