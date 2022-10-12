@@ -45,54 +45,62 @@
         #footer : before {
             background: rgba(0, 0, 0, 0) !important;
         }
+
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 3;
+            cursor: pointer;
+        }
+
+        #text {
+            position: absolute;
+            top: auto;
+            left: auto;
+            color: white;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+        }
     </style>
 </head>
 <body>
-    <div id="overlayer"></div>
+    <section id="overlay" class="site-section">
+
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+
+                <div class="col-md-12" >
+                    <div class="mb-5 text-center p-5" style="background-color: rgba(0,0,0,0.7)!important;">
+                        <div class="pt-3">
+
+                            <img src="~/fe/images//smalllogo.gif">
+                        </div>
+                        <h1 class="text-white font-weight-bold">May we use your data to tailor your ads to you?</h1>
+                        <p class="text-white">
+                            We and our partners will collect data and use cookies, including third-party cookies, for relevant advertisments, measurement, and functionality of this site.
+                            <br />
+                            This site may not be accessed by residents of the EU and those currently in the EU.
+                        </p>
+
+                        <a href="#" onclick="acceptCookieConsent();"><h2 class="text-white font-weight-bold">Yes, I agree </h2></a> <br />
+                        <a href="#"><h2 class="text-white font-weight-bold">No, Leave this site</h2></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+
     <div class="loader">
         <div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
         </div>
-    </div>
-
-
-    <div id="cookieNotice" class="" style="display: none;">
-        <div id="closeIcon" style="display: none;">
-        </div>
-
-        <div class="home-section section-hero overlay bg-image" id="home-section" style="background-image: url('fe/images/hero_1.jpg');background: rgba(0, 0, 0, 0.6);z-index: 1;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    transition: 0.5s;">
-
-            <div class="container" style="position: relative;">
-                <div class="row align-items-center justify-content-center">
-
-                    <div class="col-md-12">
-                        <div class="mb-5 text-center">
-                            <div class="pt-3">
-                                <img src="~/fe/images//smalllogo.gif">
-                            </div>
-                            <h1 class="text-white font-weight-bold">May we use your data to tailor your ads to you?</h1>
-                            <p>
-                                We and our partners will collect data and use cookies, including third-party cookies, for relevant advertisments, measurement, and functionality of this site.
-                                <br />
-                                This site may not be accessed by residents of the EU and those currently in the EU.
-                            </p>
-
-                            <a href="#" onclick="acceptCookieConsent();"><h2 class="text-white font-weight-bold">Yes, I agree </h2></a> <br />
-                            <a href="#"><h2 class="text-white font-weight-bold">No, Leave this site</h2></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-        </div>
-
-
     </div>
 
     <section class="site-section pt-0 pb-0 portfolio-single" id="next-section">
@@ -145,10 +153,10 @@
                     <div class="border p-3 mb-4 rounded">
                         <p class="mb-0 font-weight-bold"><span>Quick Picks</span></p>
                         <ul class="list-unstyled block__47528 mb-0">
-                            <li><a asp-action="QuickSearchResult" asp-controller="Job" asp-route-search="C++" > C++ jobs</a></li>
-                            <li><a asp-action="QuickSearchResult" asp-controller="Job" asp-route-search="Java" > Java jobs</a></li>
-                            <li><a asp-action="QuickSearchResult" asp-controller="Job" asp-route-search="Testing" > Testing jobs</a></li>
-                            <li><a asp-action="QuickSearchResult" asp-controller="Job" asp-route-search="Financial" > Financial jobs</a></li>
+                            <li><a asp-action="QuickSearchResult" asp-controller="Job" asp-route-search="C++"> C++ jobs</a></li>
+                            <li><a asp-action="QuickSearchResult" asp-controller="Job" asp-route-search="Java"> Java jobs</a></li>
+                            <li><a asp-action="QuickSearchResult" asp-controller="Job" asp-route-search="Testing"> Testing jobs</a></li>
+                            <li><a asp-action="QuickSearchResult" asp-controller="Job" asp-route-search="Financial"> Financial jobs</a></li>
                         </ul>
                     </div>
 
@@ -278,14 +286,20 @@
 
 
     <script>
-        // Create cookie
+        function on() {
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function off() {
+            document.getElementById("overlay").style.display = "none";
+        }
+
         function setCookie(cname, cvalue, exdays) {
             const d = new Date();
             d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
             let expires = "expires=" + d.toUTCString();
             document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         }
-
         // Delete cookie
         function deleteCookie(cname) {
             const d = new Date();
@@ -293,7 +307,6 @@
             let expires = "expires=" + d.toUTCString();
             document.cookie = cname + "=;" + expires + ";path=/";
         }
-
         // Read cookie
         function getCookie(cname) {
             let name = cname + "=";
@@ -310,29 +323,25 @@
             }
             return "";
         }
-
         // Set cookie consent
         function acceptCookieConsent() {
             deleteCookie('user_cookie_consent');
             setCookie('user_cookie_consent', 1, 30);
-            document.getElementById("cookieNotice").style.display = "none";
-            document.getElementById("next-section").style.display = "block";
+            document.getElementById("overlay").style.display = "none";
+            //document.getElementById("cookieNotice").style.display = "none";
+            //document.getElementById("next-section").style.display = "block";
         }
-
         let cookie_consent = getCookie("user_cookie_consent");
         if (cookie_consent != "") {
-            document.getElementById("cookieNotice").style.display = "none";
-            document.getElementById("next-section").style.display = "block";
+            //document.getElementById("cookieNotice").style.display = "none";
+            //document.getElementById("next-section").style.display = "block";
+            document.getElementById("overlay").style.display = "none";
+
         } else {
-            document.getElementById("cookieNotice").style.display = "block";
-            document.getElementById("next-section").style.display = "none";
-        }
+            //document.getElementById("cookieNotice").style.display = "block";
+            //document.getElementById("next-section").style.display = "none";
+             document.getElementById("overlay").style.display = "block";
 
-
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("mySidenav").style.display = none;
         }
     </script>
 
