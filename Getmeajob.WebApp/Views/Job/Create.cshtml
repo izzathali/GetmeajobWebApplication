@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="~/fe/css/quill.snow.css">
 
     <link href="~/fe/toastr/toastr.css" rel="stylesheet">
-}
+
+    }
 
     <!-- HOME -->
     <section class="section-hero overlay inner-page bg-image pt-5" style="background-image: url('images/hero_1.jpg');" id="home-section">
@@ -116,7 +117,7 @@
                                 Job description:
                             </td>
                             <td>
-                                <span style="white-space: pre-line">@Model.JobDescription</span>                                
+                                <span style="white-space: pre-line">@Model.JobDescription</span>
                             </td>
                         </tr>
                         <tr>
@@ -124,7 +125,14 @@
                                 Salary range:
                             </td>
                             <td>
-                                @Model.LowerBound - @Model.UpperBound  @if(@Model.Currency == "Other"){ @Model.OtherCurrency } else{ @Model.Currency } 
+                                @Model.LowerBound - @Model.UpperBound  @if (@Model.Currency == "Other")
+                                {
+                                    @Model.OtherCurrency
+                                }
+                                else
+                                {
+                                    @Model.Currency
+                                }
                             </td>
                         </tr>
                     </tbody>
@@ -204,7 +212,7 @@ else
     <section class="site-section pt-0">
         <div class="container">
 
-            <form asp-action="Create" method="post">
+            <form asp-action="Create" method="post" class="needs-validation" novalidate>
 
                 <div id="formOne">
 
@@ -233,11 +241,13 @@ else
 
                                 <div class="form-group">
                                     <label>Your name:</label>
-                                    <input asp-for="user.FullName" type="text" class="form-control" placeholder="Enter Your name">
+                                    <input asp-for="user.FullName" type="text" class="form-control" required placeholder="Enter Your name">
+                                    <div id="vfullname" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
                                 <div class="form-group">
                                     <label>Company* name</label>
                                     <input asp-for="company.CompanyName" type="text" class="form-control" placeholder="Enter the name of the company the candidate will be working for">
+                                    <div id="vcompanyname" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
 
 
@@ -284,25 +294,30 @@ else
                                 <div class="form-group">
                                     <label>Street address:</label>
                                     <input asp-for="company.StreetAddress" type="text" class="form-control" placeholder="Street address">
+                                    <div id="vStreetAddress" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
                                 <div class="form-group">
                                     <label>City:</label>
                                     <input asp-for="company.City" type="text" class="form-control" placeholder="City">
+                                    <div id="vCity" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
                                 <div class="form-group">
                                     <label>State / Province:</label>
                                     <input asp-for="company.State" type="text" class="form-control" placeholder="please enter two character code, if applicable">
+                                    <div id="vState" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
 
                                 <div class="form-group">
                                     <label>ZIP/Postal code:</label>
                                     <input asp-for="company.Zip" type="text" class="form-control" placeholder="ZIP/Postal code">
+                                    <div id="vZip" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
 
 
                                 <div class="form-group">
                                     <label>Country:</label>
                                     <input asp-for="company.Country" type="text" class="form-control" placeholder="please enter two character code">
+                                    <div id="vCountry" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
 
                                 <p class="text-black mb-4 mt-4 border-bottom pb-2 font-weight-bold">
@@ -312,6 +327,7 @@ else
                                 <div class="form-group">
                                     <label>Telephone:</label>
                                     <input asp-for="company.Telephone" type="text" class="form-control" placeholder="Telephone">
+
                                 </div>
 
                                 <div class="form-group">
@@ -361,11 +377,13 @@ else
                                 <div class="form-group">
                                     <label>Job title: </label>
                                     <input asp-for="JobTitle" type="text" class="form-control" placeholder="Enter Job title">
+                                    <div id="vJobTitle" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label>Job description</label>
                                     <textarea type="text" asp-for="JobDescription" class="form-control" rows="20" placeholder="Please replace the text in this box with your job description.Do not enter your name, email, phone or fax number, address, or URLs in this box. If you do so, your submission may be rejected.">
-                                                                                    </textarea>
+                                                                                                                    </textarea>
+                                    <div id="vJobDescription" class="invalid-feedback">Please fill out this field.</div>
 
                                 </div>
 
@@ -376,6 +394,7 @@ else
                                 <div class="form-group">
                                     <label>Lower bound: </label>
                                     <input asp-for="LowerBound" type="text" class="form-control" placeholder="Enter Lower bound">
+
                                 </div>
                                 <div class="form-group">
                                     <label>Upper bound:</label>
@@ -440,10 +459,12 @@ else
                                 <div class="form-group">
                                     <label>Email:</label>
                                     <input asp-for="user.Email" type="text" class="form-control" placeholder="Enter Email">
+                                    <div id="vEmail" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input asp-for="user.Password" type="text" class="form-control" placeholder="Enter Password">
+                                    <div id="vPassword" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
 
 
@@ -467,11 +488,12 @@ else
                                     <input asp-for="CompanyId" type="hidden">
                                     <input type="hidden" asp-for="user.Type" value="Employers" />
 
-                                    @if(@Model.user == null)
+                                    @if (@Model.user == null)
                                     {
                                         <input asp-for="user.UserId" value="0" type="hidden">
                                     }
-                                    else{
+                                    else
+                                    {
                                         <input asp-for="user.UserId" type="hidden">
                                     }
 
@@ -516,17 +538,34 @@ else
 
             if (fullname == "") {
                 Command: toastr["error"]("Please enter Your name", "Error");
+                customvalidation('#user_FullName', '#vfullname');
+                hidecustomvalidation('#company_CompanyName', '#vcompanyname');
                 return
             }
             else if (companyname == "") {
                 Command: toastr["error"]("Please enter company name", "Error");
+                hidecustomvalidation('#user_FullName', '#vfullname');
+                customvalidation('#company_CompanyName', '#vcompanyname');
                 return
             }
             else if (fullname != "" && companyname != "") {
                 $('#formOne').hide();
                 $('#formTwo').show();
+                hidecustomvalidation('#user_FullName', '#vfullname');
+                hidecustomvalidation('#company_CompanyName', '#vcompanyname');
             }
         });
+
+        function customvalidation(txtid, lblid) {
+            $(txtid).css({ 'border-color': 'red', 'border-width': '1px' });
+            $(lblid).css('display', 'inline-block');
+            return
+        }
+        function hidecustomvalidation(txtid, lblid) {
+            $(txtid).css({ 'border-color': 'black', 'border-width': '1px' });
+            $(lblid).css('display', 'none');
+            return
+        }
 
         $("#btnContinueTwo").click(function() {
             var company_StreetAddress = $('#company_StreetAddress').val();
@@ -537,28 +576,65 @@ else
 
             if (company_StreetAddress == "") {
                 Command: toastr["error"]("Please enter street address!", "Error");
+                customvalidation('#company_StreetAddress', '#vStreetAddress');
+
+                hidecustomvalidation('#company_City', '#vCity');
+                hidecustomvalidation('#company_State', '#vState');
+                hidecustomvalidation('#company_Zip', '#vZip');
+                hidecustomvalidation('#company_Country', '#vCountry');
+
                 return
             }
             else if (company_City == "") {
                 Command: toastr["error"]("Please enter city!", "Error");
+                hidecustomvalidation('#company_StreetAddress', '#vStreetAddress');
+
+                customvalidation('#company_City', '#vCity');
+
+                hidecustomvalidation('#company_State', '#vState');
+                hidecustomvalidation('#company_Zip', '#vZip');
+                hidecustomvalidation('#company_Country', '#vCountry');
                 return
             }
             else if (company_State == "") {
                 Command: toastr["error"]("Please enter state!", "Error");
+                hidecustomvalidation('#company_StreetAddress', '#vStreetAddress');
+                hidecustomvalidation('#company_City', '#vCity');
+
+                customvalidation('#company_State', '#vState');
+
+                hidecustomvalidation('#company_Zip', '#vZip');
+                hidecustomvalidation('#company_Country', '#vCountry');
                 return
             }
             else if (company_Zip == "") {
                 Command: toastr["error"]("Please enter zip!", "Error");
+                hidecustomvalidation('#company_StreetAddress', '#vStreetAddress');
+                hidecustomvalidation('#company_City', '#vCity');
+                hidecustomvalidation('#company_State', '#vState');
+                customvalidation('#company_Zip', '#vZip');
+
+                hidecustomvalidation('#company_Country', '#vCountry');
                 return
             }
             else if (company_Country == "") {
                 Command: toastr["error"]("Please enter country!", "Error");
+                hidecustomvalidation('#company_StreetAddress', '#vStreetAddress');
+                hidecustomvalidation('#company_City', '#vCity');
+                hidecustomvalidation('#company_State', '#vState');
+                hidecustomvalidation('#company_Zip', '#vZip');
+                customvalidation('#company_Country', '#vCountry');
                 return
             }
             else {
                 $('#formOne').hide();
                 $('#formTwo').hide();
                 $('#formThree').show();
+                hidecustomvalidation('#company_StreetAddress', '#vStreetAddress');
+                hidecustomvalidation('#company_City', '#vCity');
+                hidecustomvalidation('#company_State', '#vState');
+                hidecustomvalidation('#company_Zip', '#vZip');
+                hidecustomvalidation('#company_Country', '#vCountry');
             }
 
 
@@ -570,10 +646,16 @@ else
 
             if (JobTitle == "") {
                 Command: toastr["error"]("Please enter Job title!", "Error");
+                customvalidation('#JobTitle', '#vJobTitle');
+
+                hidecustomvalidation('#JobDescription', '#vJobDescription');
                 return
             }
             else if (JobDescription == "") {
                 Command: toastr["error"]("Please enter Job Description!", "Error");
+                hidecustomvalidation('#JobTitle', '#vJobTitle');
+
+                customvalidation('#JobDescription', '#vJobDescription');
                 return
             }
             else {
@@ -581,6 +663,9 @@ else
                 $('#formTwo').hide();
                 $('#formThree').hide();
                 $('#formFour').show();
+
+                hidecustomvalidation('#JobTitle', '#vJobTitle');
+                hidecustomvalidation('#JobDescription', '#vJobDescription');
             }
         });
 
@@ -590,12 +675,20 @@ else
 
             if (user_Email == "") {
                 Command: toastr["error"]("Please enter Email!", "Error");
+                customvalidation('#user_Email', '#vEmail');
+
+                hidecustomvalidation('#user_Password', '#vPassword');
                 return
             }
             else if (user_Password == "") {
                 Command: toastr["error"]("Please enter Password!", "Error");
+                hidecustomvalidation('#user_Email', '#vEmail');
+
+                customvalidation('#user_Password', '#vPassword');
                 return
             } else {
+                hidecustomvalidation('#user_Email', '#vEmail');
+                hidecustomvalidation('#user_Password', '#vPassword');
                 $('#btnSubmit').click();
             }
 
@@ -646,6 +739,24 @@ else
             "hideEasing": "linear",
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
+        }
+
+        $('#LowerBound').keypress(function(event) {
+            return isNumber(event, this)
+        });
+        
+        $('#UpperBound').keypress(function(event) {
+            return isNumber(event, this)
+        });
+
+        // THE SCRIPT THAT CHECKS IF THE KEY PRESSED IS A NUMERIC OR DECIMAL VALUE.
+        function isNumber(evt, element) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (
+                (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
+                (charCode < 48 || charCode > 57))
+                return false;
+            return true;
         }
 
     </script>
