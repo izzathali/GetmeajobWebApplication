@@ -383,7 +383,7 @@ else
                                 <div class="form-group mb-3">
                                     <label>Job description</label>
                                     <textarea type="text" asp-for="JobDescription" class="form-control" rows="20" placeholder="Please replace the text in this box with your job description.Do not enter your name, email, phone or fax number, address, or URLs in this box. If you do so, your submission may be rejected.">
-                                                                                                </textarea>
+                                                                                                            </textarea>
                                     <div id="vJobDescription" class="invalid-feedback">Please fill out this field.</div>
 
                                 </div>
@@ -538,20 +538,19 @@ else
             var fullname = $('#user_FullName').val();
             var companyname = $('#company_CompanyName').val();
 
+            hidecustomvalidation('#user_FullName', '#vfullname');
+            hidecustomvalidation('#company_CompanyName', '#vcompanyname');
 
             if (fullname == "") {
                 Command: toastr["error"]("Please enter Your name", "Error");
                 customvalidation('#user_FullName', '#vfullname');
-                hidecustomvalidation('#company_CompanyName', '#vcompanyname');
-                return
             }
-            else if (companyname == "") {
+            if (companyname == "") {
                 Command: toastr["error"]("Please enter company name", "Error");
-                hidecustomvalidation('#user_FullName', '#vfullname');
                 customvalidation('#company_CompanyName', '#vcompanyname');
-                return
             }
-            else if (fullname != "" && companyname != "") {
+
+            if (fullname != "" && companyname != "") {
                 $('#formOne').hide();
                 $('#formTwo').show();
                 hidecustomvalidation('#user_FullName', '#vfullname');
@@ -566,59 +565,36 @@ else
             var company_Zip = $('#company_Zip').val();
             var company_Country = $('#company_Country').val();
 
+            hidecustomvalidation('#company_StreetAddress', '#vStreetAddress');
+            hidecustomvalidation('#company_City', '#vCity');
+            hidecustomvalidation('#company_State', '#vState');
+            hidecustomvalidation('#company_Zip', '#vZip');
+            hidecustomvalidation('#company_Country', '#vCountry');
+
+
             if (company_StreetAddress == "") {
                 Command: toastr["error"]("Please enter street address!", "Error");
                 customvalidation('#company_StreetAddress', '#vStreetAddress');
 
-                hidecustomvalidation('#company_City', '#vCity');
-                hidecustomvalidation('#company_State', '#vState');
-                hidecustomvalidation('#company_Zip', '#vZip');
-                hidecustomvalidation('#company_Country', '#vCountry');
-                return
             }
-            else if (company_City == "") {
+            if (company_City == "") {
                 Command: toastr["error"]("Please enter city!", "Error");
-                hidecustomvalidation('#company_StreetAddress', '#vStreetAddress');
-
                 customvalidation('#company_City', '#vCity');
 
-                hidecustomvalidation('#company_State', '#vState');
-                hidecustomvalidation('#company_Zip', '#vZip');
-                hidecustomvalidation('#company_Country', '#vCountry');
-                return
             }
-            else if (company_State == "") {
+            if (company_State == "") {
                 Command: toastr["error"]("Please enter state!", "Error");
-                hidecustomvalidation('#company_StreetAddress', '#vStreetAddress');
-                hidecustomvalidation('#company_City', '#vCity');
-
                 customvalidation('#company_State', '#vState');
-
-                hidecustomvalidation('#company_Zip', '#vZip');
-                hidecustomvalidation('#company_Country', '#vCountry');
-                return
             }
-            else if (company_Zip == "") {
+            if (company_Zip == "") {
                 Command: toastr["error"]("Please enter zip!", "Error");
-                hidecustomvalidation('#company_StreetAddress', '#vStreetAddress');
-                hidecustomvalidation('#company_City', '#vCity');
-                hidecustomvalidation('#company_State', '#vState');
                 customvalidation('#company_Zip', '#vZip');
-
-                hidecustomvalidation('#company_Country', '#vCountry');
-                return
             }
-            else if (company_Country == "") {
+            if (company_Country == "") {
                 Command: toastr["error"]("Please enter country!", "Error");
-                hidecustomvalidation('#company_StreetAddress', '#vStreetAddress');
-                hidecustomvalidation('#company_City', '#vCity');
-                hidecustomvalidation('#company_State', '#vState');
-                hidecustomvalidation('#company_Zip', '#vZip');
-
                 customvalidation('#company_Country', '#vCountry');
-                return
             }
-            else {
+            if (company_StreetAddress != "" && company_City != "" && company_State != "" && company_Zip != "" && company_Country != "") {
                 $('#formOne').hide();
                 $('#formTwo').hide();
                 $('#formThree').show();
@@ -636,21 +612,20 @@ else
             var JobTitle = $('#JobTitle').val()
             var JobDescription = $('#JobDescription').val()
 
+            hidecustomvalidation('#JobTitle', '#vJobTitle');
+            hidecustomvalidation('#JobDescription', '#vJobDescription');
+
             if (JobTitle == "") {
                 Command: toastr["error"]("Please enter Job title!", "Error");
                 customvalidation('#JobTitle', '#vJobTitle');
 
-                hidecustomvalidation('#JobDescription', '#vJobDescription');
-                return
             }
-            else if (JobDescription == "") {
+            if (JobDescription == "") {
                 Command: toastr["error"]("Please enter Job Description!", "Error");
-                hidecustomvalidation('#JobTitle', '#vJobTitle');
-
                 customvalidation('#JobDescription', '#vJobDescription');
-                return
+
             }
-            else {
+            if (JobTitle != "" && JobDescription != "" ) {
                 $('#formOne').hide();
                 $('#formTwo').hide();
                 $('#formThree').hide();
@@ -664,20 +639,20 @@ else
             var user_Email = $('#user_Email').val()
             var user_Password = $('#user_Password').val()
 
+                hidecustomvalidation('#user_Email', '#vEmail');
+                hidecustomvalidation('#user_Password', '#vPassword');
+
             if (user_Email == "") {
                 Command: toastr["error"]("Please enter Email!", "Error");
                 customvalidation('#user_Email', '#vEmail');
 
-                hidecustomvalidation('#user_Password', '#vPassword');
-                return
             }
-            else if (user_Password == "") {
+            if (user_Password == "") {
                 Command: toastr["error"]("Please enter Password!", "Error");
-                hidecustomvalidation('#user_Email', '#vEmail');
-
                 customvalidation('#user_Password', '#vPassword');
-                return
-            } else {
+
+            } 
+            if(user_Email != "" && user_Password != "") {
                 hidecustomvalidation('#user_Email', '#vEmail');
                 hidecustomvalidation('#user_Password', '#vPassword');
                 $('#btnSubmit').click();
