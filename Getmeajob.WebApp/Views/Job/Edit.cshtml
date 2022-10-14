@@ -542,11 +542,11 @@ else
             hidecustomvalidation('#company_CompanyName', '#vcompanyname');
 
             if (fullname == "") {
-                Command: toastr["error"]("Please enter Your name", "Error");
+                //Command: toastr["error"]("Please enter Your name", "Error");
                 customvalidation('#user_FullName', '#vfullname');
             }
             if (companyname == "") {
-                Command: toastr["error"]("Please enter company name", "Error");
+                //Command: toastr["error"]("Please enter company name", "Error");
                 customvalidation('#company_CompanyName', '#vcompanyname');
             }
 
@@ -555,6 +555,9 @@ else
                 $('#formTwo').show();
                 hidecustomvalidation('#user_FullName', '#vfullname');
                 hidecustomvalidation('#company_CompanyName', '#vcompanyname');
+            }
+            else {
+                Command: toastr["error"]("Please fill out the blank fields!", "Error");
             }
         });
 
@@ -573,25 +576,25 @@ else
 
 
             if (company_StreetAddress == "") {
-                Command: toastr["error"]("Please enter street address!", "Error");
+                //Command: toastr["error"]("Please enter street address!", "Error");
                 customvalidation('#company_StreetAddress', '#vStreetAddress');
 
             }
             if (company_City == "") {
-                Command: toastr["error"]("Please enter city!", "Error");
+                //Command: toastr["error"]("Please enter city!", "Error");
                 customvalidation('#company_City', '#vCity');
 
             }
             if (company_State == "") {
-                Command: toastr["error"]("Please enter state!", "Error");
+                //Command: toastr["error"]("Please enter state!", "Error");
                 customvalidation('#company_State', '#vState');
             }
             if (company_Zip == "") {
-                Command: toastr["error"]("Please enter zip!", "Error");
+                //Command: toastr["error"]("Please enter zip!", "Error");
                 customvalidation('#company_Zip', '#vZip');
             }
             if (company_Country == "") {
-                Command: toastr["error"]("Please enter country!", "Error");
+                //Command: toastr["error"]("Please enter country!", "Error");
                 customvalidation('#company_Country', '#vCountry');
             }
             if (company_StreetAddress != "" && company_City != "" && company_State != "" && company_Zip != "" && company_Country != "") {
@@ -604,7 +607,9 @@ else
                 hidecustomvalidation('#company_Zip', '#vZip');
                 hidecustomvalidation('#company_Country', '#vCountry');
             }
-
+            else {
+                Command: toastr["error"]("Please fill out the blank fields!", "Error");
+            }
 
         });
 
@@ -616,12 +621,12 @@ else
             hidecustomvalidation('#JobDescription', '#vJobDescription');
 
             if (JobTitle == "") {
-                Command: toastr["error"]("Please enter Job title!", "Error");
+                //Command: toastr["error"]("Please enter Job title!", "Error");
                 customvalidation('#JobTitle', '#vJobTitle');
 
             }
             if (JobDescription == "") {
-                Command: toastr["error"]("Please enter Job Description!", "Error");
+                //Command: toastr["error"]("Please enter Job Description!", "Error");
                 customvalidation('#JobDescription', '#vJobDescription');
 
             }
@@ -633,6 +638,9 @@ else
                 hidecustomvalidation('#JobTitle', '#vJobTitle');
                 hidecustomvalidation('#JobDescription', '#vJobDescription');
             }
+            else {
+                Command: toastr["error"]("Please fill out the blank fields!", "Error");
+            }
         });
 
         $("#btnContinueFour").click(function() {
@@ -643,12 +651,12 @@ else
                 hidecustomvalidation('#user_Password', '#vPassword');
 
             if (user_Email == "") {
-                Command: toastr["error"]("Please enter Email!", "Error");
+                //Command: toastr["error"]("Please enter Email!", "Error");
                 customvalidation('#user_Email', '#vEmail');
 
             }
             if (user_Password == "") {
-                Command: toastr["error"]("Please enter Password!", "Error");
+                //Command: toastr["error"]("Please enter Password!", "Error");
                 customvalidation('#user_Password', '#vPassword');
 
             } 
@@ -656,6 +664,9 @@ else
                 hidecustomvalidation('#user_Email', '#vEmail');
                 hidecustomvalidation('#user_Password', '#vPassword');
                 $('#btnSubmit').click();
+            }
+            else {
+                Command: toastr["error"]("Please fill out the blank fields!", "Error");
             }
 
         });

@@ -26,9 +26,9 @@
 
         <form asp-action="Create" method="post">
 
-            <input type="hidden" asp-for="@Model.UserId" />
-            <input type="hidden" asp-for="@Model.JobSeekerId" />
-            <input type="hidden" asp-for="@Model.user.UserId" />
+            <input type="hidden" asp-for="@Model.UserId" value="@Model.UserId" />
+            <input type="hidden" asp-for="@Model.JobSeekerId" value="@Model.JobSeekerId" />
+            <input type="hidden" asp-for="@Model.user.UserId" value="@Model.user.UserId" />
             <input type="hidden" asp-for="@Model.user.FullName" />
             <input type="hidden" asp-for="@Model.user.Email" />
             <input type="hidden" asp-for="@Model.user.Password" />

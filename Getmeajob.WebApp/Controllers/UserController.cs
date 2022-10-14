@@ -53,6 +53,13 @@ namespace Getmeajob.WebApp.Controllers
             }
             return RedirectToAction("Admin");
         }
+        public ActionResult AdminLogout()
+        {
+            UserM user = new UserM();
+            memoryCache.Set("LoggedUser", user);
+
+            return RedirectToAction(nameof(AdminLogin));
+        }
         public ActionResult Login(string? stype)
         {
             UserM user = new UserM();
