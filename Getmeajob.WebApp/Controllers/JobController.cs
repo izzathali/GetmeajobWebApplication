@@ -334,6 +334,7 @@ namespace Getmeajob.WebApp.Controllers
             return View(jobM);
         }
 
+        
         // GET: JobController/Edit/5
         public async Task<ActionResult> Edit(int jid)
         {

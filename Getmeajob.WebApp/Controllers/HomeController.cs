@@ -92,7 +92,7 @@ namespace Getmeajob.WebApp.Controllers
 
                                 string body = "<p>Do not forward or reply to this email.  It contains personal information that can be used to delete all your postings on getmeajob.com. </p> </br> " +
                                     "<p>You have received this email because of a response to a posting that you submitted on getmeajob.com.  To stop receiving all emails of this type, please visit www.getmeajob.com and delete your posting(s). </p> </br> " +
-                                    "<p>To immediately delete all your postings, you may also visit </br> "+Url+" </p>" +
+                                    "<p>To immediately delete all your postings, you may also visit </br> " + Url + " </p>" +
                                     "<p> " + contactVM.Email + " (" + contactVM.Name + ") writes: </p> </br>" +
                                     "<p>-----START OF MESSAGE-----</ p> </br>" +
                                     "<p> " + contactVM?.Message + " </p> </br>" +
@@ -179,7 +179,8 @@ namespace Getmeajob.WebApp.Controllers
                 {
                     string body = "<h2>I still have a question</h2> <br/> <br/>  <b> Question from </b> : <p> " + questionVM?.contactVM?.Email + "</p> <br/> <br/> <p> " + questionVM?.contactVM?.Message + " </p> ";
 
-                    _iEmail.SendEmail(new EmailVM {
+                    _iEmail.SendEmail(new EmailVM
+                    {
                         EmailTo = "testg9921@gmail.com",
                         Subject = "getmeajob.com - Contact Us",
                         Body = body
@@ -206,19 +207,24 @@ namespace Getmeajob.WebApp.Controllers
 
                     if (user != null)
                     {
-
-                        string Body = @"<p>Your password for " + user.Email + " is " + user.Password + "</p> </br></br> " +
-                            "Security check: </br></br> " +
-                            "<p> You have received this email because you requested that your password be emailed to you AND when you submitted your job or resume, you had allowed your password to be mailed to you in the event that you forget it.  If this is not what you wanted, then please disregard this email or change your options by editing your posting.  Receiving this message does not put you on a mailing list.</p>";
-
-                        _iEmail.SendEmail(new EmailVM
+                        if (user.IsEmailPassword == true)
                         {
-                            EmailTo = questionVM?.forgotPassVM?.Email,
-                            Subject = "getmeajob.com - Your password request",
-                            Body = Body
-                        });
 
-                        ViewBag.success = true;
+
+                            string Body = @"<p>Your password for " + user.Email + " is " + user.Password + "</p> </br></br> " +
+                                "Security check: </br></br> " +
+                                "<p> You have received this email because you requested that your password be emailed to you AND when you submitted your job or resume, you had allowed your password to be mailed to you in the event that you forget it.  If this is not what you wanted, then please disregard this email or change your options by editing your posting.  Receiving this message does not put you on a mailing list.</p>";
+
+                            _iEmail.SendEmail(new EmailVM
+                            {
+                                EmailTo = questionVM?.forgotPassVM?.Email,
+                                Subject = "getmeajob.com - Your password request",
+                                Body = Body
+                            });
+
+                            ViewBag.success = true;
+
+                        }
                     }
                 }
             }

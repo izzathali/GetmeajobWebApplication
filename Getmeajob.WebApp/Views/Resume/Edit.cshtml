@@ -169,6 +169,8 @@
                                 <input type="hidden" asp-for="@Model.user.Email" />
                                 <input type="hidden" asp-for="@Model.user.Password" />
                                 <input type="hidden" asp-for="@Model.user.Type" />
+                                <input type="hidden" asp-for="@Model.user.IsEmailPassword" />
+                                <input type="hidden" asp-for="@Model.user.UrlCode" />
                                 <input type="hidden" asp-for="@Model.jobseeker.StreetAddress" />
                                 <input type="hidden" asp-for="@Model.jobseeker.City" />
                                 <input type="hidden" asp-for="@Model.jobseeker.State" />
@@ -445,7 +447,9 @@ else
                                     <input asp-for="user.Password" type="text" class="form-control" placeholder="Enter Password">
                                     <div id="vuser_password" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
-
+                                <p class="text-black  font-weight-bold">
+                                    <input asp-for="user.IsEmailPassword" type="checkbox" /> Email my password to me if I forget it.
+                                </p>
 
 
                             </div>
@@ -465,6 +469,7 @@ else
                                     <input asp-for="ResumeId" type="hidden">
                                     <input asp-for="ResumeCode" type="hidden">
                                     <input type="hidden" asp-for="user.Type" value="Employees" />
+                                    <input type="hidden" asp-for="user.UrlCode" />
 
                                     <button type="button" id="btnContinueFour" class="btn btn-block btn-primary btn-md">Continue</button>
                                     <button type="submit" style="display:none" id="btnSubmit" class="btn btn-block btn-primary btn-md">Continue</button>

@@ -18,6 +18,7 @@ namespace Getmeajob.Model
         public string Type { get; set; } = string.Empty;
 
         public Guid? UrlCode { get; set; }
+        public bool IsEmailPassword { get; set; }
 
         [NotMapped]
         public bool IsInvalidUser { get; set; }

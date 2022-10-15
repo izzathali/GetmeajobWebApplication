@@ -177,7 +177,9 @@
                                 <input type="hidden" asp-for="@Model.user.Email" />
                                 <input type="hidden" asp-for="@Model.user.Password" />
                                 <input type="hidden" asp-for="@Model.user.Type" />
+                                <input type="hidden" asp-for="@Model.user.UrlCode" />
                                 <input type="hidden" asp-for="@Model.user.UserId" />
+                                <input type="hidden" asp-for="@Model.user.IsEmailPassword" />
                                 <input type="hidden" asp-for="@Model.company.CompanyName" />
                                 <input type="hidden" asp-for="@Model.company.StreetAddress" />
                                 <input type="hidden" asp-for="@Model.company.City" />
@@ -467,6 +469,9 @@ else
                                     <div id="vPassword" class="invalid-feedback">Please fill out this field.</div>
                                 </div>
 
+                                <p class="text-black  font-weight-bold">
+                                    <input asp-for="user.IsEmailPassword" checked type="checkbox" /> Email my password to me if I forget it.
+                                </p>
 
 
                             </div>
@@ -487,6 +492,7 @@ else
                                     <input asp-for="UserId" type="hidden">
                                     <input asp-for="CompanyId" type="hidden">
                                     <input type="hidden" asp-for="user.Type" value="Employers" />
+                                    <input type="hidden" asp-for="user.UrlCode" />
 
                                     @if (@Model.user == null)
                                     {
