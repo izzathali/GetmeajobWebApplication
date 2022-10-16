@@ -61,6 +61,16 @@ namespace Getmeajob.Repository
                 .ToListAsync();
         }
 
+        public async Task<List<JobM>> GetAllByUid(int id)
+        {
+            return await _dbContext
+              .Jobs
+              .Where(u => u.IsDeleted == false && u.UserId == id && u.IsEmailVerified == true && u.IsApproved == true)
+              .Include(i => i.user)
+              .Include(i => i.company)
+              .ToListAsync();
+        }
+
         public async Task<IEnumerable<JobM>> GetAllByUserId(int id)
         {
             return await _dbContext

@@ -15,6 +15,7 @@ namespace Getmeajob.Interface
         public Task<JobM> GetUnapprovedByUserId(int id);
         public Task<JobM> GetByJobCode(Guid code);
         public Task<IEnumerable<JobM>> GetAllByUserId(int id);
+        public Task<List<JobM>> GetAllByUid(int id);
         public Task<int> DeleteAllByUserId(int id);
         public Task<IEnumerable<JobM>> GetAllUnapproved();
     }

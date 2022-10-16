@@ -19,7 +19,7 @@ namespace Getmeajob.WebApp.Controllers
 
         public INotyfService _notifyService { get; }
 
-        public JobController(IJob iJob, IUser iUser, ICompany iCompany,IEmail iEmail, IMemoryCache memoryCache,INotyfService notyfService)
+        public JobController(IJob iJob, IUser iUser, ICompany iCompany, IEmail iEmail, IMemoryCache memoryCache, INotyfService notyfService)
         {
             _iJob = iJob;
             _iUser = iUser;
@@ -31,10 +31,17 @@ namespace Getmeajob.WebApp.Controllers
             Usr = memoryCache.Get("LoggedUser") as UserM;
         }
         // GET: JobController
-        public async Task<ActionResult> Index(int uid, string page)
+
+        public async Task<ActionResult> Index(int[] uid, string page)
         {
             ViewBag.page = page;
-            var jobs = await _iJob.GetAllByUserId(uid);
+            List<JobM> jobs = new List<JobM>();
+
+            for (int i = 0; i < uid.Count(); i++)
+            {
+                IList<JobM> jb =  await _iJob.GetAllByUid(uid[i]);
+                jobs.AddRange(jb);
+            }
             return View(jobs);
         }
         public async Task<ActionResult> Unapproved()
@@ -169,8 +176,8 @@ namespace Getmeajob.WebApp.Controllers
                         j.user.Type = "Employers";
                         j.user.UrlCode = Guid.NewGuid();
                     }
-                   
-                    j.JobCode = Guid.NewGuid(); 
+
+                    j.JobCode = Guid.NewGuid();
 
                     int jobid = await _iJob.Create(j);
 
@@ -179,7 +186,7 @@ namespace Getmeajob.WebApp.Controllers
                         var job = await _iJob.GetById(jobid);
 
                         string host = Request.Scheme + "://" + Request.Host.Value;
-                        string Url = host + "/Job/Verified?jcode="+ j.JobCode;
+                        string Url = host + "/Job/Verified?jcode=" + j.JobCode;
 
                         string Body = "<p> To continue your submission process, please go to the following URL:</p> <br/>" +
                             " <p> " + Url + " </p> <br/>" +
@@ -190,10 +197,11 @@ namespace Getmeajob.WebApp.Controllers
                             "<p> Security check:  </ p> <br/> " +
                             " <p> IP of submitter: [0000] </p> <br/>";
 
-                        _iEmail.SendEmail(new EmailVM { 
+                        _iEmail.SendEmail(new EmailVM
+                        {
                             EmailTo = job.user.Email,
-                            Subject= "ACTION REQUIRED: Please confirm getmeajob.com posting",
-                            Body= Body
+                            Subject = "ACTION REQUIRED: Please confirm getmeajob.com posting",
+                            Body = Body
                         });
                         return View(j);
 
@@ -334,7 +342,7 @@ namespace Getmeajob.WebApp.Controllers
             return View(jobM);
         }
 
-        
+
         // GET: JobController/Edit/5
         public async Task<ActionResult> Edit(int jid)
         {

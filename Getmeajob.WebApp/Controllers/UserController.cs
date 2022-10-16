@@ -87,7 +87,9 @@ namespace Getmeajob.WebApp.Controllers
                 userM.Type = "Employees";
             }
 
+            IEnumerable<UserM> usr_all = await _iUser.GetAllByEmailAndPass(userM);
             UserM usr = await _iUser.GetByEmailAndPass(userM);
+
 
             if (userM.page == "submitjob")
             {
@@ -108,7 +110,20 @@ namespace Getmeajob.WebApp.Controllers
             {
                 if (usr != null)
                 {
-                    return RedirectToAction("Index", "Job", new {uid = usr.UserId,page = userM.page});
+                    if (usr_all.Count() > 0)
+                    {
+                        int[] uids = new int[usr_all.Count()];
+
+                        int n = 0;
+                        foreach (var u in usr_all)
+                        {
+                            uids[n] = u.UserId;
+                            n++;
+                        }
+
+                        return RedirectToAction("Index", "Job", new { uid = uids, page = userM.page});
+                    }
+
                 }
             }
             else if (userM.page == "submitresume")
@@ -130,7 +145,19 @@ namespace Getmeajob.WebApp.Controllers
             {
                 if (usr != null)
                 {
-                    return RedirectToAction("Index", "Resume", new { uid = usr.UserId, page = userM.page });
+                    if (usr_all.Count() > 0)
+                    {
+                        int[] uids = new int[usr_all.Count()];
+
+                        int n = 0;
+                        foreach (var u in usr_all)
+                        {
+                            uids[n] = u.UserId;
+                            n++;
+                        }
+
+                        return RedirectToAction("Index", "Resume", new { uid = uids, page = userM.page });
+                    }
                 }
             }
 

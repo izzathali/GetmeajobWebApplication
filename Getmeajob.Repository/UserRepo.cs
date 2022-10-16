@@ -36,6 +36,13 @@ namespace Getmeajob.Repository
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<UserM>> GetAllByEmailAndPass(UserM u)
+        {
+            return await _dbContext.Users
+               .Where(i => i.IsDeleted == false && i.Email == u.Email && i.Password == u.Password && i.Type == u.Type)
+               .ToListAsync();
+        }
+
         public async Task<UserM> GetByCode(Guid code)
         {
             return await _dbContext.Users

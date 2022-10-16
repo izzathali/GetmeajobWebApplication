@@ -33,11 +33,20 @@ namespace Getmeajob.WebApp.Controllers
 
         }
         // GET: ResumeController
-        public async Task<ActionResult> Index(int uid, string page)
+        public async Task<ActionResult> Index(int[] uid, string page)
         {
+            //ViewBag.page = page;
+            //var jobs = await _iResume.GetAllByUserId(uid);
+
             ViewBag.page = page;
-            var jobs = await _iResume.GetAllByUserId(uid);
-            return View(jobs);
+            List<ResumeM> resumes = new List<ResumeM>();
+
+            for (int i = 0; i < uid.Count(); i++)
+            {
+                IList<ResumeM> res = await _iResume.GetAllByUid(uid[i]);
+                resumes.AddRange(res);
+            }
+            return View(resumes);
         }
         public async Task<ActionResult> Unapproved()
         {
