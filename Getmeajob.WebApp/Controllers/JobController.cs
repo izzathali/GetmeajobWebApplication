@@ -120,6 +120,7 @@ namespace Getmeajob.WebApp.Controllers
             return View(job);
         }
         // GET: JobController/Create
+        [HttpGet]
         public async Task<ActionResult> Create(UserM? userM)
         {
             JobM j = new JobM();

@@ -18,6 +18,7 @@ namespace Getmeajob.Repository
         {
             _dbContext = dbContext;
         }
+
         public async Task<int> Create(JobM t)
         {
             t.CreatedDate = DateTime.Now;
@@ -133,7 +134,7 @@ namespace Getmeajob.Repository
         {
             return await _dbContext
                .Jobs
-               .Where(u => u.IsDeleted == false && u.UserId == id && u.IsApproved == false)
+               .Where(u => u.IsDeleted == false && u.UserId == id )
                .Include(i => i.user)
                .Include(i => i.company)
                .FirstOrDefaultAsync();
