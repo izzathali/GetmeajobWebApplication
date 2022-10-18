@@ -203,15 +203,26 @@ namespace Getmeajob.WebApp.Controllers
                     u.Email = questionVM.forgotPassVM.Email;
                     u.Type = questionVM.forgotPassVM.PostingType;
 
-                    var user = await _iUser.GetByEmail(u);
+                    var users = await _iUser.GetAllByEmail(u);
 
-                    if (user != null)
+                    if (users.Count() > 0)
                     {
-                        if (user.IsEmailPassword == true)
+                        bool is_email_pass = false;
+                        string useremail_pass = "";
+                        foreach (var _usr in users)
                         {
+                            if (_usr.IsEmailPassword == true)
+                            {
+                                is_email_pass = true;
+                                useremail_pass += "<p>Your password for " + _usr.Email + " is " + _usr.Password + "</p> </br>";
 
+                            }
 
-                            string Body = @"<p>Your password for " + user.Email + " is " + user.Password + "</p> </br></br> " +
+                        }
+
+                        if (is_email_pass)
+                        {
+                            string Body = @" "+ useremail_pass + " </br></br> " +
                                 "Security check: </br></br> " +
                                 "<p> You have received this email because you requested that your password be emailed to you AND when you submitted your job or resume, you had allowed your password to be mailed to you in the event that you forget it.  If this is not what you wanted, then please disregard this email or change your options by editing your posting.  Receiving this message does not put you on a mailing list.</p>";
 
@@ -221,10 +232,9 @@ namespace Getmeajob.WebApp.Controllers
                                 Subject = "getmeajob.com - Your password request",
                                 Body = Body
                             });
-
                             ViewBag.success = true;
-
                         }
+
                     }
                 }
             }

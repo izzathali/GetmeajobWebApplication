@@ -301,7 +301,7 @@ namespace Getmeajob.WebApp.Controllers
                     if (!string.IsNullOrEmpty(jobM.user.FullName) && jobM.UserId == 0)
                     {
                         jobM.user.Type = "Employers";
-                        var usr = await _iUser.GetByEmail(jobM.user);
+                        //var usr = await _iUser.GetByEmail(jobM.user);
 
                         //if (usr != null)
                         //{
@@ -363,13 +363,13 @@ namespace Getmeajob.WebApp.Controllers
                 {
                     if (!string.IsNullOrEmpty(job.user.FullName) && job.UserId == 0)
                     {
-                        var usr = await _iUser.GetByEmail(job.user);
+                        //var usr = await _iUser.GetByEmail(job.user);
 
-                        if (usr != null)
-                        {
-                            //View("Create",jobM);
-                            View();
-                        }
+                        //if (usr != null)
+                        //{
+                        //    View("Create",jobM);
+                        //    View();
+                        //}
 
                     }
                     if (!String.IsNullOrEmpty(job.JobTitle) && !String.IsNullOrEmpty(job.JobDescription))

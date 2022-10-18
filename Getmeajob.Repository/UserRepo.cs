@@ -50,11 +50,11 @@ namespace Getmeajob.Repository
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<UserM> GetByEmail(UserM u)
+        public async Task<IEnumerable<UserM>> GetAllByEmail(UserM u)
         {
             return await _dbContext.Users
                 .Where(i => i.IsDeleted == false && i.Email == u.Email && i.Type == u.Type)
-                .FirstOrDefaultAsync();
+                .ToListAsync();
         }
 
         public async Task<UserM> GetByEmailAndPass(UserM u)
