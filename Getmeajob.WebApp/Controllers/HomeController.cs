@@ -84,11 +84,24 @@ namespace Getmeajob.WebApp.Controllers
 
                             if (job != null)
                             {
+                                var users = await _iUser.GetAllByEmail(job.user);
+
+                                string _usrUrl = "";
+                                foreach (var usr in users)
+                                {
+                                    _usrUrl += "code=" + usr.UrlCode;
+
+                                    if (users.Count() > 1)
+                                    {
+                                        _usrUrl += "&";
+                                    }
+                                }
 
                                 ViewBag.stype = "Company";
 
                                 string host = Request.Scheme + "://" + Request.Host.Value;
-                                string Url = host + "/User/DeleteAll?code=" + job.user.UrlCode;
+                                //string Url = host + "/User/DeleteAll?code=" + job.user.UrlCode;
+                                string Url = host + "/User/DeleteAll?" + _usrUrl;
 
                                 string body = "<p>Do not forward or reply to this email.  It contains personal information that can be used to delete all your postings on getmeajob.com. </p> </br> " +
                                     "<p>You have received this email because of a response to a posting that you submitted on getmeajob.com.  To stop receiving all emails of this type, please visit www.getmeajob.com and delete your posting(s). </p> </br> " +
@@ -121,11 +134,24 @@ namespace Getmeajob.WebApp.Controllers
 
                             if (res != null)
                             {
+                                var users = await _iUser.GetAllByEmail(res.user);
+
+                                string _usrUrl = "";
+                                foreach (var usr in users)
+                                {
+                                    _usrUrl += "code=" + usr.UrlCode;
+
+                                    if (users.Count() > 1)
+                                    {
+                                        _usrUrl += "&";
+                                    }
+                                }
 
                                 ViewBag.stype = "Candidate";
 
                                 string host = Request.Scheme + "://" + Request.Host.Value;
-                                string Url = host + "/User/DeleteAll?code=" + res.user.UrlCode;
+                                //string Url = host + "/User/DeleteAll?code=" + res.user.UrlCode;
+                                string Url = host + "/User/DeleteAll?" + _usrUrl;
 
                                 string body = "<p>Do not forward or reply to this email.  It contains personal information that can be used to delete all your postings on getmeajob.com. </p> </br> " +
                                     "<p>You have received this email because of a response to a posting that you submitted on getmeajob.com.  To stop receiving all emails of this type, please visit www.getmeajob.com and delete your posting(s). </p> </br> " +

@@ -1,5 +1,5 @@
 ﻿@using Getmeajob.Model
-@model UserM
+@model IList<UserM>
 
 @{
     ViewData["Title"] = "Delete Posts Page";
@@ -68,7 +68,7 @@ else
                 <div class="col-lg-12 mb-2 mb-lg-0">
                     <div class="align-items-center">
                         <div>
-                            <p class="mb-1">All your jobs and resumes submitted under @Model.Email will be deleted from getmeajob.com, and you will no longer receive emails regarding your jobs and resumes, unless you submit another job or resume.</p>
+                            <p class="mb-1">All your jobs and resumes submitted under @Model.Select(i => i.Email).FirstOrDefault() will be deleted from getmeajob.com, and you will no longer receive emails regarding your jobs and resumes, unless you submit another job or resume.</p>
                         </div>
                         <div>
                             <p>This process cannot be undone.</p>
@@ -78,13 +78,21 @@ else
                             <p>This process cannot be undone.</p>
                         </div>
 
-                        <form asp-controller="User" asp-action="DeleteAllConfirm" method="post">
+                        <form method="post" asp-controller="User" asp-action="DeleteAllConfirm" > 
 
                             <div>
-                                <input type="hidden" asp-for="UserId" />
+                                @for (int i = 0; i < @Model.Count(); i++)
+                                {
+                                    <input type="hidden" asp-for="@Model[i].UserId" value="@Model[i].UserId" />
+                                    
+                                }
+
+                                @*<a asp-controller="User" asp-action="DeleteAllConfirm" asp-route-id="" class="btn btn-block btn-primary btn-md">Delete all my jobs and resumes</a>*@
                                 <button type="submit" class="btn btn-block btn-primary btn-md">Delete all my jobs and resumes</button>
                             </div>
+
                         </form>
+
                     </div>
                 </div>
 

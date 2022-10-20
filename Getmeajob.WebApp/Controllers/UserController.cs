@@ -213,15 +213,21 @@ namespace Getmeajob.WebApp.Controllers
             }
         }
         // GET: UserController/Delete/
-        public async Task<ActionResult> DeleteAll(Guid code)
+        public async Task<ActionResult> DeleteAll(Guid[] code)
         {
-            var usr = await _iUser.GetByCode(code);
-            if (usr == null)
+            List<UserM> users = new List<UserM>();
+            for (int i = 0; i < code.Length; i++)
+            {
+                var usr = await _iUser.GetByCode(code[i]);
+                users.Add(usr);
+
+            }
+            if (users == null)
             {
                 ViewBag.Error = true;
             }
 
-            return View(usr);
+            return View(users);
         }
         // GET: UserController/Delete/5
         public ActionResult Delete(int id)
@@ -232,9 +238,9 @@ namespace Getmeajob.WebApp.Controllers
         // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteAllConfirm(UserM userM)
+        public async Task<ActionResult> DeleteAllConfirm(List<UserM> users)
         {
-            if (userM == null)
+            if (users == null)
             {
                     ViewBag.Error = true;
                     return View();
@@ -242,13 +248,17 @@ namespace Getmeajob.WebApp.Controllers
 
             try
             {
-                int jobs = await _iJob.DeleteAllByUserId(userM.UserId);
-                int resumes = await _iJob.DeleteAllByUserId(userM.UserId);
-
-                if (jobs == 0 && resumes == 0)
+                foreach (var u in users)
                 {
-                    ViewBag.Error = true;
+                    int jobs = await _iJob.DeleteAllByUserId(u.UserId);
+                    int resumes = await _iJob.DeleteAllByUserId(u.UserId);
+
+                    if (jobs == 0 && resumes == 0)
+                    {
+                        ViewBag.Error = true;
+                    }
                 }
+
 
             }
             catch
