@@ -5,6 +5,7 @@ using Getmeajob.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using System.Text.RegularExpressions;
 
 namespace Getmeajob.WebApp.Controllers
 {
@@ -101,9 +102,19 @@ namespace Getmeajob.WebApp.Controllers
         }
 
         // GET: ResumeController/Details/5
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Details(int id, string? search)
         {
             var res = await _iResume.GetById(id);
+
+            if (res != null)
+            {
+                if (search != null)
+                {
+                    res.JobTitle = Regex.Replace(res.JobTitle, search, "<b><u> " + search + "</u></b>", RegexOptions.IgnoreCase);
+                    res.Resume = Regex.Replace(res.Resume, search, "<b><u> " + search + "</u></b>", RegexOptions.IgnoreCase);
+                }
+            }
+
             return View(res);
         }
 
@@ -374,6 +385,8 @@ namespace Getmeajob.WebApp.Controllers
         public async Task<ActionResult> SearchResult(JobSearchVM jobSearch)
         {
             IEnumerable<ResumeM> result = await _iResume.GetByJobTitleOrLocation(jobSearch);
+            ViewBag.search = jobSearch.Name;
+
             return View(result);
         }
 

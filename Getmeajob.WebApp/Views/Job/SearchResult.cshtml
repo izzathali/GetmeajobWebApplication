@@ -9,7 +9,7 @@
 <section class="section-hero overlay inner-page bg-image pt-5" style="background-image: url('images/hero_1.jpg');" id="home-section">
     <div class="container">
         <div class="row pt-3 pb-0">
-             <div class="col-md-9">
+            <div class="col-md-9">
             </div>
             <div class="col-md-3">
                 <div class="custom-breadcrumbs">
@@ -31,7 +31,7 @@
                 <div class="col-lg-12 mb-2 mb-lg-0">
                     <div class="d-flex align-items-center">
                         <div>
-                            <h2 class="font-weight-bold" >Search Jobs Results</h2>
+                            <h2 class="font-weight-bold">Search Jobs Results</h2>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,13 @@
                             {
                                 <div class="form-group">
                                     <p>
-                                        @no. <a asp-action="Details" asp-route-id="@job.JobId" ><span class="font-weight-bold"><u>@job.company?.CompanyName </u></span></a> - <span class="font-italic"> @job.company?.StreetAddress, @job.company?.City, @job.company?.State, @job.company?.Zip ,  @job.company?.Country </span> - <span> @job.JobTitle - </span> <a asp-action="Details" asp-route-id="@job.JobId" target="_blank" ><u>Show Job</u></a>
+                                        @no. <a asp-action="Details" asp-route-id="@job.JobId" asp-route-search="@ViewBag.search" asp-route-location="@ViewBag.location"  >
+                                            <span class="font-weight-bold">
+                                                <u>@job.company?.CompanyName </u>
+                                            </span>
+                                        </a> -
+                                        <span class="font-italic"> @job.company?.StreetAddress, @job.company?.City, @job.company?.State, @job.company?.Zip ,  @job.company?.Country </span> - <span> @job.JobTitle - </span>
+                                        <a asp-action="Details" asp-route-id="@job.JobId" asp-route-search="@ViewBag.search" asp-route-location="@ViewBag.location" target="_blank"><u>Show Job</u></a>
                                     </p>
                                 </div>
                             }

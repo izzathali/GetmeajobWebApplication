@@ -5,6 +5,7 @@ using Getmeajob.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using System.Text.RegularExpressions;
 
 namespace Getmeajob.WebApp.Controllers
 {
@@ -39,7 +40,7 @@ namespace Getmeajob.WebApp.Controllers
 
             for (int i = 0; i < uid.Count(); i++)
             {
-                IList<JobM> jb =  await _iJob.GetAllByUid(uid[i]);
+                IList<JobM> jb = await _iJob.GetAllByUid(uid[i]);
                 jobs.AddRange(jb);
             }
             return View(jobs);
@@ -104,6 +105,9 @@ namespace Getmeajob.WebApp.Controllers
         public async Task<ActionResult> SearchResult(JobSearchVM jobSearch)
         {
             var result = await _iJob.GetByJobTitleOrLocation(jobSearch);
+            ViewBag.search = jobSearch.Name;
+            ViewBag.location = jobSearch.Location;
+
             return View(result);
         }
         public async Task<ActionResult> QuickSearchResult(string search)
@@ -114,9 +118,33 @@ namespace Getmeajob.WebApp.Controllers
             return RedirectToAction(nameof(SearchResult), se);
         }
         // GET: JobController/Details/5
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Details(int id, string? search, string? location)
         {
             var job = await _iJob.GetById(id);
+
+            if (job != null)
+            {
+                if (search != null)
+                {
+                    job.JobTitle = Regex.Replace(job.JobTitle, search, "<b><u> " + search + "</u></b>", RegexOptions.IgnoreCase);
+                    job.JobDescription = Regex.Replace(job.JobDescription, search, "<b><u> " + search + "</u></b>", RegexOptions.IgnoreCase);
+
+                }
+                if (location != null)
+                {
+                    if (job.company != null)
+                    {
+
+                        job.company.StreetAddress = Regex.Replace(job.company.StreetAddress, location, "<b><u> " + location + "</u></b>", RegexOptions.IgnoreCase);
+                        job.company.City = Regex.Replace(job.company.City, location, "<b><u> " + location + "</u></b>", RegexOptions.IgnoreCase);
+                        job.company.State = Regex.Replace(job.company.State, location, "<b><u> " + location + "</u></b>", RegexOptions.IgnoreCase);
+                        job.company.Zip = Regex.Replace(job.company.Zip, location, "<b><u> " + location + "</u></b>", RegexOptions.IgnoreCase);
+                        job.company.Country = Regex.Replace(job.company.Country, location, "<b><u> " + location + "</u></b>", RegexOptions.IgnoreCase);
+                    }
+
+                }
+            }
+
             return View(job);
         }
         // GET: JobController/Create

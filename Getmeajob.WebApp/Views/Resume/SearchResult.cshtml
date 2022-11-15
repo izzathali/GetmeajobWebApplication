@@ -52,7 +52,7 @@
                             {
                                 <div class="form-group">
                                     <p>
-                                        @no. <a asp-action="Details" asp-route-id="@res.ResumeId"><span class="font-weight-bold"><u>@res.user?.FullName </u></span></a> - <span class="font-italic"> @res.jobseeker?.StreetAddress, @res.jobseeker?.City, @res.jobseeker?.State, @res.jobseeker?.Zip ,  @res.jobseeker?.Country </span> - <span> @res.JobTitle - </span> <a asp-action="Details" asp-route-id="@res.ResumeId" target="_blank"><u>Show Resumes</u></a>
+                                        @no. <a asp-action="Details" asp-route-id="@res.ResumeId" asp-route-search="@ViewBag.search" ><span class="font-weight-bold"><u>@res.user?.FullName </u></span></a> - <span class="font-italic"> @res.jobseeker?.StreetAddress, @res.jobseeker?.City, @res.jobseeker?.State, @res.jobseeker?.Zip ,  @res.jobseeker?.Country </span> - <span> @res.JobTitle - </span> <a asp-action="Details" asp-route-id="@res.ResumeId" asp-route-search="@ViewBag.search" target="_blank"><u>Show Resumes</u></a>
                                     </p>
                                 </div>
                             }

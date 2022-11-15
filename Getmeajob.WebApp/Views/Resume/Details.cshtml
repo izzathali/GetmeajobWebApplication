@@ -33,8 +33,10 @@
                         <h4 class="font-weight-bold">
                             @if (@Model != null && @Model.jobseeker != null)
                             {
-                                @Model.user?.FullName<span>,</span> 
-                                @Model.JobTitle
+                                @Model.user?.FullName
+
+                                <span>,</span>
+                                @Html.Raw(@Model.JobTitle)
                             }
                         </h4>
                     </div>
@@ -50,7 +52,7 @@
                         Name:
                     </td>
                     <td>
-                        @Model.user.FullName
+                        @Model?.user?.FullName
                     </td>
                 </tr>
                 <tr>
@@ -58,9 +60,9 @@
                         Address:
                     </td>
                     <td>
-                        @Model.jobseeker.StreetAddress , <br />
-                        @Model.jobseeker.City , @Model.jobseeker.State <br />
-                        , @Model.jobseeker.Zip , @Model.jobseeker.Country
+                        @Model?.jobseeker?.StreetAddress , <br />
+                        @Model?.jobseeker?.City , @Model?.jobseeker?.State <br />
+                        , @Model?.jobseeker?.Zip , @Model?.jobseeker?.Country
                     </td>
                 </tr>
                 <tr>
@@ -68,7 +70,7 @@
                         Email:
                     </td>
                     <td>
-                        @Model.user?.Email
+                        @Model?.user?.Email
                     </td>
                 </tr>
                 <tr>
@@ -76,7 +78,7 @@
                         Job title:
                     </td>
                     <td>
-                        @Model.JobTitle
+                        @Html.Raw(@Model?.JobTitle)
                     </td>
                 </tr>
                 <tr>
@@ -84,7 +86,9 @@
                         Resume:
                     </td>
                     <td>
-                         <span style="white-space: pre-line">@Model.Resume</span>
+                        <span style="white-space: pre-line">
+                            @Html.Raw(@Model?.Resume)
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -92,13 +96,13 @@
                         Salary range:
                     </td>
                     <td>
-                        @Model.LowerBound - @Model.UpperBound  @if (@Model.Currency == "Other")
+                        @Model?.LowerBound - @Model?.UpperBound  @if (@Model?.Currency == "Other")
                         {
-                            @Model.OtherCurrency
+                            @Model?.OtherCurrency
                         }
                         else
                         {
-                            @Model.Currency
+                            @Model?.Currency
                         }
                     </td>
                 </tr>
