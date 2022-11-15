@@ -102,7 +102,7 @@ namespace Getmeajob.WebApp.Controllers
         }
 
         // GET: ResumeController/Details/5
-        public async Task<ActionResult> Details(int id, string? search)
+        public async Task<ActionResult> Details(int id, string? search, string? location)
         {
             var res = await _iResume.GetById(id);
 
@@ -112,6 +112,18 @@ namespace Getmeajob.WebApp.Controllers
                 {
                     res.JobTitle = Regex.Replace(res.JobTitle, search, "<b><u> " + search + "</u></b>", RegexOptions.IgnoreCase);
                     res.Resume = Regex.Replace(res.Resume, search, "<b><u> " + search + "</u></b>", RegexOptions.IgnoreCase);
+                }
+                
+                if (location != null)
+                {
+                    if (res.jobseeker != null)
+                    {
+                        res.jobseeker.StreetAddress = Regex.Replace(res.jobseeker.StreetAddress, location, "<b><u> " + location + "</u></b>", RegexOptions.IgnoreCase);
+                        res.jobseeker.City = Regex.Replace(res.jobseeker.City, location, "<b><u> " + location + "</u></b>", RegexOptions.IgnoreCase);
+                        res.jobseeker.State = Regex.Replace(res.jobseeker.State, location, "<b><u> " + location + "</u></b>", RegexOptions.IgnoreCase);
+                        res.jobseeker.Zip = Regex.Replace(res.jobseeker.Zip, location, "<b><u> " + location + "</u></b>", RegexOptions.IgnoreCase);
+                        res.jobseeker.Country = Regex.Replace(res.jobseeker.Country, location, "<b><u> " + location + "</u></b>", RegexOptions.IgnoreCase);
+                    }
                 }
             }
 
@@ -386,6 +398,7 @@ namespace Getmeajob.WebApp.Controllers
         {
             IEnumerable<ResumeM> result = await _iResume.GetByJobTitleOrLocation(jobSearch);
             ViewBag.search = jobSearch.Name;
+            ViewBag.location = jobSearch.Location;
 
             return View(result);
         }

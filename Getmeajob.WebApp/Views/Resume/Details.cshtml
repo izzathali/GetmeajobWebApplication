@@ -60,9 +60,9 @@
                         Address:
                     </td>
                     <td>
-                        @Model?.jobseeker?.StreetAddress , <br />
-                        @Model?.jobseeker?.City , @Model?.jobseeker?.State <br />
-                        , @Model?.jobseeker?.Zip , @Model?.jobseeker?.Country
+                        @Html.Raw(@Model?.jobseeker?.StreetAddress) , <br />
+                        @Html.Raw(@Model?.jobseeker?.City) , @Html.Raw(@Model?.jobseeker?.State) <br />
+                        , @Html.Raw(@Model?.jobseeker?.Zip) , @Html.Raw(@Model?.jobseeker?.Country)
                     </td>
                 </tr>
                 <tr>
